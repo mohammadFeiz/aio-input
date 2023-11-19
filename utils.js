@@ -583,7 +583,6 @@ export class AIOInputValidate {
           subtext,
           disabled,
           loading: 'any',
-          optionAttrs: 'any',
           options,
           optionText,
           optionValue,

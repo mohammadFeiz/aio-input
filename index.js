@@ -8,7 +8,7 @@ import Axios from 'axios';
 import AIOSwip from 'aio-swip';
 import { getMainProperties, Search, ExportToExcel, DownloadUrl, JSXToHTML, AIOInputValidate, getDistance } from './utils';
 import { Icon } from '@mdi/react';
-import { mdiChevronDown, mdiLoading, mdiAttachment, mdiChevronRight, mdiClose, mdiCircleMedium, mdiArrowUp, mdiArrowDown, mdiSort, mdiFileExcel, mdiMagnify, mdiPlusThick, mdiChevronLeft, mdiImage, mdiEye, mdiEyeOff, mdiDownloadOutline, mdiCrosshairsGps } from "@mdi/js";
+import { mdiChevronDown, mdiLoading, mdiAttachment, mdiChevronRight, mdiClose, mdiCircleMedium, mdiArrowUp, mdiArrowDown, mdiSort, mdiFileExcel, mdiMagnify, mdiPlusThick, mdiChevronLeft, mdiImage, mdiEye, mdiEyeOff, mdiDownloadOutline, mdiCrosshairsGps, mdiDragVertical } from "@mdi/js";
 import AIOPopup from 'aio-popup';
 import $ from 'jquery';
 import './index.css';
@@ -2007,10 +2007,10 @@ class Table extends Component {
         }
         return value === undefined ? def : value;
       },
-      setCell: (row, column, value) => {
+      setCell: (row, column, cellNewValue) => {
         if (column.input && column.input.onChange) {
           column.input.onChange({
-            value,
+            value: cellNewValue,
             row,
             column
           });
@@ -2022,10 +2022,9 @@ class Table extends Component {
             value,
             onChange = () => {}
           } = properties;
-          let rows = value;
           row = JSON.parse(JSON.stringify(row));
-          eval(`${column.value} = value`);
-          onChange(rows.map(o => o._id !== row._id ? o : row));
+          eval(`${column.value} = cellNewValue`);
+          onChange(value.map(o => o._id !== row._id ? o : row));
         }
       }
     };
@@ -3022,7 +3021,8 @@ class Layout extends Component {
       click,
       optionClick,
       open,
-      addToAttrs
+      addToAttrs,
+      getProp
     } = this.context;
     let {
       option,

@@ -6273,6 +6273,12 @@ function MapFooter() {
     };
   }
   function details_layout() {
+    let {
+      mapConfig = {}
+    } = rootProps;
+    if (mapConfig.showAddress === false) {
+      return false;
+    }
     if (rootState.addressLoading) {
       return {
         flex: 1,
@@ -6296,10 +6302,15 @@ function MapFooter() {
       }]
     };
   }
+  let Submit = submit_layout();
+  let Details = details_layout();
+  if (!Submit && !Details) {
+    return null;
+  }
   return /*#__PURE__*/_jsx(RVD, {
     layout: {
       className: 'aio-input-map-footer',
-      row: [details_layout(), submit_layout()]
+      row: [Details, Submit]
     }
   });
 }

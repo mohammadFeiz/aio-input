@@ -8,7 +8,7 @@ import Axios from 'axios';
 import AIOSwip from 'aio-swip';
 import { getMainProperties, Search, ExportToExcel, DownloadUrl, JSXToHTML, AIOInputValidate, getDistance } from './utils';
 import { Icon } from '@mdi/react';
-import { mdiChevronDown, mdiLoading, mdiAttachment, mdiChevronRight, mdiClose, mdiCircleMedium, mdiArrowUp, mdiArrowDown, mdiSort, mdiFileExcel, mdiMagnify, mdiPlusThick, mdiChevronLeft, mdiImage, mdiEye, mdiEyeOff, mdiDownloadOutline, mdiCrosshairsGps, mdiDragVertical } from "@mdi/js";
+import { mdiChevronDown, mdiLoading, mdiAttachment, mdiChevronRight, mdiClose, mdiCircleMedium, mdiArrowUp, mdiArrowDown, mdiSort, mdiFileExcel, mdiMagnify, mdiPlusThick, mdiChevronLeft, mdiImage, mdiEye, mdiEyeOff, mdiDownloadOutline, mdiCrosshairsGps } from "@mdi/js";
 import AIOPopup from 'aio-popup';
 import $ from 'jquery';
 import './index.css';
@@ -1266,7 +1266,8 @@ class Input extends Component {
       onChange,
       spin,
       justify,
-      options
+      options,
+      justNumber
     } = properties;
     let inputAttrs = addToAttrs(properties.inputAttrs, {
       className: !spin ? 'no-spin' : undefined,
@@ -1299,6 +1300,10 @@ class Input extends Component {
           textAlign: 'center'
         }
       };
+    }
+    if (justNumber === true) {
+      p.pattern = "\d*";
+      p.inputMode = "numeric";
     }
     return p;
   }

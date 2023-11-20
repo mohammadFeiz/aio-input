@@ -1428,7 +1428,7 @@ class Form extends Component {
       onClose,
       onBack
     } = properties;
-    if (!header && !title && !onClose && !onBack) {
+    if (!header && !title) {
       return false;
     }
     return {

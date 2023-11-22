@@ -6,12 +6,12 @@ import AIODate from 'aio-date';
 import RVD from 'react-virtual-dom';
 import Axios from 'axios';
 import AIOSwip from 'aio-swip';
-import { getMainProperties, Search, ExportToExcel, DownloadUrl, JSXToHTML, AIOInputValidate, getDistance } from './utils';
+import { getMainProperties, Search, ExportToExcel, DownloadUrl, JSXToHTML, AIOInputValidate, getDistance, getInput } from './utils';
 import { Icon } from '@mdi/react';
 import { mdiChevronDown, mdiLoading, mdiAttachment, mdiChevronRight, mdiClose, mdiCircleMedium, mdiArrowUp, mdiArrowDown, mdiSort, mdiFileExcel, mdiMagnify, mdiPlusThick, mdiChevronLeft, mdiImage, mdiEye, mdiEyeOff, mdiDownloadOutline, mdiCrosshairsGps } from "@mdi/js";
 import AIOPopup from 'aio-popup';
 import $ from 'jquery';
-import './index.css';
+import './aio-input.css';
 import { jsx as _jsx } from "react/jsx-runtime";
 import { jsxs as _jsxs } from "react/jsx-runtime";
 import { Fragment as _Fragment } from "react/jsx-runtime";
@@ -634,7 +634,8 @@ export default class AIOInput extends Component {
 _defineProperty(AIOInput, "defaults", {
   validate: false,
   mapApiKeys: {},
-  popover: {}
+  popover: {},
+  getInput
 });
 class Popover {
   constructor(getProp, id, toggle, getOptions, addToAttrs) {
@@ -1586,14 +1587,16 @@ class Form extends Component {
       slider: multiple ? [] : undefined
     }[type];
   }
-  getValueByField(field, def) {
+  getValueByField(field, def, functional) {
     let {
       properties
     } = this.props;
     let props = properties.props,
       value = this.getValue(),
       a;
-    if (typeof field === 'string') {
+    if (functional && typeof field === 'function') {
+      a = field(value);
+    } else if (typeof field === 'string') {
       if (field.indexOf('value.') !== -1 /*|| field.indexOf('props.') !== -1*/) {
         try {
           eval(`a = ${field}`);
@@ -1683,7 +1686,8 @@ class Form extends Component {
       attrs: {}
     };
     for (let prop in input) {
-      props[prop] = this.getValueByField(input[prop]);
+      let functional = ['options'].indexOf(prop) !== -1;
+      props[prop] = this.getValueByField(input[prop], undefined, functional);
     }
     props.value = value;
     if (input.type === 'slider' && props.showValue === undefined) {
@@ -1976,6 +1980,19 @@ class Table extends Component {
         def,
         rowIndex
       }) => {
+        let {
+          properties
+        } = this.props;
+        if (properties.paging) {
+          let {
+            serverSide,
+            number,
+            size
+          } = properties.paging;
+          if (!serverSide) {
+            rowIndex += (number - 1) * size;
+          }
+        }
         let type = typeof value;
         if (type === 'string') {
           let result = value;
@@ -2199,7 +2216,7 @@ class Table extends Component {
     } = this.state;
     let {
       value = [],
-      pading: p
+      paging: p
     } = properties;
     let searchedRows = this.getSearchedRows(value);
     let sortedRows = Sort.getSortedRows(searchedRows);
@@ -2327,12 +2344,16 @@ class Table extends Component {
     }
     let convertedInput = {};
     for (let prop in input) {
-      convertedInput[prop] = getDynamics({
-        value: input[prop],
-        row,
-        rowIndex,
-        column
-      });
+      if (['onChange', 'onClick'].indexOf(prop) !== -1) {
+        convertedInput[prop] = input[prop];
+      } else {
+        convertedInput[prop] = getDynamics({
+          value: input[prop],
+          row,
+          rowIndex,
+          column
+        });
+      }
     }
     return /*#__PURE__*/_jsx(AIOInput, {
       ...convertedInput,

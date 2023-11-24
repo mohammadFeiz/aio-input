@@ -842,7 +842,7 @@ function TimePopover(props) {
     });
   }
   function layout(type) {
-    if (!value[type]) {
+    if (typeof value[type] !== 'number') {
       return false;
     }
     return {

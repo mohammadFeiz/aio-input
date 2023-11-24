@@ -6,7 +6,7 @@ import AIODate from 'aio-date';
 import RVD from 'react-virtual-dom';
 import Axios from 'axios';
 import AIOSwip from 'aio-swip';
-import { getMainProperties, Search, ExportToExcel, DownloadUrl, JSXToHTML, AIOInputValidate, getDistance, getInput } from './utils';
+import { getMainProperties, Search, ExportToExcel, DownloadUrl, JSXToHTML, AIOInputValidate, getDistance, getFormInput } from './utils';
 import { Icon } from '@mdi/react';
 import { mdiChevronDown, mdiLoading, mdiAttachment, mdiChevronRight, mdiClose, mdiCircleMedium, mdiArrowUp, mdiArrowDown, mdiSort, mdiFileExcel, mdiMagnify, mdiPlusThick, mdiChevronLeft, mdiImage, mdiEye, mdiEyeOff, mdiDownloadOutline, mdiCrosshairsGps } from "@mdi/js";
 import AIOPopup from 'aio-popup';
@@ -15,6 +15,10 @@ import './index.css';
 import { jsx as _jsx } from "react/jsx-runtime";
 import { jsxs as _jsxs } from "react/jsx-runtime";
 import { Fragment as _Fragment } from "react/jsx-runtime";
+export function GetFormInput(type, path) {
+  return getFormInput(type, path);
+}
+;
 const AICTX = /*#__PURE__*/createContext();
 export default class AIOInput extends Component {
   constructor(props) {
@@ -634,8 +638,7 @@ export default class AIOInput extends Component {
 _defineProperty(AIOInput, "defaults", {
   validate: false,
   mapApiKeys: {},
-  popover: {},
-  getInput
+  popover: {}
 });
 class Popover {
   constructor(getProp, id, toggle, getOptions, addToAttrs) {
@@ -1391,23 +1394,29 @@ class Form extends Component {
     }
     this.errors = newErrors;
   }
-  setValue(v, formItem) {
+  setValue({
+    itemValue,
+    formItem,
+    field
+  }) {
+    //اگر فرم آیتم ارسال شد یعنی در حال تغییر مستقیم توسط یک اینپوت هستیم
+    //اگر فیلد ارسال شد یعنی خارج از برنامه داریم یک پروپرتی را چنج می کنیم پس ارور هندلینگ نباید انجام شود
     let {
       properties
     } = this.props;
     let {
       onChange
     } = properties;
-    let {
-      field
-    } = formItem;
+    let Field = field || formItem.field;
     let value = this.getValue();
-    let newValue = this.setValueByField(value, field, v);
-    let error = this.getError(formItem, v);
-    if (error) {
-      this.errors[field] = error;
-    } else {
-      this.removeError(field);
+    let newValue = this.setValueByField(value, Field, itemValue);
+    if (!field) {
+      let error = this.getError(formItem, itemValue);
+      if (error) {
+        this.errors[Field] = error;
+      } else {
+        this.removeError(Field);
+      }
     }
     if (onChange) {
       onChange(newValue, this.getErrors());
@@ -1523,7 +1532,8 @@ class Form extends Component {
       closeText,
       resetText,
       submitText,
-      reset
+      reset,
+      initialDisabled
     } = properties;
     let {
       initialValue
@@ -1534,7 +1544,12 @@ class Form extends Component {
     if (!footer && !onSubmit && !onClose && !reset) {
       return false;
     }
-    let disabled = !!this.getErrors().length || initialValue === JSON.stringify(this.getValue());
+    let disabled = false;
+    if (!!this.getErrors().length) {
+      disabled = true;
+    } else if (initialDisabled && initialValue === JSON.stringify(this.getValue())) {
+      disabled = true;
+    }
     if (footer) {
       let html = typeof footer === 'function' ? footer({
         onReset: () => this.reset(),
@@ -1587,12 +1602,16 @@ class Form extends Component {
       slider: multiple ? [] : undefined
     }[type];
   }
-  getValueByField(field, def, functional) {
+  getValueByField({
+    field,
+    def,
+    functional,
+    value = this.getValue()
+  }) {
     let {
       properties
     } = this.props;
     let props = properties.props,
-      value = this.getValue(),
       a;
     if (functional && typeof field === 'function') {
       a = field(value);
@@ -1678,16 +1697,33 @@ class Form extends Component {
       inputStyle = {},
       inputClassName
     } = properties;
-    let value = this.getValueByField(formItem.field, this.getDefault(input));
+    let value = this.getValueByField({
+      field: formItem.field,
+      def: this.getDefault(input)
+    });
     let props = {
       rtl,
       value,
-      onChange: value => this.setValue(value, formItem),
+      onChange: value => {
+        if (input.type === 'map' && formItem.addressField && value.address) {
+          this.setValue({
+            itemValue: value.address,
+            field: formItem.addressField
+          });
+        }
+        this.setValue({
+          itemValue: value,
+          formItem
+        });
+      },
       attrs: {}
     };
     for (let prop in input) {
       let functional = ['options'].indexOf(prop) !== -1;
-      props[prop] = this.getValueByField(input[prop], undefined, functional);
+      props[prop] = this.getValueByField({
+        field: input[prop],
+        functional
+      });
     }
     props.value = value;
     if (input.type === 'slider' && props.showValue === undefined) {
@@ -1697,7 +1733,9 @@ class Form extends Component {
       attrs = {}
     } = input;
     for (let prop in attrs) {
-      props.attrs[prop] = this.getValueByField(attrs[prop]);
+      props.attrs[prop] = this.getValueByField({
+        field: attrs[prop]
+      });
     }
     props.attrs = addToAttrs({
       ...props.attrs
@@ -1715,7 +1753,9 @@ class Form extends Component {
       } = input;
       props.inputAttrs = {};
       for (let prop in inputAttrs) {
-        props.inputAttrs[prop] = this.getValueByField(inputAttrs[prop]);
+        props.inputAttrs[prop] = this.getValueByField({
+          field: inputAttrs[prop]
+        });
       }
     }
     return updateInput(props);
@@ -1754,7 +1794,10 @@ class Form extends Component {
       size,
       field
     } = formItem;
-    let value = this.getValueByField(field, this.getDefault(input));
+    let value = this.getValueByField({
+      field,
+      def: this.getDefault(input)
+    });
     let error = this.getError(formItem, value);
     if (error) {
       this.errors[field] = error;
@@ -1804,7 +1847,10 @@ class Form extends Component {
       lang,
       validations: validations.map(a => {
         let params = a[2] || {};
-        let target = typeof a[1] === 'function' ? a[1] : this.getValueByField(a[1], '');
+        let target = typeof a[1] === 'function' ? a[1] : this.getValueByField({
+          field: a[1],
+          def: ''
+        });
         let operator = a[0];
         return [operator, target, params];
       })
@@ -1827,7 +1873,10 @@ class Form extends Component {
     });
     return /*#__PURE__*/_jsx(RVD, {
       getLayout: (obj, parent = {}) => {
-        let show = this.getValueByField(obj.show, true);
+        let show = this.getValueByField({
+          field: obj.show,
+          def: true
+        });
         if (show === false) {
           return false;
         }
@@ -5708,13 +5757,13 @@ class MapUnit extends Component {
     lat,
     lng
   }) {
-    clearTimeout(this.timeout);
+    clearTimeout(this.atimeout);
     this.setState({
       addressLoading: true
     });
-    this.timeout = setTimeout(async () => {
+    this.atimeout = setTimeout(async () => {
       let {
-        onChangeAddress = () => {}
+        onChange = () => {}
       } = this.props;
       let address = await this.getAddress({
         lat,
@@ -5724,8 +5773,12 @@ class MapUnit extends Component {
         address,
         addressLoading: false
       });
-      onChangeAddress(address);
-    }, 1000);
+      onChange({
+        lat,
+        lng,
+        address
+      });
+    }, 500);
   }
   change({
     lat,
@@ -5734,9 +5787,13 @@ class MapUnit extends Component {
     let {
       onChange = () => {}
     } = this.props;
+    let {
+      address
+    } = this.state;
     onChange({
       lat,
-      lng
+      lng,
+      address
     });
     this.updateAddress({
       lat,
@@ -5759,8 +5816,9 @@ class MapUnit extends Component {
         lng
       });
     }
-    clearTimeout(this.timeout);
-    this.timeout = setTimeout(async () => this.setState({
+    clearTimeout(this.atimeout);
+    clearTimeout(this.btimeout);
+    this.btimeout = setTimeout(async () => this.setState({
       value: {
         lat,
         lng
@@ -5768,7 +5826,7 @@ class MapUnit extends Component {
     }, () => this.change({
       lat,
       lng
-    })), 700);
+    })), 500);
   }
   //maptype: "dreamy" | 'standard-day'  
   init() {

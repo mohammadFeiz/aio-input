@@ -461,6 +461,9 @@
 .aio-input-slider {
     width: 100%;
 }
+.aio-input-slider .aio-slider.horizontal{
+    height:100%;
+}
 
 .aio-input-slider-horizontal {
     height: 36px;
@@ -598,7 +601,6 @@
 
 .rvd.aio-input-form-item {
     overflow: visible;
-    margin-bottom: 12px;
 }
 
 .aio-input-form-footer {

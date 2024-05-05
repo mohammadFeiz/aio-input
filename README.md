@@ -385,7 +385,14 @@ before | html/jsx | undefined | Use the before prop to render additional content
 subtext | string | undefined | Use the subtext prop to display additional text below the input element.
 loading | boolean | false | Set loading to true to disable the input and display a spinning loader icon after the input.
 text | string | undefined | Use the text prop to specify the text to be displayed as the text of checkbox input.this text is pattern of date.
-checkIcon | object or array | undefined | Use the checkIcon prop to apply custom styles to the checkbox icon in the multiselect options.also can be an array with two members: the first member represents the unchecked custom checkbox, and the second member represents the checked custom checkbox.
+unit | 'year' or 'month' or 'day' or 'hour' | 'day' | Use the unit prop to specify the unit for adjusting the date input. Available options are 'year', 'month', 'day', and 'hour'.The default unit is 'day'.
+jalali | boolean | false | Set jalali to true to use the Jalali (Persian) calendar for the date input. When jalali is set to true, the date input will display and accept dates according to the Persian calendar.
+theme | array of strings | undefined | An array containing two color values. styling calendar by this colors.
+size | number | 180 | Set the size of the calendar.
+deSelect | boolean or function | false | If set true, onChange will be called with undefined when clearing the value. If set as a function, this function will be called after clicking on the clear button.
+caret | boolean or jsx/html | true | Set caret to false to hide the default caret. Set caret to a ReactNode to render a custom caret element instead of the default caret.
+changeClose | boolean | false | If set to true, the calendar popover will close after selecting a date.
+dateAttrs | function returns attrs object | undefined | A function to customize the attributes of each date element in the calendar. It receives an object with properties dateArray, isToday, isDisabled, isActive, and isMatch and should return an object with styles to apply to the date element.
 
 #### date (text props)
 ##### Specifies the pattern for displaying the date and time in the date input.
@@ -409,4 +416,38 @@ Available placeholders:
     text='{weekDay} {day} {monthString} {year}'
 />
 ```
+![alt text](/images/date-text.gif)
 
+#### date (dateAttrs props)
+##### The dateAttrs prop allows you to customize the attributes of each date element in the calendar. It is a function that receives an object with properties dateArray, isToday, isDisabled, isActive, and isMatch.
+Here's what each property represents:
+- `dateArray` : An array containing the year, month, and day of the date.
+- `isToday` : A boolean indicating whether the date is today's date.
+- `isDisabled` : A boolean indicating whether the date is disabled (not selectable).
+- `isActive` : A boolean indicating whether the date is currently selected or active.
+- `isMatch` : A boolean indicating whether the date matches any predefined criteria.
+
+The dateAttrs function should return an object with styles to apply to the date element. Depending on your use case, you can customize the styles of each date element based on these properties. For example, you can change the background color of today's date or disable specific dates.
+
+Here's an example of how you can use the dateAttrs prop:
+
+``` javascript
+<AIOInput
+    type='date'
+    value={value}
+    onChange={(newValue) => setValue(newValue)}
+    dateAttrs={({ dateArray, isToday, isDisabled, isActive, isMatch }) => {
+        let styles = {};
+
+        if (isToday) {
+            styles.background = 'orange';
+        }
+
+        if (isDisabled) {
+            styles.opacity = 0.5;
+        }
+
+        return { style: styles };
+    }}
+/>
+```

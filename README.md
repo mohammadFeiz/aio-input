@@ -23,4 +23,18 @@
 - image
 - file
   
-  
+### basic example of type="text"
+
+``` javascript
+import AIOInput from "aio-input";
+function Example(){
+  let [value,setValue] = useState();
+  return (
+      <AIOInput
+          type='text'
+          value={value}
+          onChange={(newValue)=>setValue(newValue)}
+      />
+  )
+}
+```

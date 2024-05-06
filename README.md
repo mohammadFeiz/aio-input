@@ -449,5 +449,53 @@ Here's an example of how you can use the dateAttrs prop:
 
         return { style: styles };
     }}
+/>.
+```
+#### isMatch Function in dateAttrs Prop
+The isMatch function within the dateAttrs prop allows you to define custom logic to match specific date elements in the calendar based on various conditions. It takes an array of strings representing date comparison conditions and returns true if any of the conditions are met for the current date element.
+``` javascript
+dateAttrs={({ isMatch }) => {
+    if (isMatch(['<,2022/02/03'])) {
+        return { color: 'red' };
+    }
+    if (isMatch(['<>,2022/03/03,2023/04/05'])) {
+        return { color: 'orange' };
+    }
+}}
+```
+#### Date Comparison Conditions
+Each string in the array represents a date comparison condition in the format operator,date1[,date2]:
+
+- operator: The comparison operator. Available operators include:
+- <: Less than
+- >: Greater than
+- <=: Less than or equal to
+- >=: Greater than or equal to
+- =: Equal to
+- !=: Not equal to
+- <>: Between (inclusive)
+- !<>,: Not between (inclusive)
+- <=>: Between or equal to (inclusive)
+- <=>: Not between or equal to (inclusive)
+- date1: The reference date for comparison in the format YYYY/MM/DD.
+- date2 (optional): The second reference date for comparison in the format YYYY/MM/DD. Required for <>, !<>, and <=> operators.
+
+``` javascript
+<AIOInput
+    type='date'
+    value={value}
+    onChange={(newValue) => setValue(newValue)}
+    dateAttrs={({ isMatch }) => {
+        if (isMatch(['<,2022/02/03'])) {
+            return { color: 'red' };
+        }
+        if (isMatch(['<>,2022/03/03,2023/04/05'])) {
+            return { color: 'orange' };
+        }
+    }}
 />
 ```
+#### In this example:
+
+- Dates before February 3, 2022, will have the color red.
+- Dates between March 3, 2022, and April 5, 2023, will have the color orange.

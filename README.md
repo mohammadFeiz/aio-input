@@ -23,7 +23,7 @@
 - image
 - file
   
-## type="text"
+# type="text"
 #### basic example
 ``` javascript
 import AIOInput from "aio-input";
@@ -59,7 +59,7 @@ option | object of functions | undefined | Specifies custom properties for rende
 caret | boolean or jsx/html | true | Set caret to false to hide the default caret when options are provided. Set caret to a ReactNode to render a custom caret element instead of the default caret when options are provided.
 
 
-## type="number"
+# type="number"
 #### basic example
 ``` javascript
 import AIOInput from "aio-input";
@@ -96,7 +96,7 @@ spin | boolean | true | Set spin to false to hide the spin buttons of the input.
 caret | boolean or jsx/html | true | Set caret to false to hide the default caret when options are provided. Set caret to a ReactNode to render a custom caret element instead of the default caret when options are provided.
 
 
-## type="password"
+# type="password"
 #### basic example
 ``` javascript
 import AIOInput from "aio-input";
@@ -129,7 +129,7 @@ subtext | string | undefined | Use the subtext prop to display additional text b
 loading | boolean | false | Set loading to true to disable the input and display a spinning loader icon after the input.
 
 
-## type="textarea"
+# type="textarea"
 #### basic example
 ``` javascript
 import AIOInput from "aio-input";
@@ -165,7 +165,7 @@ option | object of functions | undefined | Specifies custom properties for rende
 caret | boolean or jsx/html | true | Set caret to false to hide the default caret when options are provided. Set caret to a ReactNode to render a custom caret element instead of the default caret when options are provided.
 
 
-## type="select"
+# type="select"
 #### basic example
 ``` javascript
 import AIOInput from "aio-input";
@@ -199,7 +199,7 @@ deSelect | boolean or function | false | Set deSelect to true to make the value 
 text | string | undefined | Use the text prop to specify the text to be displayed as the selected option in the select input. When text is set, the provided text will be displayed instead of the text of the selected option.
 
 
-## type="multiselect"
+# type="multiselect"
 #### basic example
 ``` javascript
 import AIOInput from "aio-input";
@@ -234,7 +234,7 @@ hideTags | boolean | false | Set hideTags to true to hide the selected options a
 checkIcon | object or array | undefined | Use the checkIcon prop to apply custom styles to the checkbox icon in the multiselect options.also can be an array with two members: the first member represents the unchecked custom checkbox, and the second member represents the checked custom checkbox.
 
 
-## type="tabs"
+# type="tabs"
 #### basic example
 ``` javascript
 import AIOInput from "aio-input";
@@ -265,7 +265,7 @@ option | object of functions | undefined | Specifies custom properties for rende
 deSelect | boolean or function | false | Set deSelect to true to make the value of the component undefined when the user clicks on a selected option again. Set deSelect to a function to call the provided function when the user clicks on a selected option again.
 
 
-## type="radio"
+# type="radio"
 #### basic example
 ``` javascript
 import AIOInput from "aio-input";
@@ -296,7 +296,7 @@ maxLength | number | undefined | Use the maxLength prop to define the maximum nu
 option | object of functions | undefined | Specifies custom properties for rendering and controlling each option in the dropdown list.
 checkIcon | object or array | undefined | Use the checkIcon prop to apply custom styles to the checkbox icon in the multiselect options.also can be an array with two members: the first member represents the unchecked custom checkbox, and the second member represents the checked custom checkbox.
 
-## type="buttons"
+# type="buttons"
 #### basic example
 ``` javascript
 import AIOInput from "aio-input";
@@ -328,7 +328,7 @@ option | object of functions | undefined | Specifies custom properties for rende
 deSelect | boolean or function | false | Set deSelect to true to make the value of the component undefined when the user clicks on a selected option again. Set deSelect to a function to call the provided function when the user clicks on a selected option again.
 
 
-## type="checkbox"
+# type="checkbox"
 #### basic example
 ``` javascript
 import AIOInput from "aio-input";
@@ -358,7 +358,7 @@ text | string | undefined | Use the text prop to specify the text to be displaye
 checkIcon | object or array | undefined | Use the checkIcon prop to apply custom styles to the checkbox icon in the multiselect options.also can be an array with two members: the first member represents the unchecked custom checkbox, and the second member represents the checked custom checkbox.
 
 
-## type="date"
+# type="date"
 #### basic example
 ``` javascript
 import AIOInput from "aio-input";
@@ -384,7 +384,7 @@ after | html/jsx | undefined | Use the after prop to render additional content a
 before | html/jsx | undefined | Use the before prop to render additional content before the input element within your component.
 subtext | string | undefined | Use the subtext prop to display additional text below the input element.
 loading | boolean | false | Set loading to true to disable the input and display a spinning loader icon after the input.
-text | string | undefined | Use the text prop to specify the text to be displayed as the text of checkbox input.this text is pattern of date.
+text | string | undefined | Specifies the pattern for displaying the date and time in the date input.
 unit | 'year' or 'month' or 'day' or 'hour' | 'day' | Use the unit prop to specify the unit for adjusting the date input. Available options are 'year', 'month', 'day', and 'hour'.The default unit is 'day'.
 jalali | boolean | false | Set jalali to true to use the Jalali (Persian) calendar for the date input. When jalali is set to true, the date input will display and accept dates according to the Persian calendar.
 theme | array of strings | undefined | An array containing two color values. styling calendar by this colors.
@@ -394,7 +394,7 @@ caret | boolean or jsx/html | true | Set caret to false to hide the default care
 changeClose | boolean | false | If set to true, the calendar popover will close after selecting a date.
 dateAttrs | function returns attrs object | undefined | A function to customize the attributes of each date element in the calendar. It receives an object with properties dateArray, isToday, isDisabled, isActive, and isMatch and should return an object with styles to apply to the date element.
 
-#### date (text props)
+## date (text props)
 ##### Specifies the pattern for displaying the date and time in the date input.
 ##### Usage
 - Use the text prop to define the pattern for displaying the date and time in the date input.
@@ -418,7 +418,7 @@ Available placeholders:
 ```
 ![alt text](/images/date-text.gif)
 
-#### date (dateAttrs props)
+## date (dateAttrs props)
 ##### The dateAttrs prop allows you to customize the attributes of each date element in the calendar. It is a function that receives an object with properties dateArray, isToday, isActive, and isMatch.
 ##### also you can disabled each date element for prevent select by user
 Here's what each property represents:
@@ -505,3 +505,58 @@ Each string in the array represents a date comparison condition in the format op
 - Dates before February 3, 2022, will have the color red.
 - Dates between March 3, 2022, and April 5, 2023, will have the color orange.
 - Dates after 2024/4/5 will be disabled
+
+
+# type="time"
+#### basic example
+``` javascript
+import AIOInput from "aio-input";
+function Example(){
+  let [value,setValue] = useState();
+  return (
+      <AIOInput
+          type='date'
+          value={value}
+          onChange={(newValue)=>setValue(newValue)}
+      />
+  )
+}
+```
+#### other props in type="time"
+Props | Type | Default | Description
+----- | ---- | ------- | -----------
+disabled | boolean | false | make input disabled
+attrs | object | undefined | Use the attrs prop to set any additional attributes for the parent <div> element of input.
+style | object | undefined | Use the style prop to apply custom CSS styles to the input element.
+className | string | undefined | custom clasName
+after | html/jsx | undefined | Use the after prop to render additional content after the input element within your component.
+before | html/jsx | undefined | Use the before prop to render additional content before the input element within your component.
+subtext | string | undefined | Use the subtext prop to display additional text below the input element.
+loading | boolean | false | Set loading to true to disable the input and display a spinning loader icon after the input.
+text | string | undefined | Specifies the pattern for displaying the date and time in the time input.
+unit | object contain 'year','month','day','hour','minute','second' | {year:true,month:true,day:true} | Use the unit prop to specify the unit for adjusting the time input. Available options are 'year', 'month', 'day', 'hour', 'minute' and 'second'.
+jalali | boolean | false | Set jalali to true to use the Jalali (Persian) calendar for the time input. When jalali is set to true, the time input will display and accept dates according to the Persian calendar.
+caret | boolean or jsx/html | true | Set caret to false to hide the default caret. Set caret to a ReactNode to render a custom caret element instead of the default caret.
+
+## time (unit prop)
+``` javascript
+<AIOInput
+    type='time'
+    value={value}
+    onChange={(newValue)=>setValue(newValue)}
+    
+    unit={{hour:true,minute:true,second:true}}
+/>
+```
+![alt text](/images/time-unit-hour-minute-second.gif)
+
+``` javascript
+<AIOInput
+    type='time'
+    value={value}
+    onChange={(newValue)=>setValue(newValue)}
+    
+    unit={{month:true,day:true}}
+/>
+```
+![alt text](/images/time-unit-month-day.gif)

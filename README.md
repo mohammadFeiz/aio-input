@@ -419,11 +419,11 @@ Available placeholders:
 ![alt text](/images/date-text.gif)
 
 #### date (dateAttrs props)
-##### The dateAttrs prop allows you to customize the attributes of each date element in the calendar. It is a function that receives an object with properties dateArray, isToday, isDisabled, isActive, and isMatch.
+##### The dateAttrs prop allows you to customize the attributes of each date element in the calendar. It is a function that receives an object with properties dateArray, isToday, isActive, and isMatch.
+##### also you can disabled each date element for prevent select by user
 Here's what each property represents:
 - `dateArray` : An array containing the year, month, and day of the date.
 - `isToday` : A boolean indicating whether the date is today's date.
-- `isDisabled` : A boolean indicating whether the date is disabled (not selectable).
 - `isActive` : A boolean indicating whether the date is currently selected or active.
 - `isMatch` : A boolean indicating whether the date matches any predefined criteria.
 
@@ -467,16 +467,16 @@ dateAttrs={({ isMatch }) => {
 Each string in the array represents a date comparison condition in the format operator,date1[,date2]:
 
 - operator: The comparison operator. Available operators include:
-- <: Less than
-- >: Greater than
-- <=: Less than or equal to
-- >=: Greater than or equal to
-- =: Equal to
-- !=: Not equal to
-- <>: Between (inclusive)
-- !<>,: Not between (inclusive)
-- <=>: Between or equal to (inclusive)
-- <=>: Not between or equal to (inclusive)
+- '<' : Less than
+- '>' : Greater than
+- '<=' : Less than or equal to
+- '>=' : Greater than or equal to
+- '=' : Equal to
+- '!=' : Not equal to
+- '<>' : Between (inclusive)
+- '!<>' : Not between (inclusive)
+- '<=>' : Between or equal to (inclusive)
+- '!<=>' : Not between or equal to (inclusive)
 - date1: The reference date for comparison in the format YYYY/MM/DD.
 - date2 (optional): The second reference date for comparison in the format YYYY/MM/DD. Required for <>, !<>, and <=> operators.
 
@@ -486,12 +486,17 @@ Each string in the array represents a date comparison condition in the format op
     value={value}
     onChange={(newValue) => setValue(newValue)}
     dateAttrs={({ isMatch }) => {
+        let attrs = {}
         if (isMatch(['<,2022/02/03'])) {
-            return { color: 'red' };
+            attrs.style = { color: 'red' };
         }
         if (isMatch(['<>,2022/03/03,2023/04/05'])) {
-            return { color: 'orange' };
+            attrs.style = { color: 'orange' };
         }
+        if(isMatch([>,2024/4/5])){
+          attrs.disabled = true
+        }
+        return attrs
     }}
 />
 ```
@@ -499,3 +504,4 @@ Each string in the array represents a date comparison condition in the format op
 
 - Dates before February 3, 2022, will have the color red.
 - Dates between March 3, 2022, and April 5, 2023, will have the color orange.
+- Dates after 2024/4/5 will be disabled

@@ -145,13 +145,40 @@ A function called for each option in the options array. It takes the original op
 - `tagAttrs` (Object): Custom attributes of the option in a multiselect type tags.
 - `tagBefore` (HTMLElement): Custom element to be used before the tag.
 - `tagAfter` (HTMLElement): Custom element to be used after the tag.
-
-# selective props ( use in selective inputs that have options)
-### options
-- options
-### option
-- option
-
+``` javascript
+<AIOInput
+  type='select'
+  options={[
+    {name:'john',id:'1',gender:'male',color:'#ff0000'},
+    {name:'stephan',id:'2',gender:'male',color:'#ffa500'},
+    {name:'edvard',id:'3',gender:'male',color:'#ffff00'},
+    {name:'luis',id:'4',gender:'male',color:'#9acd32'},
+    {name:'carlos',id:'5',gender:'male',color:'#90ee90'}
+  ]}
+  option={{
+    text:(option)=>option.name,
+    value:(option)=>option.id,
+    before:(option)=><Icon path={option.gender === 'male'?mdiHumanMale:mdiHumanFemale} size={0.8}/>,
+    after:(option)=><div style={{color:'#fff',background:option.gender === 'male'?'blue':'pink'}}>{option.gender}</div>,
+    subtext:(option)=>option.id,
+    checked:(option)=>option.id === selectedUserId,
+    checkIcon:()=>[
+        <Icon path={mdiCheckboxBlankOutline} size={0.7} color='#ddd'/>,
+        <Icon path={mdiCheckboxMarked} size={0.7} color='#5400ff'/>
+    ],
+    attrs:(option)=>{
+      return {
+        title:option.name
+      }
+    },
+    className:(option)=>`my-option my-option-${option.gender}`,
+    style:(option)=>{
+      return {borderBottom:`1px solid ${option.gender === 'male'?'blue':'pink'`}
+    },
+    disabled:(option)=>option.gender === 'male'
+  }}
+/>
+```
 # type="text"
 #### basic example
 ``` javascript

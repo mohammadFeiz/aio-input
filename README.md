@@ -597,3 +597,136 @@ width | number or string | undefined | The width of the image input.
 height | number or string | undefined | The height of the image input.
 
 
+# type="spinner"
+#### basic example
+``` javascript
+import AIOInput from "aio-input";
+function MyComponent() {
+  const [value, setValue] = useState(50);
+
+  const handleChange = (newValue) => {
+    setValue(newValue);
+  };
+
+  return (
+    <div>
+      <AIOInput
+        value={value}
+        start={0}
+        end={100}
+        onChange={handleChange}
+        labels={{ step: 10 }}
+        label={(value) => {
+          return {
+            html: value === 50 ? <Icon path={mdiAccount} size={0.6}/> : value,
+          };
+        }}
+        round={0.5} // Half circle
+        scales
+        scale={(value, { angle }) => (
+          <div
+            key={value}
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: `translate(-50%, -50%) rotate(${angle}deg)`,
+              width: '2px',
+              height: '10px',
+              backgroundColor: '#000',
+            }}
+          />
+        )}
+        handle={(value) => ({
+          width: '20px',
+          height: '20px',
+          offset: '10px',
+          color: '#007bff',
+        })}
+        disabled={[0, 25, 75]} // Array of values to disable partially
+        rotate={45} // Rotate all elements by 45 degrees
+        ranges={[
+          [20, '2px black 10px 1 0'], // Range from 0 to 20
+          [80, '4px red 20px 0 1'], // Range from 20 to 80
+        ]}
+      />
+    </div>
+  );
+}
+```
+Props | Type | Default | Description
+----- | ---- | ------- | -----------
+value | number | undefined | The current value of the slider.
+start	| number | 0 | The start value of the slider range.
+end	| number | 100 | The end value of the slider range.
+step | number |	1	| The step size for incrementing/decrementing the slider value.
+onChange | function	| undefined |	A callback function to handle value changes.
+labels | object	{ step: number,dynamic:boolean } | undefined | Configuration for displaying labels on the slider track.
+label |	function | A function to customize the appearance and content of labels.
+round | number | 1 | The extent of the circular slider in terms of a fraction of a full circle (0 to 1).
+reverse |	boolean |	false |	Whether to reverse the direction of the slider (clockwise vs. counterclockwise).
+scales | object	{ step: number,dynamic:boolean } | undefined | Configuration for displaying scales on the slider track.
+scale | function | undefined | A function to customize the appearance of scale indicators.
+handle | function	| undefined | A function to customize the appearance of the handle.
+disabled | boolean or array of numbers | false | Specifies whether the slider is disabled or an array of values to disable partially.
+rotate | number(0 to 360) |	0	| Rotate all elements of the slider (including scales, labels, and handle) by the specified degree.
+ranges | [value, config][] | An array of ranges where each range is defined by a value and a configuration string.
+
+#### handle prop
+The handle function takes the current value of the slider as a parameter and returns an object with properties to customize the appearance of the handle:
+- `width` (string): The width of the handle.
+- `height` (string): The height of the handle.
+- `offset` (string): The distance of the handle from the center of the slider.
+- `color` (string): The color of the handle.
+
+#### ranges prop
+Each range in the ranges prop is defined by an array containing two elements:
+
+1- Value (number): The value at which the range begins.
+2- Configuration string (string): A string containing five parameters separated by a space:
+- `Thickness`: The thickness of the range indicator.
+- `Color`: The color of the range indicator.
+- `Distance` from edge: The distance of the range indicator from the edge of the slider.
+- `Round line cap`: A boolean value (0 or 1) indicating whether the line cap of the range should be rounded.
+
+#### labels prop
+The labels prop is an object with the following properties:
+
+- `step` (number): The step size for displaying labels on the slider track.
+- `dynamic` (boolean): Determines whether labels should be updated in each render. Setting dynamic to true may cause performance issues, especially with a large number of labels. By default, dynamic is set to false.
+
+#### label prop
+The label prop is a function that takes the current value of the slider as a parameter and returns an object with properties to customize the appearance and content of labels:
+
+- `html` (React element | string): The HTML content of the label. It can be a React element or a string. If it's a React element, it will be rendered as is. If it's a string, it will be displayed as plain text.
+- `offset` (string): The distance of the label from the edge of the slider.
+- `style` (object): An object containing CSS styles to apply to the label.
+- `className` (string): A CSS class name to apply to the label.
+- `attrs` (object): An object containing custom HTML attributes to apply to the label.
+``` javascript
+label={(value) => {
+  return {
+    html: value === 50 ? <Icon path={mdiAccount} size={0.6}/> : value,
+    offset: '10px',
+    style: { color: 'blue' },
+    className: 'custom-label',
+    attrs: { 'data-tooltip': 'This is a label' }
+  };
+}}
+```
+
+#### point prop
+The point prop is a function that takes the current value of the slider as a parameter and returns an object with properties to customize the appearance and behavior of the slider's thumb (point):
+
+- `offset` (string): The distance of the thumb from the center of the slider.
+- `html` (React element | string): The HTML content of the thumb. It can be a React element or a string.
+- `style` (object): An object containing CSS styles to apply to the thumb.
+- `className` (string): A CSS class name to apply to the thumb.
+``` javascript
+point={(value) => ({
+  offset: '10px',
+  html: value,
+  style: { color: 'blue' },
+  className: 'custom-thumb'
+})}
+```

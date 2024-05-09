@@ -1,5 +1,15 @@
 # aio-input
 #### generate all inputs in react.
+
+- full customizable
+- same config of all types (simple to learn syntax)
+- all you need in one package (complete all requirements of web aplications and websites)
+- lightweight (70kb)
+- collaborative
+- have document and ai learned
+
+### first it is very important to categrize this 24 input types
+
 ### types
 - text
 - number
@@ -89,7 +99,7 @@
 # public props
 prop | type | default | description
 ---- | ---- | ------- | -----------
-placeholder | string | undefined | guiding users on the expected format or content.
+placeholder | string | undefined | guiding users on the expected format or content or show instead empty contents.
 disabled | boolean | false | make input disabled.
 loading | boolean | false | make input disabled and show loader after.
 before | jsx | undefined | use input before content.
@@ -99,10 +109,25 @@ attrs | attributes object | {} | custom input container standard html attributes
 style | style object | {} | custom input container style object.
 className | string | undefined | custom input container className.
 subtext | string | undefined | input subtext. show under input.
-options | array of any | required in some input types | input selective options.
-option | object contain functions or string | configure each option.
-caret | false or jsx | default caret | caret icon of dropdown inputs. set false to hide and set jsx to cutomize
+options | array of any | required in some input types | input selective options.use in selective input types.
+option | object contain functions or string | configure each option.use in selective input types.
+caret | false or jsx | default caret | caret icon of dropdown inputs. set false to hide and set jsx to cutomize. use in dropdown input types.
+popover | object | undefined | customize input popover. use in dropdown input types.
 
+# text props (use in `text` , `textarea` and `password` type)
+### justNumber
+- When `justNumber` is set to true, the input field will only accept numerical values.When justNumber is an array of strings, the input field will accept numerical values along with the specified characters in the array.
+### filter
+- When `filter` is set to an array of strings, the input field will disallow the specified characters from being entered by the user.
+### maxLength
+- When `maxLength` is set to a number, the input field will limit the number of characters the user can input to the specified maximum length.
+# inputAttrs (use in basic inputs( `text` , `number` , `textarea` , `color` , `file` , `password`)
+- set starndard input attributes like set accept attribute in type file
+# selective props ( use in selective inputs that have options)
+### options
+- options
+### option
+- option
 
 # type="text"
 #### basic example

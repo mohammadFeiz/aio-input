@@ -36,14 +36,14 @@
 - file
 
 
-# basic inputs
+# basic types
 - text
 - number
 - textarea
 - password
 - color
 
-# dropdown inputs
+# dropdown types
 - select
 - multiselect
 - text (if set options)
@@ -53,7 +53,7 @@
 - time (dropdown contain time popup)
 - button (if set popover)
 
-# selective inputs (has options)
+# selective types (has options)
 - select
 - multiselect
 - radio
@@ -66,7 +66,7 @@
 - textarea (if set options)
 - color (if set options)
 
-# toggle inputs
+# toggle types
 - checkbox
 - radio
 - checklist
@@ -74,24 +74,24 @@
 - tabs
 - multiselect
 
-# range inputs
+# range types
 - slider
 - spinner
 
-# inlin edit inputs (data entry)
+# collection types (inline edit and data entry)
 - form
 - table
 - tree
 
-# file inputs
+# file types
 - image
 - file
 
-# date and time inputs
+# date and time types
 - date
 - time
 
-# other inputs
+# other types
 - button
 - list
 
@@ -110,19 +110,42 @@ style | style object | {} | custom input container style object.
 className | string | undefined | custom input container className.
 subtext | string | undefined | input subtext. show under input.
 options | array of any | required in some input types | input selective options.use in selective input types.
-option | object contain functions or string | configure each option.use in selective input types.
-caret | false or jsx | default caret | caret icon of dropdown inputs. set false to hide and set jsx to cutomize. use in dropdown input types.
-popover | object | undefined | customize input popover. use in dropdown input types.
+option | object contain functions or string | configure each option.use in selective types.
+caret | false or jsx | default caret | caret icon of dropdown inputs. set false to hide and set jsx to cutomize. use in dropdown types.
+popover | object | undefined | customize input popover. use in dropdown types.
+checkIcon | array of 2 jsx | array of default checkboxes | customize check icon in toggle types.
+justNumber | boolean or array of characters | false | When `justNumber` is set to true, the input field will only accept numerical values.When justNumber is an array of strings, the input field will accept numerical values along with the specified characters in the array. use in text , textarea and password.
+filter | array of characters | [] | When `filter` is set to an array of strings, the input field will disallow the specified characters from being entered by the user. use in text , textarea and password types.
+maxLength | number | Infinity | When `maxLength` is set to a number, the input field will limit the number of characters the user can input to the specified maximum length.
+inputAttrs | attributes object | {} | set starndard input attributes like set accept attribute in type file. use in `text` , `number` , `textarea` , `color` , `file` and `password` types.
 
-# text props (use in `text` , `textarea` and `password` type)
-### justNumber
-- When `justNumber` is set to true, the input field will only accept numerical values.When justNumber is an array of strings, the input field will accept numerical values along with the specified characters in the array.
-### filter
-- When `filter` is set to an array of strings, the input field will disallow the specified characters from being entered by the user.
-### maxLength
-- When `maxLength` is set to a number, the input field will limit the number of characters the user can input to the specified maximum length.
-# inputAttrs (use in basic inputs( `text` , `number` , `textarea` , `color` , `file` , `password`)
-- set starndard input attributes like set accept attribute in type file
+# options and option props
+set options prop as selective options and option prop to configure each option.
+`options` (Array)
+- An array containing options for the selectable component.
+
+-option (Function)
+A function called for each option in the options array. It takes the original option and details as parameters and returns an object containing option configurations.
+
+#### Option Configuration Properties
+- `text` (String): Text presentation of the option.
+- `value` (String): Unique value of the option.
+- `before` (HTMLElement): HTML element to be used before the option element.
+- `after` (HTMLElement): HTML element to be used after the option element.
+- `subtext` (String): Subtext to be rendered at the bottom of the option.
+- `checked` (Boolean): If false, renders an unchecked checkbox before the option; if true, renders a checked checkbox before the option.
+- `checkIcon` (String): Customizes the checkbox of the option if checked is a boolean.
+- `attrs` (Object): Standard attributes of the option element container.
+- `className` (String): Sets a custom className to the option element container.
+- `style` (Object): Sets a custom style object to the option element container.
+- `onClick` (Function): Sets a custom onClick event to the option element container; setting this will prevent default actions.
+- `close` (Boolean): If content is in a popover and set to true, clicking will close the popover.
+- `justify` (Boolean): If set to true, the container will be justified.
+- `disabled` (Boolean): If set to true, the option will be disabled.
+- `tagAttrs` (Object): Custom attributes of the option in a multiselect type tags.
+- `tagBefore` (HTMLElement): Custom element to be used before the tag.
+- `tagAfter` (HTMLElement): Custom element to be used after the tag.
+
 # selective props ( use in selective inputs that have options)
 ### options
 - options

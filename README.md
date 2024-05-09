@@ -11,6 +11,7 @@
 - date
 - time
 - radio
+- checklist
 - checkbox
 - tabs
 - buttons
@@ -18,11 +19,91 @@
 - form
 - tree
 - acardion
-- range
+- slider
+- spinner
 - list
 - image
 - file
-  
+
+
+# basic inputs
+- text
+- number
+- textarea
+- password
+- color
+
+# dropdown inputs
+- select
+- multiselect
+- text (if set options)
+- textarea (if set options)
+- number (if set options)
+- date (dropdown contain calendar)
+- time (dropdown contain time popup)
+- button (if set popover)
+
+# selective inputs (has options)
+- select
+- multiselect
+- radio
+- checklist
+- tabs
+- buttons
+- tree
+- text (if set options)
+- number (if set options)
+- textarea (if set options)
+- color (if set options)
+
+# toggle inputs
+- checkbox
+- radio
+- checklist
+- buttons
+- tabs
+- multiselect
+
+# range inputs
+- slider
+- spinner
+
+# inlin edit inputs (data entry)
+- form
+- table
+- tree
+
+# file inputs
+- image
+- file
+
+# date and time inputs
+- date
+- time
+
+# other inputs
+- button
+- list
+
+
+# public props
+prop | type | default | description
+---- | ---- | ------- | -----------
+placeholder | string | undefined | guiding users on the expected format or content.
+disabled | boolean | false | make input disabled.
+loading | boolean | false | make input disabled and show loader after.
+before | jsx | undefined | use input before content.
+after | jsx | undefined | use input after content.
+justify | boolean | false | make content justify.
+attrs | attributes object | {} | custom input container standard html attributes.
+style | style object | {} | custom input container style object.
+className | string | undefined | custom input container className.
+subtext | string | undefined | input subtext. show under input.
+options | array of any | required in some input types | input selective options.
+option | object contain functions or string | configure each option.
+caret | false or jsx | default caret | caret icon of dropdown inputs. set false to hide and set jsx to cutomize
+
+
 # type="text"
 #### basic example
 ``` javascript

@@ -590,7 +590,7 @@ Available placeholders:
 ```
 ![alt text](/images/date-patern.png)
 
-## date (dateAttrs prop)
+### date (dateAttrs prop)
 ##### The dateAttrs prop allows you to customize the attributes of each date element in the calendar. It is a function that receives an object with properties dateArray, isToday, isActive, and isMatch.
 ##### also you can disabled each date element for prevent select by user
 Here's what each property represents:
@@ -635,7 +635,7 @@ dateAttrs={({ isMatch }) => {
     }
 }}
 ```
-#### Date Comparison Conditions
+### Date Comparison Conditions
 Each string in the array represents a date comparison condition in the format operator,date1[,date2]:
 
 - operator: The comparison operator. Available operators include:
@@ -672,13 +672,13 @@ Each string in the array represents a date comparison condition in the format op
     }}
 />
 ```
-#### In this example:
+##### In this example:
 
 - Dates before February 3, 2022, will have the color red.
 - Dates between March 3, 2022, and April 5, 2023, will have the color orange.
 - Dates after 2024/4/5 will be disabled
 
-## date (option prop)
+### date (option prop)
 this will cause to close popover after select date.
 ``` javascript
 option={{

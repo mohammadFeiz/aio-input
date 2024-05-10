@@ -77,10 +77,8 @@
 # toggle types
 - checkbox
 - radio
-- checklist
-- buttons
-- tabs
 - multiselect
+- tree (if set option.checked)
 
 # range types
 - slider
@@ -120,12 +118,13 @@ subtext | string | undefined | input subtext. show under input.
 options | array of any | required in some input types | input selective options.use in selective input types.
 option | object contain functions or string | configure each option.use in selective types.
 caret | false or jsx | default caret | caret icon of dropdown inputs. set false to hide and set jsx to cutomize. use in dropdown types.
-popover | object | undefined | customize input popover. use in dropdown types.
-checkIcon | array of 2 jsx | array of default checkboxes | customize check icon in toggle types.
-justNumber | boolean or array of characters | false | When `justNumber` is set to true, the input field will only accept numerical values.When justNumber is an array of strings, the input field will accept numerical values along with the specified characters in the array. use in text , textarea and password.
-filter | array of characters | [] | When `filter` is set to an array of strings, the input field will disallow the specified characters from being entered by the user. use in text , textarea and password types.
-maxLength | number | Infinity | When `maxLength` is set to a number, the input field will limit the number of characters the user can input to the specified maximum length.
+popover | object | undefined | customize input popover. use in dropdown types like.
+checkIcon | array of 2 jsx | array of default checkboxes | customize check icon in toggle types like `checkbox` , `radio` , `multiselect` and `tree`.
+justNumber | boolean or array of characters | false | When justNumber is set to true, the input field will only accept numerical values.When justNumber is an array of strings, the input field will accept numerical values along with the specified characters in the array. use in `text` , `textarea` and `password` input types.
+filter | array of characters | [] | When filter is set to an array of strings, the input field will disallow the specified characters from being entered by the user. use in `text` , `textarea` and `password` types.
+maxLength | number | Infinity | When maxLength is set to a number, the input field will limit the number of characters the user can input to the specified maximum length. use in `text` , `textarea` , `password` input types.
 inputAttrs | attributes object | {} | set starndard input attributes like set accept attribute in type file. use in `text` , `number` , `textarea` , `color` , `file` and `password` types.
+multiple | boolean or number | false | Enables multiple selection mode. If true, allows selecting multiple options. If a number, limits the maximum number of selections.
 
 # options and option props
 set options prop as selective options and option prop to configure each option.

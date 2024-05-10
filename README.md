@@ -715,7 +715,7 @@ before | html/jsx | undefined | Use the before prop to render additional content
 subtext | string | undefined | Use the subtext prop to display additional text below the input element.
 loading | boolean | false | Set loading to true to disable the input and display a spinning loader icon after the input.
 text | string | undefined | Specifies the pattern for displaying the date and time in the time input.
-unit | object contain 'year','month','day','hour','minute','second' | {year:true,month:true,day:true} | Use the unit prop to specify the unit for adjusting the time input. Available options are 'year', 'month', 'day', 'hour', 'minute' and 'second'.
+unit | string contain 'year','month','day','hour','minute','second' | 'year,month,day' | Use the unit prop to specify the unit for adjusting the time input. Available options are `year`, `month`, `day`, `hour`, `minute` and `second`.
 jalali | boolean | false | Set jalali to true to use the Jalali (Persian) calendar for the time input. When jalali is set to true, the time input will display and accept dates according to the Persian calendar.
 caret | boolean or jsx/html | true | Set caret to false to hide the default caret. Set caret to a ReactNode to render a custom caret element instead of the default caret.
 
@@ -726,21 +726,19 @@ caret | boolean or jsx/html | true | Set caret to false to hide the default care
     value={value}
     onChange={(newValue)=>setValue(newValue)}
     
-    unit={{hour:true,minute:true,second:true}}
+    unit='hour,minute,second'
 />
 ```
 ![alt text](/images/time-unit-hour-minute-second.gif)
-
 ``` javascript
 <AIOInput
     type='time'
     value={value}
     onChange={(newValue)=>setValue(newValue)}
-    
-    unit={{month:true,day:true}}
+    unit='year,month,day'
 />
 ```
-![alt text](/images/time-unit-month-day.gif)
+![alt text](/images/time-unit-year-month-day.gif)
 
 # type="image"
 #### basic example

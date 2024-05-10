@@ -774,63 +774,89 @@ height | number or string | undefined | The height of the image input.
 
 
 # type="spinner"
-![alt text](/images/spinner.gif)
 #### basic example
 ``` javascript
 import AIOInput from "aio-input";
 function MyComponent() {
-  const [value, setValue] = useState(50);
-
-  const handleChange = (newValue) => {
-    setValue(newValue);
-  };
-
-  return (
-    <div>
+    const [value, setValue] = useState(50);
+    return (
       <AIOInput
+        type='spinner'
         value={value}
         start={0}
         end={100}
-        onChange={handleChange}
+        size={100}
+        onChange={setValue}
         labels={{ step: 10 }}
         label={(value) => {
-          return {
-            html: value === 50 ? <Icon path={mdiAccount} size={0.6}/> : value,
-          };
+            let style = {border:'1px solid',borderRadius:'100%',padding:3}
+            return {
+                html: value === 50 ? <Icon path={mdiAccount} size={0.6}/> : value,
+                color:'#333',
+                size:16,
+                offset:100,
+                attrs:value === 50?{style}:{}
+            };
         }}
-        round={0.5} // Half circle
-        scales
-        scale={(value, { angle }) => (
-          <div
-            key={value}
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: `translate(-50%, -50%) rotate(${angle}deg)`,
-              width: '2px',
-              height: '10px',
-              backgroundColor: '#000',
-            }}
-          />
-        )}
-        handle={(value) => ({
-          width: '20px',
-          height: '20px',
-          offset: '10px',
-          color: '#007bff',
-        })}
+        scales={{step:2}}
+        scale={(value, { angle }) => {
+            let offset,thickness,size,color;
+            if(value % 10 === 0){
+                offset = 80;
+                thickness = 8;
+                size = 10;
+                color = '#333'
+            }
+            else {
+                offset = 83;
+                thickness = 3;
+                size = 4;
+                color = '#888';
+            }
+            return {
+                offset,
+                thickness,
+                size,
+                color,
+                attrs:{}
+            }
+        }}
+        point={()=>{
+            return {
+                offset:124,
+                thickness:2,
+                color:'dodgerblue',
+                size:27,
+                attrs:{
+                    style:{
+                        background:'#f2f2f2'
+                    }
+                }
+            }
+        }}
+        handle={(value) => {
+            return {
+                thickness: 12,
+                size: 80,
+                offset: 5,
+                color: '#333',
+            }
+        }}
         disabled={[0, 25, 75]} // Array of values to disable partially
-        rotate={45} // Rotate all elements by 45 degrees
-        ranges={[
-          [20, '2px black 10px 1 0'], // Range from 0 to 20
-          [80, '4px red 20px 0 1'], // Range from 20 to 80
+        circles={[
+            '3 8 #333',
+            '1 92 #ccc'
         ]}
-      />
-    </div>
+        ranges={[
+          [20, '5 80 #ff0000'], // Range from 0 to 20
+          [70, '5 80 orange'], // Range from 20 to 100
+          [100, '5 80 green'] // Range from 20 to 100
+        ]}
+    />
   );
 }
 ```
+![alt text](/images/spinner.gif)
 Props | Type | Default | Description
 ----- | ---- | ------- | -----------
 value | number | undefined | The current value of the slider.

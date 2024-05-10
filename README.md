@@ -331,6 +331,7 @@ caret | boolean or jsx/html | true | Set caret to false to hide the default care
 
 
 # type="select"
+![alt text](/images/select.gif)
 #### basic example
 ``` javascript
 import AIOInput from "aio-input";
@@ -401,6 +402,7 @@ maxLength | number | undefined | Use the maxLength prop to define the maximum nu
 
 
 # type="tabs"
+![alt text](/images/tabs.gif)
 #### basic example
 ``` javascript
 import AIOInput from "aio-input";
@@ -447,6 +449,7 @@ function Example(){
 }
 ```
 #### other props in type="radio"
+![alt text](/images/radio.gif)
 Props | Type | Default | Description
 ----- | ---- | ------- | -----------
 disabled | boolean | false | make input disabled
@@ -461,7 +464,8 @@ option | object of functions | undefined | Specifies custom properties for rende
 checkIcon | object or array | undefined | Use the checkIcon prop to apply custom styles to the checkbox icon in the multiselect options.also can be an array with two members: the first member represents the unchecked custom checkbox, and the second member represents the checked custom checkbox.
 multiple | boolean | false | Set multiple true to accept value as array of values. 
 maxLength | number | undefined | Use the maxLength prop to define the maximum number of selected options allowed in the multiple input types. use if multiple prop is true.
-
+#### radio multiple true
+![alt text](/images/radio-multiple.gif)
 # type="buttons"
 ![alt text](/images/buttons.png)
 #### basic example

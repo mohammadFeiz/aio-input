@@ -856,7 +856,7 @@ function MyComponent() {
   );
 }
 ```
-![alt text](/images/spinner.gif)
+![alt text](/images/spinner1.gif)
 Props | Type | Default | Description
 ----- | ---- | ------- | -----------
 value | number | undefined | The current value of the slider.

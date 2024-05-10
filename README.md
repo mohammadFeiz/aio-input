@@ -179,6 +179,7 @@ A function called for each option in the options array. It takes the original op
   }}
 />
 ```
+![alt text](/images/option.png)
 # type="text"
 #### basic example
 ``` javascript

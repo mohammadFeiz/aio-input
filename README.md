@@ -774,6 +774,27 @@ height | number or string | undefined | The height of the image input.
 
 
 # type="spinner"
+this input type is a round range selector. its configuration is same as slider input type.
+#### spinner props:
+Props | Type | Default | Description
+----- | ---- | ------- | -----------
+value | number | undefined | The current value of the range.
+start	| number | 0 | The start value of the range.
+end	| number | 100 | The end value of the range.
+step | number |	1	| The step size for change the range value.
+onChange | function	| undefined |	A callback function to handle value changes.
+labels | object	{ step: number,list:array of numbers,dynamic:boolean } | undefined | Configuration for displaying labels on the range track.
+label |	function | A function to customize the appearance and content of each label. get value and details object as parameter and returns an object contain label configuration.
+scales | object	{ step: number,list:array of numbers,dynamic:boolean } | undefined | Configuration for displaying scales on the range track.
+scale | function | undefined | A function to customize the appearance of scale indicators.get value and details object as parameter and returns an object contain scale configuration.
+handle | function	| undefined | A function to customize the appearance of the handle. get value and details object as parameter and returns an object contain handle configuration.
+point | function	| undefined | A function to customize the appearance of the range point. get value and details object as parameter and returns an object contain point configuration.
+round | number | 1 | The extent of the circular slider in terms of a fraction of a full circle (0 to 1).
+reverse |	boolean |	false |	Whether to reverse the direction of the slider (clockwise vs. counterclockwise).
+disabled | boolean or array of numbers | false | Specifies whether the spinner is disabled or an array of values to disable partially.
+rotate | number(0 to 360) |	0	| Rotate all elements of the spinner (including scales, labels, point and handle) by the specified degree.
+ranges | function | ()=>[[end, `1 100 #ddd`]] | A function that get spinner value as parameter and returns An array of ranges where each range is defined by a value and a configuration string as array.
+
 #### basic example
 ``` javascript
 import AIOInput from "aio-input";
@@ -857,30 +878,40 @@ function MyComponent() {
 }
 ```
 ![alt text](/images/spinner1.gif)
-Props | Type | Default | Description
------ | ---- | ------- | -----------
-value | number | undefined | The current value of the slider.
-start	| number | 0 | The start value of the slider range.
-end	| number | 100 | The end value of the slider range.
-step | number |	1	| The step size for incrementing/decrementing the slider value.
-onChange | function	| undefined |	A callback function to handle value changes.
-labels | object	{ step: number,dynamic:boolean } | undefined | Configuration for displaying labels on the slider track.
-label |	function | A function to customize the appearance and content of labels.
-round | number | 1 | The extent of the circular slider in terms of a fraction of a full circle (0 to 1).
-reverse |	boolean |	false |	Whether to reverse the direction of the slider (clockwise vs. counterclockwise).
-scales | object	{ step: number,dynamic:boolean } | undefined | Configuration for displaying scales on the slider track.
-scale | function | undefined | A function to customize the appearance of scale indicators.
-handle | function	| undefined | A function to customize the appearance of the handle.
-disabled | boolean or array of numbers | false | Specifies whether the slider is disabled or an array of values to disable partially.
-rotate | number(0 to 360) |	0	| Rotate all elements of the slider (including scales, labels, and handle) by the specified degree.
-ranges | [value, config][] | An array of ranges where each range is defined by a value and a configuration string.
 
 #### handle prop
-The handle function takes the current value of the slider as a parameter and returns an object with properties to customize the appearance of the handle:
-- `width` (string): The width of the handle.
-- `height` (string): The height of the handle.
-- `offset` (string): The distance of the handle from the center of the slider.
-- `color` (string): The color of the handle.
+The handle function takes the current value of the spinner and details object as parameter and returns an object with properties to customize the appearance of the handle:
+- `size` (number): The size of the handle as percentage of spinner size prop. default is 90.
+- `thickness` (number): The thickness of the handle as percentage of spinner size prop. default is 10.
+- `offset` (number): The distance of the handle from the center of the slider as percentage of spinner size prop. default is 0.
+- `color` (string): The css color of the handle. default is '#000'.
+- `attrs` (object): the custom attributes of handle. default is {}
+
+#### point prop
+The point prop is a function that takes the current value of the slider as a parameter and returns an object with properties to customize the appearance and behavior of the slider's thumb (point):
+- `size` (number): The size of the point as percentage of spinner size prop. default is 27
+- `thickness` (number): The thickness of the point border as percentage of spinner size prop. default is 2.
+- `offset` (number): The distance of the point from the center of the spinner. default value is 100
+- `color` (string): color string to apply to the point. default is '#333'.
+- `attrs` (object): the custom attributes of point. default is {}
+- `html` (jsx/html): The HTML content of the point. default is spinner value number.
+
+#### labels prop
+The labels prop is an object with the following properties:
+
+- `step` (number): The step size for displaying labels on the slider track.
+- `list` (array of numbers): The exact values for displaying labels on the slider track.
+- `dynamic` (boolean): Determines whether labels should be updated in each render. Setting dynamic to true may cause performance issues, especially with a large number of labels. By default, dynamic is set to false.
+
+#### label prop
+The label prop is a function that takes the current value of the slider as a parameter and returns an object with properties to customize the appearance and content of labels:
+
+- `size` (number): The font size of the label as percentage of spinner size prop. default is 15.
+- `offset` (number): The distance of the label from the center of the spinner. default value is 116.
+- `color` (string): color string to apply to the label. default is '#333'.
+- `html` (React element | string): The HTML content of the label. It can be a React element or a string. If it's a React element, it will be rendered as is. If it's a string, it will be displayed as plain text.
+- `attrs` (object): An object containing custom HTML attributes to apply to the label.
+- `fixAngle` (boolean): fix label content angle. default is true
 
 #### ranges prop
 Each range in the ranges prop is defined by an array containing two elements:
@@ -892,44 +923,5 @@ Each range in the ranges prop is defined by an array containing two elements:
 - `Distance` from edge: The distance of the range indicator from the edge of the slider.
 - `Round line cap`: A boolean value (0 or 1) indicating whether the line cap of the range should be rounded.
 
-#### labels prop
-The labels prop is an object with the following properties:
 
-- `step` (number): The step size for displaying labels on the slider track.
-- `dynamic` (boolean): Determines whether labels should be updated in each render. Setting dynamic to true may cause performance issues, especially with a large number of labels. By default, dynamic is set to false.
 
-#### label prop
-The label prop is a function that takes the current value of the slider as a parameter and returns an object with properties to customize the appearance and content of labels:
-
-- `html` (React element | string): The HTML content of the label. It can be a React element or a string. If it's a React element, it will be rendered as is. If it's a string, it will be displayed as plain text.
-- `offset` (string): The distance of the label from the edge of the slider.
-- `style` (object): An object containing CSS styles to apply to the label.
-- `className` (string): A CSS class name to apply to the label.
-- `attrs` (object): An object containing custom HTML attributes to apply to the label.
-``` javascript
-label={(value) => {
-  return {
-    html: value === 50 ? <Icon path={mdiAccount} size={0.6}/> : value,
-    offset: '10px',
-    style: { color: 'blue' },
-    className: 'custom-label',
-    attrs: { 'data-tooltip': 'This is a label' }
-  };
-}}
-```
-
-#### point prop
-The point prop is a function that takes the current value of the slider as a parameter and returns an object with properties to customize the appearance and behavior of the slider's thumb (point):
-
-- `offset` (string): The distance of the thumb from the center of the slider.
-- `html` (React element | string): The HTML content of the thumb. It can be a React element or a string.
-- `style` (object): An object containing CSS styles to apply to the thumb.
-- `className` (string): A CSS class name to apply to the thumb.
-``` javascript
-point={(value) => ({
-  offset: '10px',
-  html: value,
-  style: { color: 'blue' },
-  className: 'custom-thumb'
-})}
-```

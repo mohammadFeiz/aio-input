@@ -774,6 +774,7 @@ height | number or string | undefined | The height of the image input.
 
 
 # type="spinner"
+![alt text](/images/spinner.gif)
 #### basic example
 ``` javascript
 import AIOInput from "aio-input";

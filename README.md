@@ -467,7 +467,7 @@ maxLength | number | undefined | Use the maxLength prop to define the maximum nu
 #### radio multiple true
 ![alt text](/images/radio-multiple.gif)
 # type="buttons"
-![alt text](/images/buttons.png)
+![alt text](/images/buttons.gif)
 #### basic example
 ``` javascript
 import AIOInput from "aio-input";
@@ -493,12 +493,11 @@ after | html/jsx | undefined | Use the after prop to render additional content a
 before | html/jsx | undefined | Use the before prop to render additional content before the input element within your component.
 loading | boolean | false | Set loading to true to disable the input and display a spinning loader icon after the input.
 options | array | Required | Use the options prop to provide a list of options to be displayed in a dropdown list below the input element.
-multiple | boolean | false | Set multiple to true to allow selecting multiple options in the radio input.
 option | object of functions | undefined | Specifies custom properties for rendering and controlling each option in the dropdown list.
 deSelect | boolean or function | false | Set deSelect to true to make the value of the component undefined when the user clicks on a selected option again. Set deSelect to a function to call the provided function when the user clicks on a selected option again.
-multiple | boolean | false | Set multiple true to accept value as array of values. 
+multiple | boolean | false | Set multiple to true to allow selecting multiple options in the buttons input.
 maxLength | number | undefined | Use the maxLength prop to define the maximum number of selected options allowed in the multiple input types. use if multiple prop is true.
-
+![alt text](/images/buttons-multiple.gif)
 # type="checkbox"
 #### basic example
 ``` javascript
@@ -556,20 +555,21 @@ after | html/jsx | undefined | Use the after prop to render additional content a
 before | html/jsx | undefined | Use the before prop to render additional content before the input element within your component.
 subtext | string | undefined | Use the subtext prop to display additional text below the input element.
 loading | boolean | false | Set loading to true to disable the input and display a spinning loader icon after the input.
-text | string | undefined | Specifies the pattern for displaying the date and time in the date input.
+text | string | undefined | Specifies the text for displaying in the date input.
+pattern | string | undefined | Specifies the pattern for displaying the date and time in the date input.
 unit | 'year' or 'month' or 'day' or 'hour' | 'day' | Use the unit prop to specify the unit for adjusting the date input. Available options are 'year', 'month', 'day', and 'hour'.The default unit is 'day'.
 jalali | boolean | false | Set jalali to true to use the Jalali (Persian) calendar for the date input. When jalali is set to true, the date input will display and accept dates according to the Persian calendar.
 theme | array of strings | undefined | An array containing two color values. styling calendar by this colors.
 size | number | 180 | Set the size of the calendar.
 deSelect | boolean or function | false | If set true, onChange will be called with undefined when clearing the value. If set as a function, this function will be called after clicking on the clear button.
 caret | boolean or jsx/html | true | Set caret to false to hide the default caret. Set caret to a ReactNode to render a custom caret element instead of the default caret.
-changeClose | boolean | false | If set to true, the calendar popover will close after selecting a date.
 dateAttrs | function returns attrs object | undefined | A function to customize the attributes of each date element in the calendar. It receives an object with properties dateArray, isToday, isDisabled, isActive, and isMatch and should return an object with styles to apply to the date element.
+option | object | {} | Configure calendar popover. 
 
-## date (text props)
+## date (pattern prop)
 ##### Specifies the pattern for displaying the date and time in the date input.
 ##### Usage
-- Use the text prop to define the pattern for displaying the date and time in the date input.
+- Use the pattern prop to define the pattern for displaying the date and time in the date input.
 - You can use placeholders such as {weekDay}, {day}, {month}, {monthString}, {year}, and {hour} to represent the components of the date and time.
 Available placeholders:
  - {weekDay}: Full name of the day of the week (e.g., Monday, Tuesday).
@@ -585,12 +585,12 @@ Available placeholders:
     value={value}
     onChange={(newValue)=>setValue(newValue)}
     
-    text='{weekDay} {day} {monthString} {year}'
+    pattern='{weekDay} {day} {monthString} {year}'
 />
 ```
-![alt text](/images/date-text.gif)
+![alt text](/images/date-patern.png)
 
-## date (dateAttrs props)
+### date (dateAttrs prop)
 ##### The dateAttrs prop allows you to customize the attributes of each date element in the calendar. It is a function that receives an object with properties dateArray, isToday, isActive, and isMatch.
 ##### also you can disabled each date element for prevent select by user
 Here's what each property represents:
@@ -635,7 +635,7 @@ dateAttrs={({ isMatch }) => {
     }
 }}
 ```
-#### Date Comparison Conditions
+### Date Comparison Conditions
 Each string in the array represents a date comparison condition in the format operator,date1[,date2]:
 
 - operator: The comparison operator. Available operators include:
@@ -672,12 +672,19 @@ Each string in the array represents a date comparison condition in the format op
     }}
 />
 ```
-#### In this example:
+##### In this example:
 
 - Dates before February 3, 2022, will have the color red.
 - Dates between March 3, 2022, and April 5, 2023, will have the color orange.
 - Dates after 2024/4/5 will be disabled
 
+### date (option prop)
+this will cause to close popover after select date.
+``` javascript
+option={{
+  close:true
+}}
+```
 
 # type="time"
 #### basic example

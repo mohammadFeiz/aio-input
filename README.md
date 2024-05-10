@@ -795,7 +795,7 @@ disabled | boolean or array of numbers | false | Specifies whether the spinner i
 rotate | number(0 to 360) |	0	| Rotate all elements of the spinner (including scales, labels, point and handle) by the specified degree.
 ranges | function | ()=>[[end, `1 100 #ddd`]] | A function that get spinner value as parameter and returns An array of ranges where each range is defined by a value and a configuration string as array.
 
-#### handle prop
+- ### handle prop
 The handle function takes the current value of the spinner and details object as parameter and returns an object with properties to customize the appearance of the handle:
 - `size` (number): The size of the handle as percentage of spinner size prop. default is 90.
 - `thickness` (number): The thickness of the handle as percentage of spinner size prop. default is 10.
@@ -803,7 +803,7 @@ The handle function takes the current value of the spinner and details object as
 - `color` (string): The css color of the handle. default is '#000'.
 - `attrs` (object): the custom attributes of handle. default is {}
 
-#### point prop
+- ### point prop
 The point prop is a function that takes the current value of the slider as a parameter and returns an object with properties to customize the appearance and behavior of the slider's thumb (point):
 - `size` (number): The size of the point as percentage of spinner size prop. default is 27
 - `thickness` (number): The thickness of the point border as percentage of spinner size prop. default is 2.
@@ -812,14 +812,14 @@ The point prop is a function that takes the current value of the slider as a par
 - `attrs` (object): the custom attributes of point. default is {}
 - `html` (jsx/html): The HTML content of the point. default is spinner value number.
 
-#### labels prop
+- ### labels prop
 The labels prop is an object with the following properties:
 
 - `step` (number): The step size for displaying labels on the slider track.
 - `list` (array of numbers): The exact values for displaying labels on the slider track.
 - `dynamic` (boolean): Determines whether labels should be updated in each render. Setting dynamic to true may cause performance issues, especially with a large number of labels. By default, dynamic is set to false.
 
-#### label prop
+- ### label prop
 The label prop is a function that takes the current value of the slider as a parameter and returns an object with properties to customize the appearance and content of labels:
 
 - `size` (number): The font size of the label as percentage of spinner size prop. default is 15.
@@ -829,7 +829,7 @@ The label prop is a function that takes the current value of the slider as a par
 - `attrs` (object): An object containing custom HTML attributes to apply to the label.
 - `fixAngle` (boolean): fix label content angle. default is true
 
-#### ranges prop
+- ### ranges prop
 Each range in the ranges prop is defined by an array containing two elements:
 
 1- Value (number): The value at which the range begins.

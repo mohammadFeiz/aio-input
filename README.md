@@ -66,6 +66,14 @@
 - textarea (if set options)
 - color (if set options)
 
+# multiple types (can select more than one option)
+- multiselect
+- radio (if set multiple props true)
+- buttons (if set multiple props true)
+- file (if set multiple props true)
+- slider (if set multiple props true)
+- spinner (if set multiple props true)
+
 # toggle types
 - checkbox
 - radio
@@ -236,6 +244,7 @@ Props | Type | Default | Description
 ----- | ---- | ------- | -----------
 disabled | boolean | false | make input disabled
 placeholder | string | --- | input placeholder
+maxLength | number | Infinity | When `maxLength` is set to a number, the input field will limit the number of characters the user can input to the specified maximum length.
 attrs | object | undefined | Use the attrs prop to set any additional attributes for the parent <div> element of input.
 inputAttrs | object | undefined | Use the inputAttrs prop to set any additional attributes for the <input> element.
 style | object | undefined | Use the style prop to apply custom CSS styles to the input element.
@@ -386,9 +395,9 @@ options | array | Required | Use the options prop to provide a list of options t
 option | object of functions | undefined | Specifies custom properties for rendering and controlling each option in the dropdown list.
 caret | boolean or jsx/html | true | Set caret to false to hide the default caret when options are provided. Set caret to a ReactNode to render a custom caret element instead of the default caret when options are provided.
 text | string | undefined | Use the text prop to specify the text to be displayed as the text of multiselect input.
-maxLength | number | undefined | Use the maxLength prop to define the maximum number of selected options allowed in the multiselect input.
 hideTags | boolean | false | Set hideTags to true to hide the selected options as tags under the multiselect input.
 checkIcon | object or array | undefined | Use the checkIcon prop to apply custom styles to the checkbox icon in the multiselect options.also can be an array with two members: the first member represents the unchecked custom checkbox, and the second member represents the checked custom checkbox.
+maxLength | number | undefined | Use the maxLength prop to define the maximum number of selected options allowed in the multiple input types. use if multiple prop is true.
 
 
 # type="tabs"
@@ -448,12 +457,13 @@ after | html/jsx | undefined | Use the after prop to render additional content a
 before | html/jsx | undefined | Use the before prop to render additional content before the input element within your component.
 loading | boolean | false | Set loading to true to disable the input and display a spinning loader icon after the input.
 options | array | Required | Use the options prop to provide a list of options to be displayed in a dropdown list below the input element.
-multiple | boolean | false | Set multiple to true to allow selecting multiple options in the radio input.
-maxLength | number | undefined | Use the maxLength prop to define the maximum number of selected options allowed in the radio input.use if multiple prop is true.
 option | object of functions | undefined | Specifies custom properties for rendering and controlling each option in the dropdown list.
 checkIcon | object or array | undefined | Use the checkIcon prop to apply custom styles to the checkbox icon in the multiselect options.also can be an array with two members: the first member represents the unchecked custom checkbox, and the second member represents the checked custom checkbox.
+multiple | boolean | false | Set multiple true to accept value as array of values. 
+maxLength | number | undefined | Use the maxLength prop to define the maximum number of selected options allowed in the multiple input types. use if multiple prop is true.
 
 # type="buttons"
+![alt text](/images/buttons.png)
 #### basic example
 ``` javascript
 import AIOInput from "aio-input";
@@ -480,10 +490,10 @@ before | html/jsx | undefined | Use the before prop to render additional content
 loading | boolean | false | Set loading to true to disable the input and display a spinning loader icon after the input.
 options | array | Required | Use the options prop to provide a list of options to be displayed in a dropdown list below the input element.
 multiple | boolean | false | Set multiple to true to allow selecting multiple options in the radio input.
-maxLength | number | undefined | Use the maxLength prop to define the maximum number of selected options allowed in the radio input.use if multiple prop is true.
 option | object of functions | undefined | Specifies custom properties for rendering and controlling each option in the dropdown list.
 deSelect | boolean or function | false | Set deSelect to true to make the value of the component undefined when the user clicks on a selected option again. Set deSelect to a function to call the provided function when the user clicks on a selected option again.
-
+multiple | boolean | false | Set multiple true to accept value as array of values. 
+maxLength | number | undefined | Use the maxLength prop to define the maximum number of selected options allowed in the multiple input types. use if multiple prop is true.
 
 # type="checkbox"
 #### basic example

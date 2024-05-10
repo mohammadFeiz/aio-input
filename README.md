@@ -365,6 +365,7 @@ text | string | undefined | Use the text prop to specify the text to be displaye
 
 
 # type="multiselect"
+![alt text](/images/multiselect.gif)
 #### basic example
 ``` javascript
 import AIOInput from "aio-input";

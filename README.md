@@ -783,10 +783,7 @@ start	| number | 0 | The start value of the range.
 end	| number | 100 | The end value of the range.
 step | number |	1	| The step size for change the range value.
 onChange | function	| undefined |	A callback function to handle value changes.
-labels | object	{ step: number,list:array of numbers,dynamic:boolean } | undefined | Configuration for displaying labels on the range track.
-label |	function | A function to customize the appearance and content of each label. get value and details object as parameter and returns an object contain label configuration.
-scales | object	{ step: number,list:array of numbers,dynamic:boolean } | undefined | Configuration for displaying scales on the range track.
-scale | function | undefined | A function to customize the appearance of scale indicators.get value and details object as parameter and returns an object contain scale configuration.
+labels | array of { step: number,list:array of numbers,dynamic:boolean,setting:function } | undefined | Configuration for displaying labels on the spinner.
 handle | function	| undefined | A function to customize the appearance of the handle. get value and details object as parameter and returns an object contain handle configuration.
 point | function	| undefined | A function to customize the appearance of the range point. get value and details object as parameter and returns an object contain point configuration.
 round | number | 1 | The extent of the circular slider in terms of a fraction of a full circle (0 to 1).
@@ -813,21 +810,16 @@ The point prop is a function that takes the current value of the slider as a par
 - `html` (jsx/html): The HTML content of the point. default is spinner value number.
 
 - ### labels prop
-The labels prop is an object with the following properties:
+The labels prop is an array object with the following properties:
 
-- `step` (number): The step size for displaying labels on the slider track.
-- `list` (array of numbers): The exact values for displaying labels on the slider track.
-- `dynamic` (boolean): Determines whether labels should be updated in each render. Setting dynamic to true may cause performance issues, especially with a large number of labels. By default, dynamic is set to false.
-
-- ### label prop
-The label prop is a function that takes the current value of the slider as a parameter and returns an object with properties to customize the appearance and content of labels:
-
-- `size` (number): The font size of the label as percentage of spinner size prop. default is 15.
-- `offset` (number): The distance of the label from the center of the spinner. default value is 60.
-- `color` (string): color string to apply to the label. default is '#333'.
-- `html` (React element | string): The HTML content of the label. It can be a React element or a string. If it's a React element, it will be rendered as is. If it's a string, it will be displayed as plain text.
-- `attrs` (object): An object containing custom HTML attributes to apply to the label.
-- `fixAngle` (boolean): fix label content angle. default is true
+- `step` (number): The step size for displaying labels on the spinner.
+- `list` (array of numbers): The exact values for displaying labels on the spinner.
+- `dynamic` (boolean): Determines whether labels should be updated in each render. Setting dynamic to true may cause performance issues, especially with a large number of labels. **default is false**.
+- `zIndex` (number): z-index css property of labels set. **default is 0**.
+- `setting` (function): setting property is a function that takes the current value of the slider and details object as parameter and returns an object with properties to customize the appearance and content of labels:
+  - `offset` (number): The distance of the label from the center of the spinner by percentage related to size of spinner. **default is 60** .(0 is on center and 50 is on edge of spinner).
+  - `html` (React element | string): The HTML content of the label. It can be a React element or a string. If it's a React element, it will be rendered as is. If it's a string, it will be displayed as plain text.
+  - `fixAngle` (boolean): fix label content angle. **default is false**
 
 - ### ranges prop
 Each range in the ranges prop is defined by an array containing two elements:

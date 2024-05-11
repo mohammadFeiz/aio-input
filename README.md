@@ -823,7 +823,7 @@ The labels prop is an object with the following properties:
 The label prop is a function that takes the current value of the slider as a parameter and returns an object with properties to customize the appearance and content of labels:
 
 - `size` (number): The font size of the label as percentage of spinner size prop. default is 15.
-- `offset` (number): The distance of the label from the center of the spinner. default value is 116.
+- `offset` (number): The distance of the label from the center of the spinner. default value is 60.
 - `color` (string): color string to apply to the label. default is '#333'.
 - `html` (React element | string): The HTML content of the label. It can be a React element or a string. If it's a React element, it will be rendered as is. If it's a string, it will be displayed as plain text.
 - `attrs` (object): An object containing custom HTML attributes to apply to the label.

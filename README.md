@@ -1037,8 +1037,8 @@ height | number or string | undefined | The height of the image input.
   reverse |	boolean |	false |	Whether to reverse the direction of the slider (clockwise vs. counterclockwise).
   disabled | boolean or array of numbers | false | Specifies whether the spinner is disabled or an array of values to disable partially.
   rotate | number(0 to 360) |	0	| Rotate all elements of the spinner (including scales, labels, point and handle) by the specified degree.
-  ranges | function | ()=>[[end, `1 100 #ddd`]] | A function that get spinner value as parameter and returns An array of ranges where each range is defined by a value and a configuration string as array.
-  circles | array of strings | [] | An array of circles by a configuration string as array.
+  ranges | array | [[end, `1 100 #ddd`]] | An array of ranges where each range is defined by a value and a configuration string as array.
+  circles | array of strings | [] | An array of circles by a configuration string.
   
   ### handle prop
   The handle function takes the current value of the spinner and details object as parameter and returns an object with properties to customize the appearance of the handle:
@@ -1046,11 +1046,11 @@ height | number or string | undefined | The height of the image input.
   - `thickness` (number): The thickness of the handle as percentage of spinner size prop. default is 10.
   - `offset` (number): The distance of the handle from the center of the slider as percentage of spinner size prop. default is 0.
   - `color` (string): The css color of the handle. default is '#000'.
-  - `attrs` (object): the custom attributes of handle. default is {}
+  - `sharp` (boolean): set true to set handle triangle.
   ----------------------------------------------------------------------
   ### point prop
   The point prop is a function that takes the current value of the slider as a parameter and returns an object with properties to customize the appearance and behavior of the slider's thumb (point):
-  - `offset` (number): The distance of the point from the center of the spinner. default value is 100
+  - `offset` (number): The distance of the point from the edge of the spinner. default value is 0.
   - `attrs` (object): the custom attributes of point. default is {}
   - `html` (jsx/html): The HTML content of the point. default is spinner value number.
   ----------------------------------------------------------------------
@@ -1065,22 +1065,35 @@ height | number or string | undefined | The height of the image input.
   
       Property | Type | Default | Description
       -------- | ---- | ------- | -----------
-      offset | number | 60 | The distance of the label from the center of the spinner by percentage related to size of spinner. (0 is on center and 50 is on edge of spinner).
+      offset | number | 0 | The distance of the label from the edge of the spinner. (0 is on the edge).
       html | JSX/HTML | '' | The HTML content of the label. It can be a React element or a string. If it's a React element, it will be rendered as is. If it's a string, it will be displayed as plain text.
       fixAngle | boolean | false | fix label content angle.
   ---------------------------------------------------------------------
   ### ranges prop
-  Each range in the ranges prop is defined by an array containing two elements:
+  Each range in the array of ranges prop is defined by an array containing two elements:
   
   1- Value (number): The value at which the range begins.
   2- Configuration string (string): A string containing four parameters separated by a space:
-  - `Thickness`: The thickness of the range indicator.
-  - `Distance` from edge: The distance of the range indicator from the edge of the slider.
-  - `Color`: The color of the range indicator.
-  - `Round line cap`: A boolean value (0 or 1) indicating whether the line cap of the range should be rounded.
+  - `Thickness` : The thickness of the range indicator.
+  - `Distance` : The distance of the range indicator from the edge of the slider. (by 0 value range lines will be on edge of spinner).
+  - `Color` : The color of the range indicator.
+  - `Round line cap` : A boolean value (0 or 1) indicating whether the line cap of the range should be rounded.
   
-  for example `[100,'3 100 #555 1']` means :
-  range line to 100 value by Thickness : 3%, Distance from center : 100%, Color : #555 and Round Cap : true
+  for example `[100,'3 0 #555 1']` means :
+  range line to 100 value by Thickness : 3px, Distance from edge : 0px, Color : #555 and Round Cap : true
+  ---------------------------------------------------------------------------------
+  ### circles prop
+  Each circle in the circles prop is an string configuration:
+  
+  Configuration string (string): A string containing five parameters separated by a space:
+  - `Thickness` : The thickness of the range indicator.
+  - `Radius` : The radius of the circle indicator.
+  - `Color` : The color of the circle.
+  - `Round line cap` : A boolean value (0 or 1) indicating whether the line cap of the circle should be rounded.
+  - `full` : A boolean value (0 or 1) indicating whether the circle should be full rounded if round props is not 1.
+  
+  for example `'3 40 #555 1 1'` means :
+  circle by Thickness : 3px, Radius : 40px, Color : #555, Round Cap : true and full rounded 
   ---------------------------------------------------------------------------------
   ### basic example
   ``` javascript
@@ -1093,7 +1106,7 @@ height | number or string | undefined | The height of the image input.
           value={value}
           start={0}
           end={100}
-          size={200}
+          size={100}
           onChange={setValue}
           labels={[
               {
@@ -1104,7 +1117,7 @@ height | number or string | undefined | The height of the image input.
                       return {
                           html: <div style={style}>{content}</div>,
                           color:'#333',
-                          offset:60,
+                          offset:20,
                           fixAngle:true
                       };
                   }
@@ -1114,13 +1127,13 @@ height | number or string | undefined | The height of the image input.
                   setting:(value)=>{
                       let offset,height,width,background;
                       if(value % 10 === 0){
-                          offset = 42;
+                          offset = -5;
                           height = 5;
                           width = 5;
                           background = '#333'
                       }
                       else {
-                          offset = 43;
+                          offset = -4;
                           height = 2;
                           width = 2;
                           background = '#888';
@@ -1135,11 +1148,10 @@ height | number or string | undefined | The height of the image input.
           ]}
           point={()=>{
               return {
-                  offset:124,
+                  offset:20,
                   attrs:{
                       style:{
-                          color:'dodgerblue',
-                          background:'#f2f2f2'
+                          boxShadow:'0 0 8px 0 rgba(0,0,0,0.4)'
                       }
                   }
               }
@@ -1150,17 +1162,17 @@ height | number or string | undefined | The height of the image input.
                   size: 80,
                   offset: 5,
                   color: '#333',
+                  sharp:true
               }
           }}
           disabled={[0, 25, 75]} // Array of values to disable partially
           circles={[
-              '3 8 #333',
-              '1 92 #ccc'
+              '10 3 #333'
           ]}
           ranges={()=>[
-            [20, '5 80 #ff0000'], // Range from 0 to 20
-            [70, '5 80 orange'], // Range from 20 to 100
-            [100, '5 80 green'] // Range from 20 to 100
+            [20, '5 10 #ff0000'], // Range from 0 to 20
+            [70, '5 10 orange'], // Range from 20 to 100
+            [100, '5 10 green'] // Range from 20 to 100
           ]}
       />
     );

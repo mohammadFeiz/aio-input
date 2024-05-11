@@ -791,6 +791,7 @@ reverse |	boolean |	false |	Whether to reverse the direction of the slider (cloc
 disabled | boolean or array of numbers | false | Specifies whether the spinner is disabled or an array of values to disable partially.
 rotate | number(0 to 360) |	0	| Rotate all elements of the spinner (including scales, labels, point and handle) by the specified degree.
 ranges | function | ()=>[[end, `1 100 #ddd`]] | A function that get spinner value as parameter and returns An array of ranges where each range is defined by a value and a configuration string as array.
+circles | array of strings | [] | An array of circles by a configuration string as array.
 
 ### handle prop
 The handle function takes the current value of the spinner and details object as parameter and returns an object with properties to customize the appearance of the handle:

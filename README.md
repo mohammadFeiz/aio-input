@@ -17,11 +17,9 @@
 - color
 - textarea
 - select
-- multiselect
 - date
 - time
 - radio
-- checklist
 - checkbox
 - tabs
 - buttons
@@ -45,7 +43,6 @@
 
 # dropdown types
 - select
-- multiselect
 - text (if set options)
 - textarea (if set options)
 - number (if set options)
@@ -55,7 +52,6 @@
 
 # selective types (has options)
 - select
-- multiselect
 - radio
 - checklist
 - tabs
@@ -67,7 +63,7 @@
 - color (if set options)
 
 # multiple types (can select more than one option)
-- multiselect
+- select (if set multiple props true)
 - radio (if set multiple props true)
 - buttons (if set multiple props true)
 - file (if set multiple props true)
@@ -149,7 +145,7 @@ A function called for each option in the options array. It takes the original op
 - `close` (Boolean): If content is in a popover and set to true, clicking will close the popover.
 - `justify` (Boolean): If set to true, the container will be justified.
 - `disabled` (Boolean): If set to true, the option will be disabled.
-- `tagAttrs` (Object): Custom attributes of the option in a multiselect type tags.
+- `tagAttrs` (Object): Custom attributes of the option tags.
 - `tagBefore` (HTMLElement): Custom element to be used before the tag.
 - `tagAfter` (HTMLElement): Custom element to be used after the tag.
 ``` javascript
@@ -465,56 +461,13 @@ option | object of functions | undefined | Specifies custom properties for rende
 caret | boolean or jsx/html | true | Set caret to false to hide the default caret when options are provided. Set caret to a ReactNode to render a custom caret element instead of the default caret when options are provided.
 deSelect | boolean or function | false | Set deSelect to true to make the value of the component undefined when the user clicks on a selected option again. Set deSelect to a function to call the provided function when the user clicks on a selected option again.
 text | string | undefined | Use the text prop to specify the text to be displayed as the selected option in the select input. When text is set, the provided text will be displayed instead of the text of the selected option.
-
-</details>
-
-<details>
-
-<summary>    
-  
-# type="multiselect"  
-
-</summary>
-
-![alt text](/images/multiselect.gif)
-
-#### basic example
-
-``` javascript
-import AIOInput from "aio-input";
-function Example(){
-  let [value,setValue] = useState([]);
-  return (
-      <AIOInput
-          type='multiselect'
-          value={value}
-          onChange={(newValue)=>setValue(newValue)}
-      />
-  )
-}
-```
-
-#### other props in type="multiselect"
-
-Props | Type | Default | Description
------ | ---- | ------- | -----------
-disabled | boolean | false | make input disabled
-attrs | object | undefined | Use the attrs prop to set any additional attributes for the parent <div> element of input.
-style | object | undefined | Use the style prop to apply custom CSS styles to the input element.
-className | string | undefined | custom clasName
-after | html/jsx | undefined | Use the after prop to render additional content after the input element within your component.
-before | html/jsx | undefined | Use the before prop to render additional content before the input element within your component.
-subtext | string | undefined | Use the subtext prop to display additional text below the input element.
-loading | boolean | false | Set loading to true to disable the input and display a spinning loader icon after the input.
-options | array | Required | Use the options prop to provide a list of options to be displayed in a dropdown list below the input element.
-option | object of functions | undefined | Specifies custom properties for rendering and controlling each option in the dropdown list.
-caret | boolean or jsx/html | true | Set caret to false to hide the default caret when options are provided. Set caret to a ReactNode to render a custom caret element instead of the default caret when options are provided.
-text | string | undefined | Use the text prop to specify the text to be displayed as the text of multiselect input.
 hideTags | boolean | false | Set hideTags to true to hide the selected options as tags under the multiselect input.
 checkIcon | object or array | undefined | Use the checkIcon prop to apply custom styles to the checkbox icon in the multiselect options.also can be an array with two members: the first member represents the unchecked custom checkbox, and the second member represents the checked custom checkbox.
 maxLength | number | undefined | Use the maxLength prop to define the maximum number of selected options allowed in the multiple input types. use if multiple prop is true.
 
 </details>
+
+<details>
 
 <details>
 

@@ -1,3 +1,662 @@
+# aio-input
+#### generate all inputs in react.
+
+- full customizable
+- same config of all types (simple to learn syntax)
+- all you need in one package (complete all requirements of web aplications and websites)
+- lightweight (70kb)
+- collaborative
+- have document and ai learned
+
+### first it is very important to categrize this 24 input types
+
+### types
+- text
+- number
+- password
+- color
+- textarea
+- select
+- multiselect
+- date
+- time
+- radio
+- checklist
+- checkbox
+- tabs
+- buttons
+- table
+- form
+- tree
+- acardion
+- slider
+- spinner
+- list
+- image
+- file
+
+
+# basic types
+- text
+- number
+- textarea
+- password
+- color
+
+# dropdown types
+- select
+- multiselect
+- text (if set options)
+- textarea (if set options)
+- number (if set options)
+- date (dropdown contain calendar)
+- time (dropdown contain time popup)
+- button (if set popover)
+
+# selective types (has options)
+- select
+- multiselect
+- radio
+- checklist
+- tabs
+- buttons
+- tree
+- text (if set options)
+- number (if set options)
+- textarea (if set options)
+- color (if set options)
+
+# multiple types (can select more than one option)
+- multiselect
+- radio (if set multiple props true)
+- buttons (if set multiple props true)
+- file (if set multiple props true)
+- slider (if set multiple props true)
+- spinner (if set multiple props true)
+
+# toggle types
+- checkbox
+- radio
+- multiselect
+- tree (if set option.checked)
+
+# range types
+- slider
+- spinner
+
+# collection types (inline edit and data entry)
+- form
+- table
+- tree
+
+# file types
+- image
+- file
+
+# date and time types
+- date
+- time
+
+# other types
+- button
+- list
+
+
+# public props
+prop | type | default | description
+---- | ---- | ------- | -----------
+placeholder | string | undefined | guiding users on the expected format or content or show instead empty contents.
+disabled | boolean | false | make input disabled.
+loading | boolean | false | make input disabled and show loader after.
+before | jsx | undefined | use input before content.
+after | jsx | undefined | use input after content.
+justify | boolean | false | make content justify.
+attrs | attributes object | {} | custom input container standard html attributes.
+style | style object | {} | custom input container style object.
+className | string | undefined | custom input container className.
+subtext | string | undefined | input subtext. show under input.
+options | array of any | required in some input types | input selective options.use in selective input types.
+option | object contain functions or string | configure each option.use in selective types.
+caret | false or jsx | default caret | caret icon of dropdown inputs. set false to hide and set jsx to cutomize. use in dropdown types.
+popover | object | undefined | customize input popover. use in dropdown types like.
+checkIcon | array of 2 jsx | array of default checkboxes | customize check icon in toggle types like `checkbox` , `radio` , `multiselect` and `tree`.
+justNumber | boolean or array of characters | false | When justNumber is set to true, the input field will only accept numerical values.When justNumber is an array of strings, the input field will accept numerical values along with the specified characters in the array. use in `text` , `textarea` and `password` input types.
+filter | array of characters | [] | When filter is set to an array of strings, the input field will disallow the specified characters from being entered by the user. use in `text` , `textarea` and `password` types.
+maxLength | number | Infinity | When maxLength is set to a number, the input field will limit the number of characters the user can input to the specified maximum length. use in `text` , `textarea` , `password` input types.
+inputAttrs | attributes object | {} | set starndard input attributes like set accept attribute in type file. use in `text` , `number` , `textarea` , `color` , `file` and `password` types.
+multiple | boolean or number | false | Enables multiple selection mode. If true, allows selecting multiple options. If a number, limits the maximum number of selections.
+
+# options and option props
+set options prop as selective options and option prop to configure each option.
+`options` (Array)
+- An array containing options for the selectable component.
+
+-option (Function)
+A function called for each option in the options array. It takes the original option and details as parameters and returns an object containing option configurations.
+
+#### Option Configuration Properties
+- `text` (String): Text presentation of the option.
+- `value` (String): Unique value of the option.
+- `before` (HTMLElement): HTML element to be used before the option element.
+- `after` (HTMLElement): HTML element to be used after the option element.
+- `subtext` (String): Subtext to be rendered at the bottom of the option.
+- `checked` (Boolean): If false, renders an unchecked checkbox before the option; if true, renders a checked checkbox before the option.
+- `checkIcon` (String): Customizes the checkbox of the option if checked is a boolean.
+- `attrs` (Object): Standard attributes of the option element container.
+- `className` (String): Sets a custom className to the option element container.
+- `style` (Object): Sets a custom style object to the option element container.
+- `onClick` (Function): Sets a custom onClick event to the option element container; setting this will prevent default actions.
+- `close` (Boolean): If content is in a popover and set to true, clicking will close the popover.
+- `justify` (Boolean): If set to true, the container will be justified.
+- `disabled` (Boolean): If set to true, the option will be disabled.
+- `tagAttrs` (Object): Custom attributes of the option in a multiselect type tags.
+- `tagBefore` (HTMLElement): Custom element to be used before the tag.
+- `tagAfter` (HTMLElement): Custom element to be used after the tag.
+``` javascript
+<AIOInput
+  type='select'
+  options={[
+    {name:'john',id:'1',gender:'male',color:'#ff0000'},
+    {name:'stephan',id:'2',gender:'male',color:'#ffa500'},
+    {name:'edvard',id:'3',gender:'male',color:'#ffff00'},
+    {name:'luis',id:'4',gender:'male',color:'#9acd32'},
+    {name:'carlos',id:'5',gender:'male',color:'#90ee90'}
+  ]}
+  option={{
+    text:(option)=>option.name,
+    value:(option)=>option.id,
+    before:(option)=><Icon path={option.gender === 'male'?mdiHumanMale:mdiHumanFemale} size={0.8}/>,
+    after:(option)=><div style={{color:'#fff',background:option.gender === 'male'?'blue':'pink'}}>{option.gender}</div>,
+    subtext:(option)=>option.id,
+    checked:(option)=>option.id === selectedUserId,
+    checkIcon:()=>[
+        <Icon path={mdiCheckboxBlankOutline} size={0.7} color='#ddd'/>,
+        <Icon path={mdiCheckboxMarked} size={0.7} color='#5400ff'/>
+    ],
+    attrs:(option)=>{
+      return {
+        title:option.name
+      }
+    },
+    className:(option)=>`my-option my-option-${option.gender}`,
+    style:(option)=>{
+      return {borderBottom:`1px solid ${option.gender === 'male'?'blue':'pink'`}
+    },
+    disabled:(option)=>option.gender === 'male'
+  }}
+/>
+```
+![alt text](/images/option.png)
+
+<details>
+
+<summary>    
+  
+# type="text"  
+
+</summary>
+
+#### basic example
+
+``` javascript
+import AIOInput from "aio-input";
+function Example(){
+  let [value,setValue] = useState();
+  return (
+      <AIOInput
+          type='text'
+          value={value}
+          onChange={(newValue)=>setValue(newValue)}
+      />
+  )
+}
+```
+
+#### other props in type="text"
+
+Props | Type | Default | Description
+----- | ---- | ------- | -----------
+disabled | boolean | false | make input disabled
+placeholder | string | --- | input placeholder
+justNumber | Boolean or Array | false | When justNumber is set to true, the input field will only accept numerical values.When justNumber is an array of strings, the input field will accept numerical values along with the specified characters in the array.
+maxLength | number | undefined | When maxLength is set to a number, the input field will limit the number of characters the user can input to the specified maximum length.
+filter | array of strings | undefined | When filter is set to an array of strings, the input field will disallow the specified characters from being entered by the user.
+attrs | object | undefined | Use the attrs prop to set any additional attributes for the parent <div> element of input.
+inputAttrs | object | undefined | Use the inputAttrs prop to set any additional attributes for the <input> element.
+style | object | undefined | Use the style prop to apply custom CSS styles to the input element.
+className | string | undefined | custom clasName
+after | html/jsx | undefined | Use the after prop to render additional content after the input element within your component.
+before | html/jsx | undefined | Use the before prop to render additional content before the input element within your component.
+subtext | string | undefined | Use the subtext prop to display additional text below the input element.
+loading | boolean | false | Set loading to true to disable the input and display a spinning loader icon after the input.
+options | array | undefined | Use the options prop to provide a list of options to be displayed in a dropdown list below the input element.
+option | object of functions | undefined | Specifies custom properties for rendering and controlling each option in the dropdown list.
+caret | boolean or jsx/html | true | Set caret to false to hide the default caret when options are provided. Set caret to a ReactNode to render a custom caret element instead of the default caret when options are provided.
+
+
+</details>
+
+<details>
+
+<summary>    
+  
+# type="number"  
+
+</summary>
+
+#### basic example
+
+``` javascript
+import AIOInput from "aio-input";
+function Example(){
+  let [value,setValue] = useState(0);
+  return (
+      <AIOInput
+          type='number'
+          value={value}
+          onChange={(newValue)=>setValue(newValue)}
+      />
+  )
+}
+```
+
+#### other props in type="number"
+
+Props | Type | Default | Description
+----- | ---- | ------- | -----------
+disabled | boolean | false | make input disabled
+placeholder | string | --- | input placeholder
+maxLength | number | Infinity | When `maxLength` is set to a number, the input field will limit the number of characters the user can input to the specified maximum length.
+attrs | object | undefined | Use the attrs prop to set any additional attributes for the parent <div> element of input.
+inputAttrs | object | undefined | Use the inputAttrs prop to set any additional attributes for the <input> element.
+style | object | undefined | Use the style prop to apply custom CSS styles to the input element.
+className | string | undefined | custom clasName
+after | html/jsx | undefined | Use the after prop to render additional content after the input element within your component.
+before | html/jsx | undefined | Use the before prop to render additional content before the input element within your component.
+subtext | string | undefined | Use the subtext prop to display additional text below the input element.
+loading | boolean | false | Set loading to true to disable the input and display a spinning loader icon after the input.
+options | array | undefined | Use the options prop to provide a list of options to be displayed in a dropdown list below the input element.
+option | object of functions | undefined | Specifies custom properties for rendering and controlling each option in the dropdown list.
+max | number | undefined | Use the min prop to set the minimum value allowed for the input.
+min | number | undefined | Use the min prop to set the maximum value allowed for the input.
+swip | number | 0 | Use the swipe prop to enable swiping functionality on a number input.The value of swipe determines the speed of value change when swiping the mouse up or down.A non-zero value will enable swiping, where the absolute value indicates the speed of change.
+spin | boolean | true | Set spin to false to hide the spin buttons of the input.
+caret | boolean or jsx/html | true | Set caret to false to hide the default caret when options are provided. Set caret to a ReactNode to render a custom caret element instead of the default caret when options are provided.
+
+
+</details>
+
+<details>
+
+<summary>    
+  
+# type="password"  
+
+</summary>
+
+#### basic example
+
+``` javascript
+import AIOInput from "aio-input";
+function Example(){
+  let [value,setValue] = useState();
+  return (
+      <AIOInput
+          type='password'
+          value={value}
+          onChange={(newValue)=>setValue(newValue)}
+      />
+  )
+}
+```
+
+#### other props in type="password"
+
+Props | Type | Default | Description
+----- | ---- | ------- | -----------
+disabled | boolean | false | make input disabled
+placeholder | string | --- | input placeholder
+justNumber | Boolean or Array | false | When justNumber is set to true, the input field will only accept numerical values.When justNumber is an array of strings, the input field will accept numerical values along with the specified characters in the array.
+maxLength | number | undefined | When maxLength is set to a number, the input field will limit the number of characters the user can input to the specified maximum length.
+filter | array of strings | undefined | When filter is set to an array of strings, the input field will disallow the specified characters from being entered by the user.
+attrs | object | undefined | Use the attrs prop to set any additional attributes for the parent <div> element of input.
+inputAttrs | object | undefined | Use the inputAttrs prop to set any additional attributes for the <input> element.
+style | object | undefined | Use the style prop to apply custom CSS styles to the input element.
+className | string | undefined | custom clasName
+after | html/jsx | undefined | Use the after prop to render additional content after the input element within your component.
+before | html/jsx | undefined | Use the before prop to render additional content before the input element within your component.
+subtext | string | undefined | Use the subtext prop to display additional text below the input element.
+loading | boolean | false | Set loading to true to disable the input and display a spinning loader icon after the input.
+
+
+
+
+</details>
+
+<details>
+
+<summary>    
+  
+# type="textarea"  
+
+</summary>
+
+#### basic example
+
+``` javascript
+import AIOInput from "aio-input";
+function Example(){
+  let [value,setValue] = useState();
+  return (
+      <AIOInput
+          type='textarea'
+          value={value}
+          onChange={(newValue)=>setValue(newValue)}
+      />
+  )
+}
+```
+
+#### other props in type="textarea"
+
+Props | Type | Default | Description
+----- | ---- | ------- | -----------
+disabled | boolean | false | make input disabled
+placeholder | string | --- | input placeholder
+justNumber | Boolean or Array | false | When justNumber is set to true, the input field will only accept numerical values.When justNumber is an array of strings, the input field will accept numerical values along with the specified characters in the array.
+maxLength | number | undefined | When maxLength is set to a number, the input field will limit the number of characters the user can input to the specified maximum length.
+filter | array of strings | undefined | When filter is set to an array of strings, the input field will disallow the specified characters from being entered by the user.
+attrs | object | undefined | Use the attrs prop to set any additional attributes for the parent <div> element of input.
+inputAttrs | object | undefined | Use the inputAttrs prop to set any additional attributes for the <input> element.
+style | object | undefined | Use the style prop to apply custom CSS styles to the input element.
+className | string | undefined | custom clasName
+after | html/jsx | undefined | Use the after prop to render additional content after the input element within your component.
+before | html/jsx | undefined | Use the before prop to render additional content before the input element within your component.
+subtext | string | undefined | Use the subtext prop to display additional text below the input element.
+loading | boolean | false | Set loading to true to disable the input and display a spinning loader icon after the input.
+options | array | undefined | Use the options prop to provide a list of options to be displayed in a dropdown list below the input element.
+option | object of functions | undefined | Specifies custom properties for rendering and controlling each option in the dropdown list.
+caret | boolean or jsx/html | true | Set caret to false to hide the default caret when options are provided. Set caret to a ReactNode to render a custom caret element instead of the default caret when options are provided.
+
+</details>
+
+<details>
+
+<summary>    
+  
+# type="checkbox"  
+
+</summary>
+
+#### basic example
+
+``` javascript
+import AIOInput from "aio-input";
+function Example(){
+  let [value,setValue] = useState(false);
+  return (
+      <AIOInput
+          type='checkbox'
+          value={value}
+          onChange={(newValue)=>setValue(newValue)}
+      />
+  )
+}
+```
+
+#### other props in type="checkbox"
+
+Props | Type | Default | Description
+----- | ---- | ------- | -----------
+disabled | boolean | false | make input disabled
+attrs | object | undefined | Use the attrs prop to set any additional attributes for the parent <div> element of input.
+style | object | undefined | Use the style prop to apply custom CSS styles to the input element.
+className | string | undefined | custom clasName
+after | html/jsx | undefined | Use the after prop to render additional content after the input element within your component.
+before | html/jsx | undefined | Use the before prop to render additional content before the input element within your component.
+subtext | string | undefined | Use the subtext prop to display additional text below the input element.
+loading | boolean | false | Set loading to true to disable the input and display a spinning loader icon after the input.
+text | string | undefined | Use the text prop to specify the text to be displayed as the text of checkbox input.
+checkIcon | object or array | undefined | Use the checkIcon prop to apply custom styles to the checkbox icon in the multiselect options.also can be an array with two members: the first member represents the unchecked custom checkbox, and the second member represents the checked custom checkbox.
+
+</details>
+
+<details>
+
+<summary>    
+  
+# type="select"  
+
+</summary>
+
+![alt text](/images/select.gif)
+
+#### basic example
+
+``` javascript
+import AIOInput from "aio-input";
+function Example(){
+  let [value,setValue] = useState();
+  return (
+      <AIOInput
+          type='select'
+          value={value}
+          onChange={(newValue)=>setValue(newValue)}
+      />
+  )
+}
+```
+
+#### other props in type="select"
+
+Props | Type | Default | Description
+----- | ---- | ------- | -----------
+disabled | boolean | false | make input disabled
+placeholder | string | undefined | input placeholder
+attrs | object | undefined | Use the attrs prop to set any additional attributes for the parent <div> element of input.
+style | object | undefined | Use the style prop to apply custom CSS styles to the input element.
+className | string | undefined | custom clasName
+after | html/jsx | undefined | Use the after prop to render additional content after the input element within your component.
+before | html/jsx | undefined | Use the before prop to render additional content before the input element within your component.
+subtext | string | undefined | Use the subtext prop to display additional text below the input element.
+loading | boolean | false | Set loading to true to disable the input and display a spinning loader icon after the input.
+options | array | Required | Use the options prop to provide a list of options to be displayed in a dropdown list below the input element.
+option | object of functions | undefined | Specifies custom properties for rendering and controlling each option in the dropdown list.
+caret | boolean or jsx/html | true | Set caret to false to hide the default caret when options are provided. Set caret to a ReactNode to render a custom caret element instead of the default caret when options are provided.
+deSelect | boolean or function | false | Set deSelect to true to make the value of the component undefined when the user clicks on a selected option again. Set deSelect to a function to call the provided function when the user clicks on a selected option again.
+text | string | undefined | Use the text prop to specify the text to be displayed as the selected option in the select input. When text is set, the provided text will be displayed instead of the text of the selected option.
+
+</details>
+
+<details>
+
+<summary>    
+  
+# type="multiselect"  
+
+</summary>
+
+![alt text](/images/multiselect.gif)
+
+#### basic example
+
+``` javascript
+import AIOInput from "aio-input";
+function Example(){
+  let [value,setValue] = useState([]);
+  return (
+      <AIOInput
+          type='multiselect'
+          value={value}
+          onChange={(newValue)=>setValue(newValue)}
+      />
+  )
+}
+```
+
+#### other props in type="multiselect"
+
+Props | Type | Default | Description
+----- | ---- | ------- | -----------
+disabled | boolean | false | make input disabled
+attrs | object | undefined | Use the attrs prop to set any additional attributes for the parent <div> element of input.
+style | object | undefined | Use the style prop to apply custom CSS styles to the input element.
+className | string | undefined | custom clasName
+after | html/jsx | undefined | Use the after prop to render additional content after the input element within your component.
+before | html/jsx | undefined | Use the before prop to render additional content before the input element within your component.
+subtext | string | undefined | Use the subtext prop to display additional text below the input element.
+loading | boolean | false | Set loading to true to disable the input and display a spinning loader icon after the input.
+options | array | Required | Use the options prop to provide a list of options to be displayed in a dropdown list below the input element.
+option | object of functions | undefined | Specifies custom properties for rendering and controlling each option in the dropdown list.
+caret | boolean or jsx/html | true | Set caret to false to hide the default caret when options are provided. Set caret to a ReactNode to render a custom caret element instead of the default caret when options are provided.
+text | string | undefined | Use the text prop to specify the text to be displayed as the text of multiselect input.
+hideTags | boolean | false | Set hideTags to true to hide the selected options as tags under the multiselect input.
+checkIcon | object or array | undefined | Use the checkIcon prop to apply custom styles to the checkbox icon in the multiselect options.also can be an array with two members: the first member represents the unchecked custom checkbox, and the second member represents the checked custom checkbox.
+maxLength | number | undefined | Use the maxLength prop to define the maximum number of selected options allowed in the multiple input types. use if multiple prop is true.
+
+</details>
+
+<details>
+
+<summary>    
+  
+# type="tabs"  
+
+</summary>
+
+![alt text](/images/tabs.gif)
+
+#### basic example
+``` javascript
+import AIOInput from "aio-input";
+function Example(){
+  let [value,setValue] = useState([]);
+  return (
+      <AIOInput
+          type='tabs'
+          value={value}
+          onChange={(newValue)=>setValue(newValue)}
+      />
+  )
+}
+```
+
+#### other props in type="tabs"
+
+Props | Type | Default | Description
+----- | ---- | ------- | -----------
+disabled | boolean | false | make input disabled
+attrs | object | undefined | Use the attrs prop to set any additional attributes for the parent <div> element of input.
+style | object | undefined | Use the style prop to apply custom CSS styles to the input element.
+className | string | undefined | custom clasName
+after | html/jsx | undefined | Use the after prop to render additional content after the input element within your component.
+before | html/jsx | undefined | Use the before prop to render additional content before the input element within your component.
+subtext | string | undefined | Use the subtext prop to display additional text below the input element.
+loading | boolean | false | Set loading to true to disable the input and display a spinning loader icon after the input.
+options | array | Required | Use the options prop to provide a list of options to be displayed in a dropdown list below the input element.
+option | object of functions | undefined | Specifies custom properties for rendering and controlling each option in the dropdown list.
+deSelect | boolean or function | false | Set deSelect to true to make the value of the component undefined when the user clicks on a selected option again. Set deSelect to a function to call the provided function when the user clicks on a selected option again.
+
+</details>
+
+<details>
+
+<summary>    
+  
+# type="radio"  
+
+</summary>
+
+#### basic example
+
+``` javascript
+import AIOInput from "aio-input";
+function Example(){
+  let [value,setValue] = useState('3');
+  return (
+      <AIOInput
+          type='radio'
+          value={value}
+          onChange={(newValue)=>setValue(newValue)}
+      />
+  )
+}
+```
+
+#### other props in type="radio"
+
+![alt text](/images/radio.gif)
+
+Props | Type | Default | Description
+----- | ---- | ------- | -----------
+disabled | boolean | false | make input disabled
+attrs | object | undefined | Use the attrs prop to set any additional attributes for the parent <div> element of input.
+style | object | undefined | Use the style prop to apply custom CSS styles to the input element.
+className | string | undefined | custom clasName
+after | html/jsx | undefined | Use the after prop to render additional content after the input element within your component.
+before | html/jsx | undefined | Use the before prop to render additional content before the input element within your component.
+loading | boolean | false | Set loading to true to disable the input and display a spinning loader icon after the input.
+options | array | Required | Use the options prop to provide a list of options to be displayed in a dropdown list below the input element.
+option | object of functions | undefined | Specifies custom properties for rendering and controlling each option in the dropdown list.
+checkIcon | object or array | undefined | Use the checkIcon prop to apply custom styles to the checkbox icon in the multiselect options.also can be an array with two members: the first member represents the unchecked custom checkbox, and the second member represents the checked custom checkbox.
+multiple | boolean | false | Set multiple true to accept value as array of values. 
+maxLength | number | undefined | Use the maxLength prop to define the maximum number of selected options allowed in the multiple input types. use if multiple prop is true.
+
+#### radio multiple true
+
+![alt text](/images/radio-multiple.gif)
+
+</details>
+
+<details>
+
+<summary>    
+  
+# type="buttons"  
+
+</summary>
+
+# type="buttons"
+
+![alt text](/images/buttons.gif)
+
+#### basic example
+
+``` javascript
+import AIOInput from "aio-input";
+function Example(){
+  let [value,setValue] = useState('2');
+  return (
+      <AIOInput
+          type='buttons'
+          value={value}
+          onChange={(newValue)=>setValue(newValue)}
+      />
+  )
+}
+```
+
+#### other props in type="buttons"
+
+Props | Type | Default | Description
+----- | ---- | ------- | -----------
+disabled | boolean | false | make input disabled
+attrs | object | undefined | Use the attrs prop to set any additional attributes for the parent <div> element of input.
+style | object | undefined | Use the style prop to apply custom CSS styles to the input element.
+className | string | undefined | custom clasName
+after | html/jsx | undefined | Use the after prop to render additional content after the input element within your component.
+before | html/jsx | undefined | Use the before prop to render additional content before the input element within your component.
+loading | boolean | false | Set loading to true to disable the input and display a spinning loader icon after the input.
+options | array | Required | Use the options prop to provide a list of options to be displayed in a dropdown list below the input element.
+option | object of functions | undefined | Specifies custom properties for rendering and controlling each option in the dropdown list.
+deSelect | boolean or function | false | Set deSelect to true to make the value of the component undefined when the user clicks on a selected option again. Set deSelect to a function to call the provided function when the user clicks on a selected option again.
+multiple | boolean | false | Set multiple to true to allow selecting multiple options in the buttons input.
+maxLength | number | undefined | Use the maxLength prop to define the maximum number of selected options allowed in the multiple input types. use if multiple prop is true.
+
+multiple buttons
+![alt text](/images/buttons-multiple.gif)
+
+</details>
 
 <details>
 

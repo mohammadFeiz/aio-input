@@ -463,7 +463,6 @@ deSelect | boolean or function | false | Set deSelect to true to make the value 
 text | string | undefined | Use the text prop to specify the text to be displayed as the selected option in the select input. When text is set, the provided text will be displayed instead of the text of the selected option.
 hideTags | boolean | false | Set hideTags to true to hide the selected options as tags under the multiselect input.
 checkIcon | object or array | undefined | Use the checkIcon prop to apply custom styles to the checkbox icon in the multiselect options.also can be an array with two members: the first member represents the unchecked custom checkbox, and the second member represents the checked custom checkbox.
-maxLength | number | undefined | Use the maxLength prop to define the maximum number of selected options allowed in the multiple input types. use if multiple prop is true.
 
 </details>
 
@@ -552,8 +551,7 @@ loading | boolean | false | Set loading to true to disable the input and display
 options | array | Required | Use the options prop to provide a list of options to be displayed in a dropdown list below the input element.
 option | object of functions | undefined | Specifies custom properties for rendering and controlling each option in the dropdown list.
 checkIcon | object or array | undefined | Use the checkIcon prop to apply custom styles to the checkbox icon in the multiselect options.also can be an array with two members: the first member represents the unchecked custom checkbox, and the second member represents the checked custom checkbox.
-multiple | boolean | false | Set multiple true to accept value as array of values. 
-maxLength | number | undefined | Use the maxLength prop to define the maximum number of selected options allowed in the multiple input types. use if multiple prop is true.
+multiple | boolean or number | false | Enables multiple selection mode. If true, allows selecting multiple options. If a number, limits the maximum number of selections.
 
 #### radio multiple true
 
@@ -603,8 +601,7 @@ loading | boolean | false | Set loading to true to disable the input and display
 options | array | Required | Use the options prop to provide a list of options to be displayed in a dropdown list below the input element.
 option | object of functions | undefined | Specifies custom properties for rendering and controlling each option in the dropdown list.
 deSelect | boolean or function | false | Set deSelect to true to make the value of the component undefined when the user clicks on a selected option again. Set deSelect to a function to call the provided function when the user clicks on a selected option again.
-multiple | boolean | false | Set multiple to true to allow selecting multiple options in the buttons input.
-maxLength | number | undefined | Use the maxLength prop to define the maximum number of selected options allowed in the multiple input types. use if multiple prop is true.
+multiple | boolean or number | false | Enables multiple selection mode. If true, allows selecting multiple options. If a number, limits the maximum number of selections.
 
 multiple buttons
 ![alt text](/images/buttons-multiple.gif)

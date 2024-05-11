@@ -775,7 +775,7 @@ height | number or string | undefined | The height of the image input.
 
 # type="spinner"
 this input type is a round range selector. its configuration is same as slider input type.
-#### spinner props:
+### spinner props:
 Props | Type | Default | Description
 ----- | ---- | ------- | -----------
 value | number | undefined | The current value of the range.
@@ -802,10 +802,7 @@ The handle function takes the current value of the spinner and details object as
 ----------------------------------------------------------------------
 ### point prop
 The point prop is a function that takes the current value of the slider as a parameter and returns an object with properties to customize the appearance and behavior of the slider's thumb (point):
-- `size` (number): The size of the point as percentage of spinner size prop. default is 27
-- `thickness` (number): The thickness of the point border as percentage of spinner size prop. default is 2.
 - `offset` (number): The distance of the point from the center of the spinner. default value is 100
-- `color` (string): color string to apply to the point. default is '#333'.
 - `attrs` (object): the custom attributes of point. default is {}
 - `html` (jsx/html): The HTML content of the point. default is spinner value number.
 ----------------------------------------------------------------------
@@ -834,10 +831,10 @@ Each range in the ranges prop is defined by an array containing two elements:
 - `Color`: The color of the range indicator.
 - `Round line cap`: A boolean value (0 or 1) indicating whether the line cap of the range should be rounded.
 
-#### for example `[100,'3 100 #555 1']` means :
+for example `[100,'3 100 #555 1']` means :
 range line to 100 value by Thickness : 3%, Distance from center : 100%, Color : #555 and Round Cap : true
-  
-#### basic example
+---------------------------------------------------------------------------------
+### basic example
 ``` javascript
 import AIOInput from "aio-input";
 function MyComponent() {

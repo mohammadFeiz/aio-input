@@ -1217,39 +1217,39 @@ function MyComponent() {
   const [value,setValue] = useState(data)
   return (
     <AIOInput 
-      type={'tree'}
-      value={[...value]}
-      onAdd={{name:'New Name',value:'a' + Math.round(Math.random())}}
-      onRemove={true}
-      onChange={(value)=>setValue(value)}
-      size={48}
-      options={[
-          {
-              text:'Preview',
-              value:'preview',
-              before:<Icon path={mdiEye} size={0.7}/>,
-              onClick:(row:any,parent:any)=>{
-                  alert(row.name)
-              }
-          }
-      ]}
-      option={{
-          text:'option.name',
-          value:'option.id',
-          checked:(row)=>{
-              return !!row.active
-          },
-          subtext:(row)=>row.id,
-          before:()=><Icon path={mdiFolder} size={0.6} color='#ffef17'/>,
-          after:(row)=>row.active?'active':'deactive',
-          checkIcon:()=>[<Icon path={mdiCheckboxBlankOutline} size={0.7} color='#ddd'/>,<Icon path={mdiCheckboxMarked} size={0.7} color='#5400ff'/>],
-          onClick:(row)=>{
-              row.active = !row.active;
-              //very important to use ... before value
-              setValue([...value])
-          }
-      }}
-  />
+        type={'tree'}
+        value={[...value]}
+        onAdd={{name:'New Name',value:'a' + Math.round(Math.random())}}
+        onRemove={true}
+        onChange={(value)=>setValue(value)}
+        size={48}
+        options={[
+            {
+                text:'Preview',
+                value:'preview',
+                before:<Icon path={mdiEye} size={0.7}/>,
+                onClick:(row:any,parent:any)=>{
+                    alert(row.name)
+                }
+            }
+        ]}
+        option={{
+            text:'option.name',
+            value:'option.id',
+            checked:(row)=>{
+                return !!row.active
+            },
+            subtext:(row)=>row.id,
+            before:()=><Icon path={mdiFolder} size={0.6} color='#ffef17'/>,
+            after:(row)=>row.active?'active':'deactive',
+            checkIcon:()=>[<Icon path={mdiCheckboxBlankOutline} size={0.7} color='#ddd'/>,<Icon path={mdiCheckboxMarked} size={0.7} color='#5400ff'/>],
+            onClick:(row)=>{
+                row.active = !row.active;
+                //very important to use ... before value
+                setValue([...value])
+            }
+        }}
+    />
   );
 }
   ```

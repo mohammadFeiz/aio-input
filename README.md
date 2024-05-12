@@ -1254,9 +1254,9 @@ function MyComponent() {
 
 <details>
 
-<summaryt>
+<summary>
 
-# Form Input Type
+# type='form'
 
 </summary>
   

@@ -16,6 +16,10 @@ also by set multiple prop, this types are avilable:
 - `checklist` by set multiple prop in **radio** type
 - `range slider` by set multiple prop in **slider** type
 
+collection types are **form** and **table** types that can take all input types to modify set of data:
+- in input type `form` you can use all this types as elements of form. form get an object as value and inputs object by definition fields and will pass changed value automatically by onChange prop
+- in input type `table` you can use all this types as table cell content. table get an array of objects as table rows by value prop and input object in columns prop will be props of each cell input. by change each input , table onChange will pass changed rows automatically.
+
 # public props
 prop | type | default | description
 ---- | ---- | ------- | -----------

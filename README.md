@@ -1252,3 +1252,144 @@ function MyComponent() {
 </details>
 
 
+<details>
+
+<summaryt>
+
+# Form Input Type
+
+</summary>
+  
+The form input type in AIOInput enables users to create dynamic forms with various input fields, offering flexibility in layout and customization. This documentation provides a detailed overview and usage guide for utilizing the form type effectively in your applications.
+
+## Overview
+
+The form input type allows developers to construct forms with diverse input fields, accommodating different data entry requirements. Users can define the layout, behavior, and validation rules for each input field, making it suitable for a wide range of use cases, from simple contact forms to complex data entry interfaces.
+
+### Example Usage
+
+```jsx
+import React, { useState } from 'react';
+import AIOInput from 'aio-input';
+
+function MyComponent() {
+    const [formData, setFormData] = useState({
+        active: false,
+        firstname: '',
+        description: '',
+        date: ''
+    });
+
+    return (
+        <AIOInput
+            type='form'
+            value={{ ...formData }}
+            onChange={(newFormData) => setFormData({ ...newFormData })}
+            inputs={{
+                column: [
+                    {
+                        row: [
+                            {
+                                input: {
+                                    type: 'checkbox',
+                                    text: 'Is Active'
+                                },
+                                label: 'Is Active',
+                                field: 'value.active'
+                            },
+                            {
+                                input: {
+                                    type: 'text'
+                                },
+                                label: 'First Name',
+                                field: 'value.firstname'
+                            }
+                        ]
+                    },
+                    {
+                        column: [
+                            {
+                                input: {
+                                    type: 'textarea'
+                                },
+                                label: 'Description',
+                                field: 'value.description'
+                            },
+                            {
+                                input: {
+                                    type: 'date'
+                                },
+                                label: 'Date',
+                                field: 'value.date'
+                            }
+                        ]
+                    }
+                ]
+            }}
+        />
+    );
+}
+```
+### Inputs Prop
+The inputs prop is the main configuration object for defining the layout and properties of the form inputs. It consists of an array of nodes, each representing a group of input fields or custom content. The structure of each node determines its placement and arrangement within the form.
+
+#### Input Prop
+The input prop within each node's configuration specifies the type and properties of the input field. It can be any valid input type supported by AIOInput, such as text, checkbox, select, textarea, etc. Additionally, developers can customize the appearance, behavior, and validation rules of each input field according to their requirements.
+
+#### Properties
+type: The type of input field to render.
+...: Any additional properties specific to the chosen input type.
+Node Structure
+Each node in the inputs configuration object represents a group of input fields or custom content to be displayed within the form. Nodes can be organized horizontally or vertically using the row and column properties, respectively.
+
+- `row`
+An array of nodes to be displayed horizontally within the form. Inputs specified within a row will be laid out side by side.
+
+- `column`
+An array of nodes to be displayed vertically within the form. Inputs specified within a column will be stacked on top of each other.
+
+- `html`
+Custom JSX content to be rendered within the form. This allows developers to include additional elements or components as needed for form customization.
+
+- `size`
+Specifies the size (width or height) of the node within the form layout. This property helps control the spacing and alignment of inputs within the form.
+
+- `flex`
+Sets the flex style of the node, allowing it to stretch to fill available space within the form layout. Flexibility in sizing ensures optimal responsiveness and adaptability across different screen sizes and devices.
+
+- `field`
+Specifies the field in the value prop that should be updated when the input value changes. This property enables two-way binding between form inputs and the component's state, ensuring synchronization and consistency of data.
+
+#### Example Node
+``` javascript
+{
+    row: [
+        {
+            input: {
+                type: 'checkbox',
+                text: 'Is Active'
+            },
+            label: 'Is Active',
+            field: 'value.active'
+        },
+        {
+            input: {
+                type: 'text'
+            },
+            label: 'First Name',
+            field: 'value.firstname'
+        }
+    ]
+}
+
+```
+In this example, a row node contains a checkbox input followed by a text input, both arranged horizontally within the form.
+
+Conclusion
+The form input type in AIOInput offers a powerful and flexible solution for creating dynamic forms with customizable input fields. By leveraging the inputs configuration object and its properties, developers can easily define the layout, behavior, and validation rules of their forms, catering to diverse application requirements and user needs.
+
+</details>
+
+
+
+

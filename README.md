@@ -61,7 +61,7 @@ attrs | object | Standard attributes of the option element container.
 className | string | Sets a custom className to the option element container.
 style | object | Sets a custom style object to the option element container.
 onClick | function | Sets a custom onClick event to the option element container; setting this will prevent default actions.
-close` | boolean | If content is in a popover and set to true, clicking will close the popover.
+close | boolean | If content is in a popover and set to true, clicking will close the popover.
 justify | boolean | If set to true, the container will be justified.
 disabled | boolean | If set to true, the option will be disabled.
 tagAttrs | object | Custom attributes of the option tags.
@@ -133,7 +133,7 @@ tagAfter | HTMLElement | Custom element to be used after the tag.
   - Enables multiple selection mode. If true, allows selecting multiple options. If a number, limits the maximum number of selections.
 - enable multiple in select type will generate `multiselect` input by showing selected tags
 - enable multiple in radio type will generate `checklist` input.
-- enable multiple in slider type will generate `range slider` input by more that one point to select a range of values.
+- enable multiple in slider type will generate `range slider` input by more than one point to select a range of values.
 
 <details>
 

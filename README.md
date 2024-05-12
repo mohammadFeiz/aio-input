@@ -936,6 +936,48 @@ height | number or string | undefined | The height of the image input.
 </details>
 
 <details>
+<summary>    
+  
+# type="file"  
+
+</summary> 
+
+#### basic example
+
+``` javascript
+import AIOInput from "aio-input";
+function Example(){
+  let [value,setValue] = useState();
+  return (
+      <AIOInput
+          type='file'
+          value={value}
+          onChange={(newValue)=>setValue(newValue)}
+      />
+  )
+}
+```
+
+#### other props in type="image"
+
+Props | Type | Default | Description
+----- | ---- | ------- | -----------
+disabled | boolean | false | make input disabled
+attrs | object | undefined | Use the attrs prop to set any additional attributes for the parent <div> element of input.
+style | object | undefined | Use the style prop to apply custom CSS styles to the input element.
+className | string | undefined | custom clasName
+text | string | undefined | Specifies the text for displaying in the file input box.
+after | html/jsx | undefined | Use the after prop to render additional content after the input element within your component.
+before | html/jsx | undefined | Use the before prop to render additional content before the input element within your component.
+subtext | string | undefined | Use the subtext prop to display additional text below the input element.
+loading | boolean | false | Set loading to true to disable the input and display a spinning loader icon after the input.
+preview | boolean | false | If set to true, in list of selected file under input, small preview of file will be displayed.
+multiple | boolean or number | false | Enables multiple selection mode. If true, allows selecting multiple files. If a number, limits the maximum number of file selections.
+
+
+</details>
+
+<details>
   <summary>
     
   # type="spinner"

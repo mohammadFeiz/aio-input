@@ -1400,31 +1400,6 @@ The inputs prop is the main configuration object for defining the layout and pro
 Node Structure
 Each node in the inputs configuration object represents a group of input fields or custom content to be displayed within the form. Nodes can be organized horizontally or vertically using the row and column properties, respectively.
 
-
-#### Example Node
-``` javascript
-{
-    row: [
-        {
-            input: {
-                type: 'checkbox',
-                text: 'Is Active'
-            },
-            label: 'Is Active',
-            field: 'value.active'
-        },
-        {
-            input: {
-                type: 'text'
-            },
-            label: 'First Name',
-            field: 'value.firstname'
-        }
-    ]
-}
-
-```
-
 ### node properties:
 
 - `row`

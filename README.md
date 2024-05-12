@@ -1441,5 +1441,276 @@ The form input type in AIOInput offers a powerful and flexible solution for crea
 </details>
 
 
+<details>
 
+<summary>
+
+# Make Gauge By type='spinner'
+  
+</summary>
+
+![alt text](/images/gauge1.png)
+
+``` jsx
+<AIOInput
+    type='spinner' 
+    size={120}
+    value={value} 
+    start={0} end={100} step={1}
+    round={0.5}
+    onChange={(newValue)=>setValue(newValue)}
+    handle={false}
+    point={false}
+    labels={[
+        {
+            step:10,
+            setting:(value)=>{
+                return {
+                    offset:16,fixAngle:true,
+                    html:(
+                        <div style={{fontSize:10,color:'#999'}}>{value}</div>
+                    )
+                }
+            }
+        },
+        {
+            step:10,
+            setting:(value)=>{
+                return {
+                    offset:5,
+                    html:(
+                        <div style={{height:1,width:4,background:'#ccc'}}></div>
+                    )
+                }
+            }
+        }
+    ]}
+    ranges={[
+        [value,'20 0 rgb(140,198,64)'],
+        [100,'20 0 #eee']
+    ]}
+    text={()=>{
+        return (
+            <div className='gauge-html'>
+                <div className='gauge-text'>{`${value}%`}</div>
+                <div className='gauge-subtext'>Metric</div>
+            </div>
+        )
+    }}
+/>
+```
+
+![alt text](/images/gauge2.png)
+
+``` jsx
+<AIOInput
+    type='spinner' 
+    size={120}
+    value={value} 
+    start={0} end={100} step={1}
+    round={0.75}
+    onChange={(newValue)=>setValue(newValue)}
+    handle={false}
+    point={false}
+    ranges={[
+        [value,'20 0 #EE5723'],
+        [100,'20 0 #eee']
+    ]}
+    labels={[
+        {
+            step:10,
+            setting:(value)=>{
+                return {
+                    offset:16,
+                    fixAngle:true,
+                    html:(
+                        <div style={{fontSize:10,color:'#999'}}>{value}</div>
+                    )
+                }
+            }
+        },
+        {
+            step:5,
+            setting:(value)=>{
+                return {
+                    offset:5,
+                    html:(
+                        <div style={{height:1,width:4,background:'#ccc'}}></div>
+                    )
+                }
+            }
+        }
+    ]}
+    text={()=>{
+        return (
+            <div className='gauge-html'>
+                <div className='gauge-text'>{`${value}%`}</div>
+                <div className='gauge-subtext'>Metric</div>
+            </div>
+        )
+    }}
+/>
+```
+
+![alt text](/images/gauge3.png)
+
+``` jsx
+<AIOInput
+    type='spinner' 
+    size={160}
+    value={value} 
+    start={0} end={200} step={1}
+    round={0.75}
+    onChange={(newValue)=>setValue(newValue)}
+    point={false}
+    handle={()=>{
+        return {
+            width:6,
+            height:52,
+            color:'red',
+            offset:5,
+            sharp:true
+        }
+    }}
+    ranges={[
+        [150,'10 8 green'],
+        [200,'10 8 orange']
+    ]}
+    circles={[
+        '1 100 #ccc',
+        '3 5 red 0 1'
+    ]}
+    labels={[
+        {
+            step:25,
+            setting:(value)=>{
+                return {
+                    offset:16,
+                    fixAngle:true,
+                    html:<div style={{fontSize:10,color:'#999'}}>{value}</div>
+                }
+            }
+        },
+        {
+            step:25,
+            setting:(value)=>{
+                return {
+                    offset:-5,
+                    html:<div style={{width:4,height:1,background:'#aaa'}}></div>
+                }
+            }
+        }
+    ]}
+/>
+```
+
+![alt text](/images/gauge4.png)
+
+``` jsx
+<AIOInput
+    type='spinner' 
+    size={160}
+    value={value} 
+    start={0} end={140} step={1}
+    round={1}
+    onChange={(newValue)=>setValue(newValue)}
+    point={false}
+    handle={false}
+    ranges={[
+        [value,'8 0 #1367bb 1']
+    ]}
+    circles={[
+        '8 80 #ddd 0 1',
+    ]}
+    rotate={180}
+    reverse={true}
+    labels={[
+        {
+            step:20,
+            setting:(value)=>{
+                return {
+                    html:<div style={{fontSize:12,color:'#666',fontFamily:'Arial'}}>{value}</div>,
+                    offset:-28,
+                    fixAngle:true
+                }
+            }
+        },
+        {
+            step:10,
+            setting:(value)=>{
+                let width,offset;
+                if(value % 20 === 0){
+                    width = 10;
+                    offset = -12;
+                }
+                else {
+                    width = 6;
+                    offset = -10
+                }
+                let style = {height:1,width,background:'#444'};
+                return {
+                    html:<div style={style}></div>,
+                    offset
+                }
+            }
+        }
+    ]}
+    text={()=><div style={{fontSize:10,color:'#000',fontWeight:'bold'}}>Temperature</div>}
+/>
+```
+
+![alt text](/images/gauge5.png)
+
+``` jsx
+<AIOInput
+    type='spinner' 
+    style={{border:'none'}}
+    size={120}
+    value={value} 
+    start={0} end={100} step={1}
+    round={0.75}
+    onChange={(newValue)=>setValue(newValue)}
+    circles={['1 60 #ccc']}
+    handle={()=>{
+        return {
+            thickness:10,
+            size:-8,
+            color:'dodgerblue',
+            offset:60
+        }
+    }}
+    point={false}
+    labels={[
+        {
+            step:10,
+            setting:(value)=>{
+                return {
+                    fixAngle:true,
+                    offset:16,
+                    html:<div style={{fontSize:10,color:'#999'}}>{value}</div>
+                }
+            }
+        },
+        {
+            step:10,
+            setting:()=>{
+                return {
+                    offset:6,
+                    html:<div style={{height:1,width:4,background:'#333'}}></div>
+                }
+            }
+        }
+    ]}
+    text={()=>{
+        return (
+            <div className='gauge-html'>
+                <div className='gauge-text'>{`${value}%`}</div>
+                <div className='gauge-subtext'>Metric</div>
+            </div>
+        )
+    }}
+/>
+```
+
+</details>
 

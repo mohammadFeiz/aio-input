@@ -31,17 +31,6 @@
 - image
 - file
 
-
-
-
-# multiple types (can select more than one option)
-- select (if set multiple props true)
-- radio (if set multiple props true)
-- buttons (if set multiple props true)
-- file (if set multiple props true)
-- slider (if set multiple props true)
-- spinner (if set multiple props true)
-
 # public props
 prop | type | default | description
 ---- | ---- | ------- | -----------
@@ -152,6 +141,16 @@ A function called for each option in the options array. It takes the original op
   header | object contain {attrs:Object,title:string,close:boolean} | undefined | if set title or close, a header content will render in top of popover. title is header title and if close set true , close button will be rendered. for customize header you can set attrs property. 
 
   all this properties are optional
+
+# multiple props
+
+- use in this types:
+  - `select` `radio` `buttons` `file` `slider` `spinner`
+- boolean or number :
+  - Enables multiple selection mode. If true, allows selecting multiple options. If a number, limits the maximum number of selections.
+- enable multiple in select type will generate `multiselect` input by showing selected tags
+- enable multiple in radio type will generate `checklist` input.
+- enable multiple in slider type will generate `range slider` input by more that one point to select a range of values.
 
 <details>
 

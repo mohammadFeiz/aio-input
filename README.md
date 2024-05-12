@@ -1135,6 +1135,14 @@ height | number or string | undefined | The height of the image input.
   - `value` : Returns the value associated with the node (use as node id).
   - `before` : Returns the jsx/html to be displayed before the tree node.
   - `onClick` : Function to be called when the user clicks on the node.
+  - `subtext` : Rerurns Subtext to be rendered at the bottom of the tree node.
+  - `checked` : Returns boolean. If false, renders an unchecked checkbox before the option; if true, renders a checked checkbox before the tree node.
+  - `checkIcon` Returns array of 2 jsx/html as unckecked and checked icon. Customizes the checkbox of the tree node if checked is a boolean.
+  - `attrs` Returns object. Standard attributes of the tree node element container.
+  - `className` Returns string. Sets a custom className to the tree node element.
+  - `style` Returns object. Sets a custom style object to the tree node element.
+  - `disabled` Returns boolean. If set to true, the tree node will be disabled.
+
   ----------------------------------------------------------------------
   
   ### basic example
@@ -1167,6 +1175,37 @@ function MyComponent() {
   ```
 ![alt text](/images/tree.gif)
 
+### Inline Edit Ability for Tree Text
+The tree input type in AIOInput allows users to utilize any AIOInput input types as text for inline editing within the tree. This feature enhances the usability of the tree component by enabling inline editing directly within the tree structure.
+
+#### How It Works
+When configuring the option prop for the tree input type, developers can specify any AIOInput input types as the text function. This allows the tree nodes to render the specified input types as text, providing users with the ability to edit the text inline.
+
+#### Example Usage
+``` javascript
+import React from 'react';
+import AIOInput from 'aio-input';
+
+function MyComponent() {
+  return (
+    <AIOInput
+      type="tree"
+      value={treeData}
+      option={{
+        text: (node) => (
+          <AIOInput
+            type="text"
+            value={node.label}
+            onChange={(newValue) => handleNodeLabelChange(node, newValue)}
+          />
+        ),
+        value: (node) => node.id,
+        // other configuration options...
+      }}
+    />
+  );
+}
+```
 </details>
 
 

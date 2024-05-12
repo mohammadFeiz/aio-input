@@ -163,7 +163,9 @@ A function called for each option in the options array. It takes the original op
 # popover props
 
 - use in this types:
-  - `select` `text` `textarea` `number` `date` `time` `button`
+  - `select` `date` `time`
+  - `text` `textarea` `number` if set options prop
+  - `button` if you want to set custom popover about button
 - An object to configure input popover contain :
   Property | Type | Default | Description
   -------- | ---- | ------- | -----------

@@ -1090,4 +1090,112 @@ height | number or string | undefined | The height of the image input.
 
 </details>
 
+<details>
+<summary>    
+  
+# type="image"  
+
+</summary> 
+
+#### basic example
+
+``` javascript
+import AIOInput from "aio-input";
+function Example(){
+  let [value,setValue] = useState('https://imgv3.fotor.com/images/blog-cover-image/part-blurry-image.jpg');
+  return (
+      <AIOInput
+          type='image'
+          value={value}
+          onChange={(newValue)=>setValue(newValue)}
+      />
+  )
+}
+```
+
+#### other props in type="image"
+
+Props | Type | Default | Description
+----- | ---- | ------- | -----------
+disabled | boolean | false | make input disabled
+placeholder | string | undefined | input placeholder
+attrs | object | undefined | Use the attrs prop to set any additional attributes for the parent <div> element of input.
+style | object | undefined | Use the style prop to apply custom CSS styles to the input element.
+className | string | undefined | custom clasName
+after | html/jsx | undefined | Use the after prop to render additional content after the input element within your component.
+before | html/jsx | undefined | Use the before prop to render additional content before the input element within your component.
+subtext | string | undefined | Use the subtext prop to display additional text below the input element.
+loading | boolean | false | Set loading to true to disable the input and display a spinning loader icon after the input.
+deSelect | boolean or function | false | If set true, onChange will be called with undefined when clearing the value. If set as a function, this function will be called after clicking on the clear button.
+preview | boolean | false | If set to true, a preview button will be shown on the image. Clicking it will open the image in a popup window.
+width | number or string | undefined | The width of the image input.
+height | number or string | undefined | The height of the image input.
+
+</details>
+
+<details>
+  <summary>
+    
+  # type="tree"
+  
+  </summary> 
+  
+  tree view .
+  each tree node can render an input to change tree composition data.
+  
+  ### tree props:
+  
+  Props | Type | Default | Description
+  ----- | ---- | ------- | -----------
+  value | Composition nested JSON data | required | Represents the current state of the tree.
+  onChange | function	| undefined |	A callback function to handle value changes.
+  onAdd | function or object | undefined | Handles the addition of a new node to the tree.
+  onRemove | function | undefined | Handles the removal of a node from the tree.
+  option | object of functions | undefined | Configures view and actions for each tree node.
+  size | number | 48 | Sets the row height of the tree.
+  indent | number | 12 | Sets the indentation level of nodes.
+  actions | Array of Objects | undefined | Sets custom actions for the row options button dropdown.
+  
+  ### option prop
+  The option prop is an object containing functions that configure the view and actions for each tree node. Each function receives the node object as a parameter and returns the corresponding value.
+  option is public prop of aio-input that i explained it in top of this document.
+  
+  - `text` : Returns jsx/html to be displayed for the node.
+  - `value` : Returns the value associated with the node (use as node id).
+  - `before` : Returns the jsx/html to be displayed before the tree node.
+  - `onClick` : Function to be called when the user clicks on the node.
+  ----------------------------------------------------------------------
+  
+  ### basic example
+  ``` javascript
+import React from 'react';
+import AIOInput from 'aio-input';
+
+function MyComponent() {
+  return (
+    <AIOInput
+      type='tree'
+      value={treeData}
+      onAdd={{ /* predefined node object */ }}
+      onRemove={true}
+      option={{
+        text: (node) => node.label,
+        value: (node) => node.id,
+        before: (node) => <IconComponent />,
+        onClick: (node) => handleNodeClick(node),
+      }}
+      size={32}
+      indent={20}
+      actions={[
+        { text: 'Edit', value: 'edit', onClick: handleEditAction },
+        { text: 'Delete', value: 'delete', onClick: handleDeleteAction },
+      ]}
+    />
+  );
+}
+  ```
+![alt text](/images/tree.gif)
+
+</details>
+
 

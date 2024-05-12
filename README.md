@@ -437,8 +437,6 @@ checkIcon | object or array | undefined | Use the checkIcon prop to apply custom
 
 <details>
 
-<details>
-
 <summary>    
   
 # type="tabs"  

@@ -47,23 +47,26 @@ set options prop as selective options and option prop to configure each option.
 A function called for each option in the options array. It takes the original option and details as parameters and returns an object containing option configurations.
 
 #### Option Configuration Properties
-- `text` (String): Text presentation of the option.
-- `value` (String): Unique value of the option.
-- `before` (HTMLElement): HTML element to be used before the option element.
-- `after` (HTMLElement): HTML element to be used after the option element.
-- `subtext` (String): Subtext to be rendered at the bottom of the option.
-- `checked` (Boolean): If false, renders an unchecked checkbox before the option; if true, renders a checked checkbox before the option.
-- `checkIcon` (String): Customizes the checkbox of the option if checked is a boolean.
-- `attrs` (Object): Standard attributes of the option element container.
-- `className` (String): Sets a custom className to the option element container.
-- `style` (Object): Sets a custom style object to the option element container.
-- `onClick` (Function): Sets a custom onClick event to the option element container; setting this will prevent default actions.
-- `close` (Boolean): If content is in a popover and set to true, clicking will close the popover.
-- `justify` (Boolean): If set to true, the container will be justified.
-- `disabled` (Boolean): If set to true, the option will be disabled.
-- `tagAttrs` (Object): Custom attributes of the option tags.
-- `tagBefore` (HTMLElement): Custom element to be used before the tag.
-- `tagAfter` (HTMLElement): Custom element to be used after the tag.
+
+Property | Type | Description
+-------- | ---- | ----------- 
+text | string | Text presentation of the option.
+value | string | Unique value of the option.
+before | HTMLElement | HTML element to be used before the option element.
+after | HTMLElement | HTML element to be used after the option element.
+subtext | string | Subtext to be rendered at the bottom of the option.
+checked | boolean | If false, renders an unchecked checkbox before the option; if true, renders a checked checkbox before the option.
+checkIcon | string | Customizes the checkbox of the option if checked is a boolean.
+attrs | object | Standard attributes of the option element container.
+className | string | Sets a custom className to the option element container.
+style | object | Sets a custom style object to the option element container.
+onClick | function | Sets a custom onClick event to the option element container; setting this will prevent default actions.
+close` | boolean | If content is in a popover and set to true, clicking will close the popover.
+justify | boolean | If set to true, the container will be justified.
+disabled | boolean | If set to true, the option will be disabled.
+tagAttrs | object | Custom attributes of the option tags.
+tagBefore | HTMLElement | Custom element to be used before the tag.
+tagAfter | HTMLElement | Custom element to be used after the tag.
   
 ``` javascript
 <AIOInput

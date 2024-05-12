@@ -1105,49 +1105,6 @@ height | number or string | undefined | The height of the image input.
 </details>
 
 <details>
-<summary>    
-  
-# type="image"  
-
-</summary> 
-
-#### basic example
-
-``` javascript
-import AIOInput from "aio-input";
-function Example(){
-  let [value,setValue] = useState('https://imgv3.fotor.com/images/blog-cover-image/part-blurry-image.jpg');
-  return (
-      <AIOInput
-          type='image'
-          value={value}
-          onChange={(newValue)=>setValue(newValue)}
-      />
-  )
-}
-```
-
-#### other props in type="image"
-
-Props | Type | Default | Description
------ | ---- | ------- | -----------
-disabled | boolean | false | make input disabled
-placeholder | string | undefined | input placeholder
-attrs | object | undefined | Use the attrs prop to set any additional attributes for the parent <div> element of input.
-style | object | undefined | Use the style prop to apply custom CSS styles to the input element.
-className | string | undefined | custom clasName
-after | html/jsx | undefined | Use the after prop to render additional content after the input element within your component.
-before | html/jsx | undefined | Use the before prop to render additional content before the input element within your component.
-subtext | string | undefined | Use the subtext prop to display additional text below the input element.
-loading | boolean | false | Set loading to true to disable the input and display a spinning loader icon after the input.
-deSelect | boolean or function | false | If set true, onChange will be called with undefined when clearing the value. If set as a function, this function will be called after clicking on the clear button.
-preview | boolean | false | If set to true, a preview button will be shown on the image. Clicking it will open the image in a popup window.
-width | number or string | undefined | The width of the image input.
-height | number or string | undefined | The height of the image input.
-
-</details>
-
-<details>
   <summary>
     
   # type="tree"

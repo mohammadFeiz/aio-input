@@ -1449,6 +1449,8 @@ The form input type in AIOInput offers a powerful and flexible solution for crea
   
 </summary>
 
+## example 1
+
 ![alt text](/images/gauge1.png)
 
 ``` jsx
@@ -1499,6 +1501,8 @@ The form input type in AIOInput offers a powerful and flexible solution for crea
     }}
 />
 ```
+
+## example 2
 
 ![alt text](/images/gauge2.png)
 
@@ -1552,6 +1556,8 @@ The form input type in AIOInput offers a powerful and flexible solution for crea
 />
 ```
 
+## example 3
+
 ![alt text](/images/gauge3.png)
 
 ``` jsx
@@ -1603,6 +1609,8 @@ The form input type in AIOInput offers a powerful and flexible solution for crea
     ]}
 />
 ```
+
+## example 4
 
 ![alt text](/images/gauge4.png)
 
@@ -1658,6 +1666,8 @@ The form input type in AIOInput offers a powerful and flexible solution for crea
     text={()=><div style={{fontSize:10,color:'#000',fontWeight:'bold'}}>Temperature</div>}
 />
 ```
+
+## example 5
 
 ![alt text](/images/gauge5.png)
 

@@ -1269,67 +1269,131 @@ The form input type allows developers to construct forms with diverse input fiel
 ### Example Usage
 
 ```jsx
-import React, { useState } from 'react';
-import AIOInput from 'aio-input';
-
-function MyComponent() {
-    const [formData, setFormData] = useState({
-        active: false,
-        firstname: '',
-        description: '',
-        date: ''
-    });
-
+const Example1: FC = () => {
+    const { code }: I_CTX = useContext(CTX);
+    const [setting, setSetting] = useState<any>()
+    const [log,setLog] = useState<any>()
+    function submit(){
+        setLog(JSON.stringify(setting,null,3))
+    }
     return (
-        <AIOInput
-            type='form'
-            value={{ ...formData }}
-            onChange={(newFormData) => setFormData({ ...newFormData })}
-            inputs={{
-                column: [
-                    {
-                        row: [
-                            {
-                                input: {
-                                    type: 'checkbox',
-                                    text: 'Is Active'
-                                },
-                                label: 'Is Active',
-                                field: 'value.active'
+        <div className='example'>
+            <AIOInput
+                type='form'
+                value={{ ...setting }}
+                onChange={(newFormData) => setSetting({ ...newFormData })}
+                footer={(
+                    <button type='button' className='submit-button' onClick={submit}>Submit</button>
+                )}
+                inputs={{
+                    column: [
+                        {
+                            flex: 1,
+                            input: {
+                                type: 'checkbox',
+                                text: 'Is Active'
                             },
-                            {
-                                input: {
-                                    type: 'text'
-                                },
-                                label: 'First Name',
-                                field: 'value.firstname'
-                            }
-                        ]
-                    },
-                    {
-                        column: [
-                            {
-                                input: {
-                                    type: 'textarea'
-                                },
-                                label: 'Description',
-                                field: 'value.description'
+                            label: 'Is Active',
+                            field: 'value.active'
+                        },
+                        {
+                            flex: 1,
+                            input: {
+                                type: 'text'
                             },
-                            {
-                                input: {
-                                    type: 'date'
-                                },
-                                label: 'Date',
-                                field: 'value.date'
-                            }
-                        ]
-                    }
-                ]
-            }}
-        />
-    );
+                            label: 'First Name',
+                            field: 'value.firstname'
+                        },
+                        {
+                            input: {
+                                type: 'textarea'
+                            },
+                            label: 'Description',
+                            field: 'value.description'
+                        },
+                        {
+                            input: {
+                                type: 'date'
+                            },
+                            label: 'Date',
+                            field: 'value.date'
+                        }
+                    ]
+                }}
+            />
+        </div>
+    )
 }
 ```
+![alt text](/images/form1.png)
+
+```jsx
+const Example1: FC = () => {
+    const { code }: I_CTX = useContext(CTX);
+    const [setting, setSetting] = useState<any>()
+    const [log,setLog] = useState<any>()
+    function submit(){
+        setLog(JSON.stringify(setting,null,3))
+    }
+    return (
+        <div className='example'>
+            <AIOInput
+                type='form'
+                value={{ ...setting }}
+                onChange={(newFormData) => setSetting({ ...newFormData })}
+                footer={(
+                    <button type='button' className='submit-button' onClick={submit}>Submit</button>
+                )}
+                inputs={{
+                    column: [
+                        {
+                            row: [
+                                {
+                                    flex:1,
+                                    input: {
+                                        type: 'checkbox',
+                                        text: 'Is Active'
+                                    },
+                                    label: 'Is Active',
+                                    field: 'value.active'
+                                },
+                                {
+                                    flex:1,
+                                    input: {
+                                        type: 'text'
+                                    },
+                                    label: 'First Name',
+                                    field: 'value.firstname'
+                                }
+                            ]
+                        },
+                        {
+                            column: [
+                                {
+                                    input: {
+                                        type: 'textarea'
+                                    },
+                                    label: 'Description',
+                                    field: 'value.description'
+                                },
+                                {
+                                    input: {
+                                        type: 'date'
+                                    },
+                                    label: 'Date',
+                                    field: 'value.date'
+                                }
+                            ]
+                        }
+                    ]
+                }}
+            />
+        </div>
+    )
+}
+```
+![alt text](/images/form2.png)
+
 ### Inputs Prop
 The inputs prop is the main configuration object for defining the layout and properties of the form inputs. It consists of an array of nodes, each representing a group of input fields or custom content. The structure of each node determines its placement and arrangement within the form.
 

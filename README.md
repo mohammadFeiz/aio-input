@@ -10,10 +10,11 @@
 
 ### avilable types
 `text` `number` `password` `color` `textarea` `select` `date` `time` `radio` `checkbox` `tabs` `buttons` `table` `form` `tree` `acardion` `slider` `spinner` `list` `image` `file`
+
 also by set multiple prop, this types are avilable:
-- `mutiselect` by set multiple prop in select type
-- `checklist` by set multiple prop in radio type
-- `range slider` by set multiple prop in slider type
+- `mutiselect` by set multiple prop in **select** type
+- `checklist` by set multiple prop in **radio** type
+- `range slider` by set multiple prop in **slider** type
 
 # public props
 prop | type | default | description

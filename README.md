@@ -8,8 +8,6 @@
 - collaborative
 - have document and ai learned
 
-### first it is very important to categrize this 24 input types
-
 ### types
 - text
 - number
@@ -34,33 +32,7 @@
 - file
 
 
-# basic types
-- text
-- number
-- textarea
-- password
-- color
 
-# dropdown types
-- select
-- text (if set options)
-- textarea (if set options)
-- number (if set options)
-- date (dropdown contain calendar)
-- time (dropdown contain time popup)
-- button (if set popover)
-
-# selective types (has options)
-- select
-- radio
-- checklist
-- tabs
-- buttons
-- tree
-- text (if set options)
-- number (if set options)
-- textarea (if set options)
-- color (if set options)
 
 # multiple types (can select more than one option)
 - select (if set multiple props true)
@@ -123,6 +95,9 @@ inputAttrs | attributes object | {} | set starndard input attributes like set ac
 multiple | boolean or number | false | Enables multiple selection mode. If true, allows selecting multiple options. If a number, limits the maximum number of selections.
 
 # options and option props
+use in this types:
+`select` `radio` `tabs` `buttons` `tree` `text` `number` `textarea` `color`
+
 set options prop as selective options and option prop to configure each option.
 `options` (Array)
 - An array containing options for the selectable component.
@@ -148,6 +123,7 @@ A function called for each option in the options array. It takes the original op
 - `tagAttrs` (Object): Custom attributes of the option tags.
 - `tagBefore` (HTMLElement): Custom element to be used before the tag.
 - `tagAfter` (HTMLElement): Custom element to be used after the tag.
+  
 ``` javascript
 <AIOInput
   type='select'
@@ -183,6 +159,25 @@ A function called for each option in the options array. It takes the original op
 />
 ```
 ![alt text](/images/option.png)
+
+# popover props
+
+- use in this types:
+  - `select` `text` `textarea` `number` `date` `time` `button`
+- An object to configure input popover contain :
+  Property | Type | Default | Description
+  -------- | ---- | ------- | -----------
+  position | 'fullscreen' or 'center' or 'popover' or 'left' or 'right' or 'top' or 'bottom' | 'popover' | Set popover position
+  backClose | boolean | true | if set true, by click on popover backdrop, popover will be closed.
+  backAttrs | attributes object | {} | set backAttrs to customize popover backdrop attributes.
+  fitHorizontal | boolean | false | set true to fit width of popover to input width.
+  attrs | attributes object | {} | set attrs to customize popover container attributes.
+  body | function | undefined | set custom popover for button type.
+  limitTo | string | undefined | set limitTo to open popover in limit of element selected by limitTo selector.
+  fitTo | string | undefined | set fitTo to open popover by exact size of element selected by fitTo selector.
+  header | object contain {attrs:Object,title:string,close:boolean} | if set title or close, a header content will render in top of popover. title is header title and if close set true , close button will be rendered. for customize header you can set attrs property. 
+
+  all this properties are optional
 
 <details>
 

@@ -42,34 +42,6 @@
 - slider (if set multiple props true)
 - spinner (if set multiple props true)
 
-# toggle types
-- checkbox
-- radio
-- multiselect
-- tree (if set option.checked)
-
-# range types
-- slider
-- spinner
-
-# collection types (inline edit and data entry)
-- form
-- table
-- tree
-
-# file types
-- image
-- file
-
-# date and time types
-- date
-- time
-
-# other types
-- button
-- list
-
-
 # public props
 prop | type | default | description
 ---- | ---- | ------- | -----------

@@ -1192,31 +1192,68 @@ multiple | boolean or number | false | Enables multiple selection mode. If true,
   ``` javascript
 import React from 'react';
 import AIOInput from 'aio-input';
-
+const data = [
+    {
+        name:'row-0',id:'row-0',
+        childs:[
+            {name:'row0-0',id:'row0-0',active:true},
+            {name:'row0-1',id:'row0-1'},
+            {
+                name:'row0-2',id:'row0-2',
+                childs:[
+                    {name:'row0-2-0',id:'row0-2-0'},
+                    {name:'row0-2-1',id:'row0-2-1',active:true},
+                    {name:'row0-2-2',id:'row0-2-2'}                
+                ]
+            },
+            {name:'row0-3',id:'row0-3'}        
+        ]
+    },
+    {name:'row-1',id:'row-1'},
+    {name:'row-2',id:'row-2',active:true},
+    {name:'row-3',id:'row-3'}
+]
 function MyComponent() {
+  const [value,setValue] = useState(data)
   return (
-    <AIOInput
-      type='tree'
-      value={treeData}
-      onAdd={{ /* predefined node object */ }}
+    <AIOInput 
+      type={'tree'}
+      value={[...value]}
+      onAdd={{name:'New Name',value:'a' + Math.round(Math.random())}}
       onRemove={true}
-      option={{
-        text: (node) => node.label,
-        value: (node) => node.id,
-        before: (node) => <IconComponent />,
-        onClick: (node) => handleNodeClick(node),
-      }}
-      size={32}
-      indent={20}
-      actions={[
-        { text: 'Edit', value: 'edit', onClick: handleEditAction },
-        { text: 'Delete', value: 'delete', onClick: handleDeleteAction },
+      onChange={(value)=>setValue(value)}
+      size={48}
+      options={[
+          {
+              text:'Preview',
+              value:'preview',
+              before:<Icon path={mdiEye} size={0.7}/>,
+              onClick:(row:any,parent:any)=>{
+                  alert(row.name)
+              }
+          }
       ]}
-    />
+      option={{
+          text:'option.name',
+          value:'option.id',
+          checked:(row)=>{
+              return !!row.active
+          },
+          subtext:(row)=>row.id,
+          before:()=><Icon path={mdiFolder} size={0.6} color='#ffef17'/>,
+          after:(row)=>row.active?'active':'deactive',
+          checkIcon:()=>[<Icon path={mdiCheckboxBlankOutline} size={0.7} color='#ddd'/>,<Icon path={mdiCheckboxMarked} size={0.7} color='#5400ff'/>],
+          onClick:(row)=>{
+              row.active = !row.active;
+              //very important to use ... before value
+              setValue([...value])
+          }
+      }}
+  />
   );
 }
   ```
-![alt text](/images/tree.gif)
+![alt text](/images/tree1.gif)
 
 ### Inline Edit Ability for Tree Text
 The tree input type in AIOInput allows users to utilize any AIOInput input types as text for inline editing within the tree. This feature enhances the usability of the tree component by enabling inline editing directly within the tree structure.
@@ -1449,6 +1486,8 @@ The form input type in AIOInput offers a powerful and flexible solution for crea
   
 </summary>
 
+## example 1
+
 ![alt text](/images/gauge1.png)
 
 ``` jsx
@@ -1499,6 +1538,8 @@ The form input type in AIOInput offers a powerful and flexible solution for crea
     }}
 />
 ```
+
+## example 2
 
 ![alt text](/images/gauge2.png)
 
@@ -1552,6 +1593,8 @@ The form input type in AIOInput offers a powerful and flexible solution for crea
 />
 ```
 
+## example 3
+
 ![alt text](/images/gauge3.png)
 
 ``` jsx
@@ -1603,6 +1646,8 @@ The form input type in AIOInput offers a powerful and flexible solution for crea
     ]}
 />
 ```
+
+## example 4
 
 ![alt text](/images/gauge4.png)
 
@@ -1658,6 +1703,8 @@ The form input type in AIOInput offers a powerful and flexible solution for crea
     text={()=><div style={{fontSize:10,color:'#000',fontWeight:'bold'}}>Temperature</div>}
 />
 ```
+
+## example 5
 
 ![alt text](/images/gauge5.png)
 

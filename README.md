@@ -175,7 +175,7 @@ A function called for each option in the options array. It takes the original op
   body | function | undefined | set custom popover for button type.
   limitTo | string | undefined | set limitTo to open popover in limit of element selected by limitTo selector.
   fitTo | string | undefined | set fitTo to open popover by exact size of element selected by fitTo selector.
-  header | object contain {attrs:Object,title:string,close:boolean} | if set title or close, a header content will render in top of popover. title is header title and if close set true , close button will be rendered. for customize header you can set attrs property. 
+  header | object contain {attrs:Object,title:string,close:boolean} | undefined | if set title or close, a header content will render in top of popover. title is header title and if close set true , close button will be rendered. for customize header you can set attrs property. 
 
   all this properties are optional
 

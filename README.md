@@ -713,7 +713,7 @@ Enables multiple selection mode. If true, allows selecting multiple dates or tim
 multiple={true}
 ```
 
-![alt text](/images/date-multiple.png)
+![alt text](/images/date-multiple.gif)
 
 ### dateAttrs prop
 

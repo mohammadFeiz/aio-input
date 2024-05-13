@@ -1495,6 +1495,12 @@ Specifies the field in the value prop that should be updated when the input valu
 - `input`
 The input prop within each node's configuration specifies the type and properties of the input field. It can be any valid input type supported by AIOInput, such as text, checkbox, select, textarea, etc. Additionally, developers can customize the appearance, behavior, and validation rules of each input field according to their requirements.
 
+- `label`
+Specifies the input label.
+
+- `validations`
+Specifies the input validations(see examples and descriptions of validations property below).
+
 #### input Properties
 type: The type of input field to render.
 ...: Any additional properties specific to the chosen input type.

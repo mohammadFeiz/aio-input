@@ -1582,6 +1582,62 @@ const Validations: FC = () => {
 ```
 ![alt text](/images/form-validation1.gif)
 
+The `validations` prop of each form node allows specifying validation rules for the input fields within the form. Each validation rule is represented by a string in the format `'operator,target'`, where:
+
+- `operator` indicates the type of comparison to perform.
+- `target` is the threshold value for the comparison.
+
+#### Supported Operators:
+
+- `required`: Validates that the input field must have a value and cannot be empty.
+- `>,target`: Validates that the value of the input field (if it's a number) should be greater than the specified `target`. If the value is an array, it checks that its length should be greater than `target`.
+- `>=,target`: Validates that the value of the input field (if it's a number) should be greater than or equal to the specified `target`. If the value is an array, it checks that its length should be greater than or equal to `target`.
+- `<,target`: Validates that the value of the input field (if it's a number) should be less than the specified `target`. If the value is an array, it checks that its length should be less than `target`.
+- `<=,target`: Validates that the value of the input field (if it's a number) should be less than or equal to the specified `target`. If the value is an array, it checks that its length should be less than or equal to `target`.
+- `<>,min,max`: Validates that the value of the input field (if it's a number) should be between `min` and `max`, exclusive.
+- `<=>,min,max`: Validates that the value of the input field (if it's a number) should be between or equal to `min` and `max`.
+- `!<>,min,max`: Validates that the value of the input field (if it's a number) should not be between `min` and `max`, exclusive.
+- `!<=>,min,max`: Validates that the value of the input field (if it's a number) should not be between or equal to `min` and `max`.
+- `contain,substring`: Validates that the value of the input field (if it's a string) must contain the specified `substring`.
+- `contain,letter`: Validates that the value of the input field (if it's a string) must contain at least one letter.
+- `contain,number`: Validates that the value of the input field (if it's a string) must contain at least one digit.
+- `!contain,substring`: Validates that the value of the input field (if it's a string) must not contain the specified `substring`.
+
+#### examples
+
+| Value            | Validation     | Description                                     |
+|------------------|----------------|-------------------------------------------------|
+| 12               | '<,10'         | Value should be less than 10                    |
+| 'john doe'       | '<,10'         | Value should be less than 10 characters         |
+| [1,2,3,4,5,6,7]  | '<,10'         | Length of value should be less than 10          |
+| 15               | '>,10'         | Value should be greater than 10                 |
+| 'Lorem Ipsum'    | '>,10'         | Value should be greater than 10 characters      |
+| [1,2,3,4,5,6,7]  | '>,10'         | Length of value should be greater than 10       |
+| 10               | '<=,10'        | Value should be less than or equal to 10        |
+| 'john'           | '<=,10'        | Value should be less than or equal to 10 characters |
+| [1,2,3,4,5]      | '<=,10'        | Length of value should be less than or equal to 10 |
+| 20               | '>=,20'        | Value should be greater than or equal to 20     |
+| 'Lorem Ipsum'    | '>=,20'        | Value should be greater than or equal to 20 characters |
+| [1,2,3,4,5,6]    | '>=,20'        | Length of value should be greater than or equal to 20 |
+| 5                | '<>,3,10'      | Value should be between 3 and 10, exclusive     |
+| 'john'           | '<>,3,10'      | Length of value should be between 3 and 10, exclusive |
+| [1,2,3,4,5,6]    | '<>,3,10'      | Length of value should be between 3 and 10, exclusive |
+| 10               | '<=>,10,20'    | Value should be between or equal to 10 and 20   |
+| 'john doe'       | '<=>,10,20'    | Length of value should be between or equal to 10 and 20 |
+| [1,2,3,4]        | '<=>,3,5'      | Length of value should be between or equal to 3 and 5 |
+| 15               | '!<>,10,20'    | Value should not be between 10 and 20, exclusive |
+| 'Lorem Ipsum'    | '!<>,10,20'    | Length of value should not be between 10 and 20, exclusive |
+| [1,2,3,4,5,6]    | '!<>,10,20'    | Length of value should not be between 10 and 20, exclusive |
+| 20               | '!<=>,10,20'   | Value should not be between or equal to 10 and 20 |
+| 'john doe'       | '!<=>,10,20'   | Length of value should not be between or equal to 10 and 20 |
+| [1,2,3]          | '!<=>,3,5'     | Length of value should not be between or equal to 3 and 5 |
+| 'hello@example.com' | 'contain,@' | Value should contain '@' character             |
+| 'abc123'         | 'contain,letter' | Value should contain at least one letter      |
+| '123456'         | 'contain,number' | Value should contain at least one digit       |
+| 'abc$123'        | '!contain,@'   | Value should not contain '@' character         |
+
+You can apply these validation rules to the input fields within your form nodes to enforce specific data constraints and ensure data integrity. If any validation rule fails, you can provide feedback to the user indicating what went wrong and prevent form submission until all validations pass.
+
 </details>
 
 

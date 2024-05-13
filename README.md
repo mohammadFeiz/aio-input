@@ -627,7 +627,7 @@ size | number | 180 | Set the size of the calendar.
 deSelect | boolean or function | false | If set true, onChange will be called with undefined when clearing the value. If set as a function, this function will be called after clicking on the clear button.
 caret | boolean or jsx/html | true | Set caret to false to hide the default caret. Set caret to a ReactNode to render a custom caret element instead of the default caret.
 dateAttrs | function returns attrs object | undefined | A function to customize the attributes of each date element in the calendar. It receives an object with properties dateArray, isToday, isDisabled, isActive, and isMatch and should return an object with styles to apply to the date element.
-option | object | {} | Configure calendar popover. 
+option | object | {} | Specifies custom properties for rendering and controlling each date tag in the multipe mode of datepicker.
 multiple | boolean or number | false | Enables multiple selection mode. If true, allows selecting multiple dates or times. If a number, limits the maximum number of selections.
 
 
@@ -712,8 +712,28 @@ Enables multiple selection mode. If true, allows selecting multiple dates or tim
 ``` javascript
 multiple={true}
 ```
-
 ![alt text](/images/date-multiple.gif)
+
+### option prop
+
+Specifies custom properties for rendering and controlling each date tag in the multipe mode of datepicker.
+opton prop is a global prop used in many types . please read documentation of option prop in top of this document.
+
+``` javascript
+option={
+  text:(date,details)=>`${details.weekDay} ${details.day} ${details.monthString} ${details.year}`,//change text of date tag
+  close:(date,details)=>true,//close popover after seleting date
+  tagAttrs:(date,details)=>{//set custom attributes of date tag
+    return {
+      style:{background:'orange'}
+    }
+  },
+  tagBefore:(date,details)=><Icon/>,//any contetn before tags
+  tagBefore:(date,details)=>'any cvontent',//any contetn after tags,
+  ....
+  //and other properties of public option prop
+}
+```
 
 ### dateAttrs prop
 

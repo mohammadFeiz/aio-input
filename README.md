@@ -1506,6 +1506,76 @@ The input property of each node can receive all available props in AIOInput, exc
 Conclusion
 The form input type in AIOInput offers a powerful and flexible solution for creating dynamic forms with customizable input fields. By leveraging the inputs configuration object and its properties, developers can easily define the layout, behavior, and validation rules of their forms, catering to diverse application requirements and user needs.
 
+### form validations
+
+notice to this example:
+
+``` javascript
+const Validations: FC = () => {
+    const { code }: I_CTX = useContext(CTX);
+    const [setting, setSetting] = useState<any>()
+    const [errors,setErrors] = useState<string[]>([''])
+    const [log, setLog] = useState<any>()
+    function submit() {
+        setLog(JSON.stringify(setting, null, 3))
+    }
+    return (
+        <div className='example'>
+            <AIOInput
+                type='form'
+                value={{ ...setting }}
+                onChange={(newFormData,errors) => {
+                    setSetting({ ...newFormData })
+                    setErrors(errors)
+                }}
+                footer={(
+                    <button type='button' disabled={!!errors.length} className='submit-button' onClick={submit}>Submit</button>
+                )}
+                inputs={{
+                    column: [
+                        {
+                            flex: 1,
+                            input: {
+                                type: 'checkbox',
+                                text: 'Is Active'
+                            },
+                            label: 'Is Active',
+                            field: 'value.active'
+                        },
+                        {
+                            flex: 1,
+                            input: {
+                                type: 'text'
+                            },
+                            label: 'First Name',
+                            field: 'value.firstname',
+                            validations:['required']
+                        },
+                        {
+                            input: {
+                                type: 'textarea'
+                            },
+                            label: 'Description',
+                            field: 'value.description',
+                            validations:['required','>,10','<,30']
+                        },
+                        {
+                            input: {
+                                type: 'date'
+                            },
+                            label: 'Date',
+                            field: 'value.date',
+                            validations:['required','<,2024','>,2022']
+                        }
+                    ]
+                }}
+            />
+        </div>
+    )
+}
+```
+![alt text](/images/form-validation1.gif)
+
 </details>
 
 

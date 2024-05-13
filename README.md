@@ -1045,7 +1045,7 @@ multiple | boolean or number | false | Enables multiple selection mode. If true,
   - `sharp` (boolean): set true to set handle triangle.
   ----------------------------------------------------------------------
   ### point prop
-  The point prop is a function that takes the current value of the slider as a parameter and returns an object with properties to customize the appearance and behavior of the slider's thumb (point):
+  The point prop is a function that takes the current value of the spinner as a parameter and returns an object with properties to customize the appearance and behavior of the spinner's thumb (point):
   - `offset` (number): The distance of the point from the edge of the spinner. default value is 0.
   - `attrs` (object): the custom attributes of point. default is {}
   - `html` (jsx/html): The HTML content of the point. default is spinner value number.
@@ -1057,7 +1057,7 @@ multiple | boolean or number | false | Enables multiple selection mode. If true,
   - `list` (array of numbers): The exact values for displaying labels on the spinner.
   - `dynamic` (boolean): Determines whether labels should be updated in each render. Setting dynamic to true may cause performance issues, especially with a large number of labels. **default is false**.
   - `zIndex` (number): z-index css property of labels set. **default is 0**.
-  - `setting` (function): setting property is a function that takes the current value of the slider and details object as parameter and returns an object with properties to customize the appearance and content of labels. returned object is contain:
+  - `setting` (function): setting property is a function that takes the current value of the spinner and details object as parameter and returns an object with properties to customize the appearance and content of labels. returned object is contain:
   
       Property | Type | Default | Description
       -------- | ---- | ------- | -----------
@@ -1071,7 +1071,7 @@ multiple | boolean or number | false | Enables multiple selection mode. If true,
   1- Value (number): The value at which the range begins.
   2- Configuration string (string): A string containing four parameters separated by a space:
   - `Thickness` : The thickness of the range indicator.
-  - `Distance` : The distance of the range indicator from the edge of the slider. (by 0 value range lines will be on edge of spinner).
+  - `Distance` : The distance of the range indicator from the edge of the spinner. (by 0 value range lines will be on edge of spinner).
   - `Color` : The color of the range indicator.
   - `Round line cap` : A boolean value (0 or 1) indicating whether the line cap of the range should be rounded.
   
@@ -1175,6 +1175,137 @@ multiple | boolean or number | false | Enables multiple selection mode. If true,
   }
   ```
 ![alt text](/images/spinner1.gif)
+
+</details>
+
+<details>
+  <summary>
+    
+  # type="slider"
+  
+  </summary> 
+  
+  this input type is a slider range selector. its configuration is same as spinner input type.
+  
+  ### slider props:
+  
+  Props | Type | Default | Description
+  ----- | ---- | ------- | -----------
+  value | number | undefined | The current value of the range.
+  start	| number | 0 | The start value of the range.
+  end	| number | 100 | The end value of the range.
+  step | number |	1	| The step size for change the range value.
+  onChange | function	| undefined |	A callback function to handle value changes.
+  labels | array of { step: number,list:array of numbers,dynamic:boolean,setting:function } | undefined | Configuration for displaying labels on the slider.
+  point | function	| undefined | A function to customize the appearance of the range point. get value and details object as parameter and returns an object contain point configuration.
+  reverse |	boolean |	false |	Whether to reverse the direction of the slider (ltr vs. rtl).
+  disabled | boolean or array of numbers | false | Specifies whether the spinner is disabled or an array of values to disable partially.
+  ranges | array | [[end, `1 100 #ddd`]] | An array of ranges where each range is defined by a value and a configuration string as array.
+  
+  ### point prop
+  The point prop is a function that takes the current value of the slider as a parameter and returns an object with properties to customize the appearance and behavior of the slider's thumb (point):
+  - `offset` (number): The distance of the point from the edge of the slider. default value is 0.
+  - `attrs` (object): the custom attributes of point. default is {}
+  - `html` (jsx/html): The HTML content of the point. default is slider value number.
+  ----------------------------------------------------------------------
+  ### labels prop
+  The labels prop is an array object with the following properties:
+  
+  - `step` (number): The step size for displaying labels on the slider.
+  - `list` (array of numbers): The exact values for displaying labels on the slider.
+  - `dynamic` (boolean): Determines whether labels should be updated in each render. Setting dynamic to true may cause performance issues, especially with a large number of labels. **default is false**.
+  - `zIndex` (number): z-index css property of labels set. **default is 0**.
+  - `setting` (function): setting property is a function that takes the current value of the slider and details object as parameter and returns an object with properties to customize the appearance and content of labels. returned object is contain:
+  
+      Property | Type | Default | Description
+      -------- | ---- | ------- | -----------
+      offset | number | 0 | The distance of the label from the center of the slider. (0 is on the edge).
+      html | JSX/HTML | '' | The HTML content of the label. It can be a React element or a string. If it's a React element, it will be rendered as is. If it's a string, it will be displayed as plain text.
+  ---------------------------------------------------------------------
+  ### ranges prop
+  Each range in the array of ranges prop is defined by an array containing two elements:
+  
+  1- Value (number): The value at which the range begins.
+  2- Configuration string (string): A string containing four parameters separated by a space:
+  - `Thickness` : The thickness of the range indicator.
+  - `Distance` : The distance of the range indicator from the center of the slider. (by 0 value range lines will be on edge of slider).
+  - `Color` : The color of the range indicator.
+  - `Round line cap` : A boolean value (0 or 1) indicating whether the line cap of the range should be rounded.
+  
+  for example `[100,'3 0 #555 1']` means :
+  range line to 100 value by Thickness : 3px, Distance from center : 0px, Color : #555 and Round Cap : true
+  ### basic example
+  ``` javascript
+  import AIOInput from "aio-input";
+  function MyComponent() {
+      const [value, setValue] = useState(50);
+      return (
+        <AIOInput
+          type='slider'
+          value={value}
+          start={0}
+          end={100}
+          size={100}
+          onChange={setValue}
+          labels={[
+              {
+                  step:10,
+                  setting:(value)=>{
+                      let style = value === 50?{color:'orange'}:{}
+                      let content = value === 50 ? <Icon path={mdiAccount} size={0.6}/> : value; 
+                      return {
+                          html: <div style={style}>{content}</div>,
+                          color:'#333',
+                          offset:20,
+                          fixAngle:true
+                      };
+                  }
+              },
+              {
+                  step:2,
+                  setting:(value)=>{
+                      let offset,height,width,background;
+                      if(value % 10 === 0){
+                          offset = -5;
+                          height = 5;
+                          width = 5;
+                          background = '#333'
+                      }
+                      else {
+                          offset = -4;
+                          height = 2;
+                          width = 2;
+                          background = '#888';
+                      }
+                      let style = {height,width,background}
+                      return {
+                          html:<div style={style}></div>,
+                          offset
+                      }
+                  }
+              }
+          ]}
+          point={()=>{
+              return {
+                  offset:20,
+                  attrs:{
+                      style:{
+                          boxShadow:'0 0 8px 0 rgba(0,0,0,0.4)'
+                      }
+                  }
+              }
+          }}
+          disabled={[0, 25, 75]} // Array of values to disable partially
+          ranges={()=>[
+            [20, '5 10 #ff0000'], // Range from 0 to 20
+            [70, '5 10 orange'], // Range from 20 to 100
+            [100, '5 10 green'] // Range from 20 to 100
+          ]}
+      />
+    );
+  }
+  ```
+![alt text](/images/slider1.gif)
 
 </details>
 

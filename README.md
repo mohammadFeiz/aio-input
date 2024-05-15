@@ -1485,7 +1485,7 @@ footer | JSX/html | render content of this props in bottom of form , use as rend
 
 ### Example Usage
 
-in this example form has a node contain 4 sub node placed vertically(becase of column property)
+in this example form has a node contain 4 sub node placed vertically(becase of dir:'v')
 ```jsx
 const Example1: FC = () => {
     const { code }: I_CTX = useContext(CTX);
@@ -1504,7 +1504,7 @@ const Example1: FC = () => {
                     <button type='button' className='submit-button' onClick={submit}>Submit</button>
                 )}
                 node={{
-                    childsDir:'vertical',
+                    dir:'v',
                     childs: [
                         {
                             flex: 1,
@@ -1548,7 +1548,7 @@ const Example1: FC = () => {
 
 ### Other Example
 
-in this example form has a node contain 2 sub node placed vertically.first sub node has 2 sub node placed horizontally and second sub node has 2 sub node placed vertically. 
+in this example form has a node contain 2 sub node placed vertically(dir:'v').first sub node has 2 sub node placed horizontally(dir:'h') and second sub node has 2 sub node placed vertically(dir:'v'). 
 ```jsx
 const Example1: FC = () => {
     const { code }: I_CTX = useContext(CTX);
@@ -1567,10 +1567,10 @@ const Example1: FC = () => {
                     <button type='button' className='submit-button' onClick={submit}>Submit</button>
                 )}
                 node={{
-                    childsDir:'vertical',
+                    dir:'v',
                     childs: [
                         {
-                            childsDir:'horizontal'
+                            dir:'h'
                             childs: [
                                 {
                                     flex:1,
@@ -1592,7 +1592,7 @@ const Example1: FC = () => {
                             ]
                         },
                         {
-                              childsDir:'vertical',
+                              dir:'v',
                               childs: [
                                 {
                                     input: {
@@ -1623,13 +1623,14 @@ const Example1: FC = () => {
 The node prop is the main configuration object for defining the layout and properties of the form inputs. It consists of an node or an array of nodes that each representing a group of input fields or custom content. The structure of each node determines its placement and arrangement within the form.
 
 Node Structure
-Each node in the inputs configuration object represents a group of input fields or custom content to be displayed within the form. Nodes can be organized horizontally or vertically using the childs and childsDir properties, respectively.
+Each node in the inputs configuration object represents a group of input fields or custom content to be displayed within the form. Nodes can be organized horizontally or vertically using the childs and dir properties, respectively.
 
 ### Node Layout Examples:
 #### layout1:
 ``` javascript
 node={{
-    column:[
+    dir:'v',
+    childs:[
         {
             input:{type:'text'},label:'Name',field:'value.name',flex:1
         },
@@ -1652,9 +1653,11 @@ node={{
 #### layout2:
 ``` javascript
 node={{
-    column:[
+    dir:'v',
+    childs:[
         {
-            row:[
+            dir:'h',
+            childs:[
                 {
                     input:{type:'text'},label:'Name',field:'value.name',flex:1
                 },
@@ -1664,7 +1667,8 @@ node={{
             ]
         },
         {
-            row:[
+            dir:'h',
+            childs:[
                 {
                     input:{type:'text'},label:'Email',field:'value.email',flex:1
                 },
@@ -1683,9 +1687,11 @@ node={{
 #### layout3:
 ``` javascript
 node={{
-    column:[
+    dir:'v',
+    childs:[
         {
-            row:[
+            dir:'h',
+            childs:[
                 {
                     input:{type:'text'},label:'Name',field:'value.name',flex:1
                 },
@@ -1695,6 +1701,7 @@ node={{
             ]
         },
         {
+            dir:'h',
             row:[
                 {
                     input:{type:'text'},label:'Email',field:'value.email',flex:1
@@ -1714,8 +1721,10 @@ node={{
 #### layout4:
 ``` javascript
 node={{
+    dir:'v',
     column:[
         {
+            dir:'h',
             row:[
                 {
                     input:{type:'text'},label:'Name',field:'value.name',flex:1
@@ -1742,39 +1751,37 @@ node={{
 
 ### node properties:
 
-- `childs`
+- `childs` : (array of nodes)
 An array of nodes to be displayed either horizontally or vertically within the form, depending on the value of the childsDir property. Inputs specified within childs will be laid out according to the specified direction.
 
-childsDir
+- `dir` : ('h' | 'v')
 Specifies the direction in which the childs of the node should be arranged. It can be either 'horizontal' or 'vertical'. If this property is present, the childs property is required.
 
-- `html`
+- `html` : (jsx)
 Custom JSX content to be rendered within the form. This allows developers to include additional elements or components as needed for form customization.
 
-- `size`
+- `size` : (number)
 Specifies the size (width or height) of the node within the form layout. This property helps control the spacing and alignment of contents within the form.
 
-- `flex`
+- `flex` : (number)
 Sets the flex style of the node, allowing it to stretch to fill available space within the form layout. Flexibility in sizing ensures optimal responsiveness and adaptability across different screen sizes and devices.
 
-- `field`
+- `field` : (string)
 Specifies the field in the value prop that should be updated when the input value changes. This property enables two-way binding between form inputs and the component's state, ensuring synchronization and consistency of data.
 
-- `input`
+- `input` : (any type of aio-input standard props)
 The input prop within each node's configuration specifies the type and properties of the input field. It can be any valid input type supported by AIOInput, such as text, checkbox, select, textarea, etc. Additionally, developers can customize the appearance, behavior, and validation rules of each input field according to their requirements.
 
-- `label`
+- `label` : (string)
 Specifies the input label.
 
-- `validations`
+- `validations` : (array of strings)
 Specifies the input validations(see examples and descriptions of validations property below).
 
 #### input Properties
 type: The type of input field to render.
 ...: Any additional properties specific to the chosen input type.
-In this example, a row node contains a checkbox input followed by a text input, both arranged horizontally within the form.
 
-#### Note
 The input property of each node can receive all available props in AIOInput, except value and onChange props. These props will be automatically set by the field property. The field property defines the value of the input, and by using field, the form will understand how to change the main form data value by changing each input.
 
 Conclusion
@@ -1806,7 +1813,7 @@ const Validations: FC = () => {
                     <button type='button' disabled={!!errors.length} className='submit-button' onClick={submit}>Submit</button>
                 )}
                 node={{
-                    childsDir:'vertical',
+                    dir:'v',
                     childs: [
                         {
                             flex: 1,

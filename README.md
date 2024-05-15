@@ -1778,6 +1778,8 @@ Specifies the input label.
 - `validations` : (array of strings)
 Specifies the input validations(see examples and descriptions of validations property below).
 
+- `show`: (boolean) visible or hidden form node
+
 #### input Properties
 type: The type of input field to render.
 ...: Any additional properties specific to the chosen input type.

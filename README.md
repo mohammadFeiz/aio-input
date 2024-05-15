@@ -1469,6 +1469,14 @@ The form input type in AIOInput enables users to create dynamic forms with vario
 
 The form input type allows developers to construct forms with diverse input fields, accommodating different data entry requirements. Users can define the layout, behavior, and validation rules for each input field, making it suitable for a wide range of use cases, from simple contact forms to complex data entry interfaces.
 
+## form props
+
+Prop | Type | Default | Descripton
+---- | ---- | ------- | ----------
+node | nested object(json) | Required | The node prop is the main configuration object for defining the layout and properties of the form inputs. It consists of an array of nodes, each representing a group of input fields or custom content. The structure of each node determines its placement and arrangement within the form.
+showErrors | boolean or string | true | Determines how error messages are displayed.If set to true, error messages will be rendered under each form item that has an error. If set to a string as string dom seletor, the component will select the DOM element in form using the provided showError string selector and error messages will append to this dom.
+footer | JSX/html | render content of this props in bottom of form , use as render submit button. if there is any error in form, any buttun in this prop content will disabled automatically.
+
 ### Example Usage
 
 ```jsx
@@ -1597,8 +1605,8 @@ const Example1: FC = () => {
 ```
 ![alt text](/images/form2.png)
 
-### Inputs Prop
-The inputs prop is the main configuration object for defining the layout and properties of the form inputs. It consists of an array of nodes, each representing a group of input fields or custom content. The structure of each node determines its placement and arrangement within the form.
+### node Prop
+The node prop is the main configuration object for defining the layout and properties of the form inputs. It consists of an array of nodes, each representing a group of input fields or custom content. The structure of each node determines its placement and arrangement within the form.
 
 Node Structure
 Each node in the inputs configuration object represents a group of input fields or custom content to be displayed within the form. Nodes can be organized horizontally or vertically using the row and column properties, respectively.
@@ -1768,6 +1776,19 @@ The `validations` prop of each form node allows specifying validation rules for 
 | 'abc$123'        | '!contain,@'   | Value should not contain '@' character         |
 
 You can apply these validation rules to the input fields within your form nodes to enforce specific data constraints and ensure data integrity. If any validation rule fails, you can provide feedback to the user indicating what went wrong and prevent form submission until all validations pass.
+
+### showError prop
+``` javascript
+  showError={true} //show each error message under form input
+  showError='#my-form-error-list' // append list of errors in DOM#my-form-error-list, selected by showError string
+  showError={false} //will not show any errors
+```
+### footer prop
+``` javascript
+  footer={(
+    <button type='button'>Submit</button>
+  )} //render submit button
+```
 
 </details>
 

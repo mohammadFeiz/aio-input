@@ -1883,8 +1883,8 @@ structure: ['operator,target',...]
 
 #### Supported Operators:
 Operator | Format | Description
--------- | -----------
-required | Validates that the input field must have a value and cannot be empty.
+-------- | ------ | -----------
+'required' | 'required' | Validates that the input field must have a value and cannot be empty.
 '>' | '>,target' | Validates that the value of the input field (if it's a number) should be greater than the specified `target`. If the value is an array, it checks that its length should be greater than `target`.
 '>=' | '>=,target' | Validates that the value of the input field (if it's a number) should be greater than or equal to the specified `target`. If the value is an array, it checks that its length should be greater than or equal to `target`.
 '<' | '<,target' | Validates that the value of the input field (if it's a number) should be less than the specified `target`. If the value is an array, it checks that its length should be less than `target`.

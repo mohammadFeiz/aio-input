@@ -1663,13 +1663,26 @@ node={{
         },
         {
             input:{type:'date'},label:'Date?',field:'value.date',flex:1
+        },
+        {
+            show:value.active === true,
+            html:'some message .....'
         }
     ]
 }}
 ```
 ![alt text](/images/form-layout1.png)
 #### layout2:
-this example contain a root node contain 2 childs verticaly(first child is contain 2 childs horizontaly and second child is contain 3 childs horizontaly) 
+this example is cotain :
+- root node contain 3 sub node verticaly
+  - form node contain 3 sub node horizontaly
+    - form node contain input (type:'text')
+    - form node contain input (type:'number')
+  - form node contain 2 sub node horizontaly
+    - form node contain input (type:'text')
+    - form node contain input (type:'checkbox')
+    - form node contain input (type:'date')
+  - form node contain custom html by condition visibility
 ``` javascript
 node={{
     dir:'v',
@@ -1698,6 +1711,10 @@ node={{
                     input:{type:'date'},label:'Date?',field:'value.date',flex:1
                 }
             ]
+        },
+        {
+            show:value.active === true,
+            html:'some message .....'
         }
     ]
 }}
@@ -1713,6 +1730,7 @@ this example is cotain :
     - form node contain input (type:'text')
     - form node contain input (type:'checkbox')
   - form node contain input (type:'date')
+  - form node contain custom html by condition visibility
 
 ``` javascript
 node={{
@@ -1742,6 +1760,10 @@ node={{
         },
         {
             input:{type:'date'},label:'Date?',field:'value.date',flex:1
+        },
+        {
+            show:value.active === true,
+            html:'some message .....'
         }
     ]
 }}
@@ -1756,7 +1778,7 @@ this example is cotain :
     - form node contain input (type:'text')
   - from node contain input (type:'checbox')
   - form node contain input (type:'date')
-  - form node contain custom html
+  - form node contain custom html by condition visibility
 
 ``` javascript
 node={{
@@ -1783,7 +1805,8 @@ node={{
             input:{type:'date'},label:'Date?',field:'value.date',flex:1
         },
         {
-            html:'some message'
+            show:value.active === true,
+            html:'some message .....'
         }
     ]
 }}

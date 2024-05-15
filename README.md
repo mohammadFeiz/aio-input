@@ -1616,14 +1616,129 @@ const Example1: FC = () => {
         </div>
     )
 }
-    
+```
 ![alt text](/images/form2.png)
 
 ### node Prop
-The node prop is the main configuration object for defining the layout and properties of the form inputs. It consists of an array of nodes, each representing a group of input fields or custom content. The structure of each node determines its placement and arrangement within the form.
+The node prop is the main configuration object for defining the layout and properties of the form inputs. It consists of an node or an array of nodes that each representing a group of input fields or custom content. The structure of each node determines its placement and arrangement within the form.
 
 Node Structure
 Each node in the inputs configuration object represents a group of input fields or custom content to be displayed within the form. Nodes can be organized horizontally or vertically using the childs and childsDir properties, respectively.
+
+### Node Layout Examples:
+#### layout1:
+``` javascript
+node={{
+    column:[
+        {
+            input:{type:'text'},label:'Name',field:'value.name',flex:1
+        },
+        {
+            input:{type:'number'},label:'Age',field:'value.age',flex:1
+        },
+        {
+            input:{type:'text'},label:'Email',field:'value.email',flex:1
+        },
+        {
+            input:{type:'checkbox'},label:'IsActive?',field:'value.active',flex:1
+        },
+        {
+            input:{type:'date'},label:'Date?',field:'value.date',flex:1
+        }
+    ]
+}}
+```
+![alt text](/images/form-layout1.png)
+#### layout2:
+``` javascript
+node={{
+    column:[
+        {
+            row:[
+                {
+                    input:{type:'text'},label:'Name',field:'value.name',flex:1
+                },
+                {
+                    input:{type:'number'},label:'Age',field:'value.age',flex:1
+                }
+            ]
+        },
+        {
+            row:[
+                {
+                    input:{type:'text'},label:'Email',field:'value.email',flex:1
+                },
+                {
+                    input:{type:'checkbox'},label:'IsActive?',field:'value.active',flex:1
+                },
+                {
+                    input:{type:'date'},label:'Date?',field:'value.date',flex:1
+                }
+            ]
+        }
+    ]
+}}
+```
+![alt text](/images/form-layout2.png)
+#### layout3:
+``` javascript
+node={{
+    column:[
+        {
+            row:[
+                {
+                    input:{type:'text'},label:'Name',field:'value.name',flex:1
+                },
+                {
+                    input:{type:'number'},label:'Age',field:'value.age',flex:1
+                }
+            ]
+        },
+        {
+            row:[
+                {
+                    input:{type:'text'},label:'Email',field:'value.email',flex:1
+                },
+                {
+                    input:{type:'checkbox'},label:'IsActive?',field:'value.active',flex:1
+                }
+            ]
+        },
+        {
+            input:{type:'date'},label:'Date?',field:'value.date',flex:1
+        }
+    ]
+}}
+```
+![alt text](/images/form-layout3.png)
+#### layout4:
+``` javascript
+node={{
+    column:[
+        {
+            row:[
+                {
+                    input:{type:'text'},label:'Name',field:'value.name',flex:1
+                },
+                {
+                    input:{type:'number'},label:'Age',field:'value.age',flex:1
+                },
+                {
+                    input:{type:'text'},label:'Email',field:'value.email',flex:1
+                },
+            ]
+        },
+        {
+            input:{type:'checkbox'},label:'IsActive?',field:'value.active',flex:1
+        },
+        {
+            input:{type:'date'},label:'Date?',field:'value.date',flex:1
+        }
+    ]
+}}
+```
+![alt text](/images/form-layout4.png)
+
 
 ### node properties:
 

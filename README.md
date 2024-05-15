@@ -1861,9 +1861,10 @@ const Validations: FC = () => {
 ![alt text](/images/form-validation1.gif)
 
 The `validations` prop of each form node allows specifying validation rules for the input fields within the form. Each validation rule is represented by a string in the format `'operator,target'`, where:
-structure: ["<operator>,<target>,<?target>",...]
 - `operator` indicates the type of comparison to perform.
 - `target` is the threshold value for the comparison.
+
+structure: ['operator,target',...]
 
 #### Supported Operators:
 

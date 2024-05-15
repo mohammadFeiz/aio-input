@@ -1479,6 +1479,7 @@ footer | JSX/html | render content of this props in bottom of form , use as rend
 
 ### Example Usage
 
+in this example form has a node contain 4 sub node placed vertically(becase of column property)
 ```jsx
 const Example1: FC = () => {
     const { code }: I_CTX = useContext(CTX);
@@ -1496,7 +1497,7 @@ const Example1: FC = () => {
                 footer={(
                     <button type='button' className='submit-button' onClick={submit}>Submit</button>
                 )}
-                inputs={{
+                node={{
                     column: [
                         {
                             flex: 1,
@@ -1538,6 +1539,9 @@ const Example1: FC = () => {
 ```
 ![alt text](/images/form1.png)
 
+### Other Example
+
+in this example form has a node contain 2 sub node placed vertically.first sub node has 2 sub node placed horizontally and second sub node has 2 sub node placed vertically. 
 ```jsx
 const Example1: FC = () => {
     const { code }: I_CTX = useContext(CTX);
@@ -1555,7 +1559,7 @@ const Example1: FC = () => {
                 footer={(
                     <button type='button' className='submit-button' onClick={submit}>Submit</button>
                 )}
-                inputs={{
+                node={{
                     column: [
                         {
                             row: [
@@ -1676,7 +1680,7 @@ const Validations: FC = () => {
                 footer={(
                     <button type='button' disabled={!!errors.length} className='submit-button' onClick={submit}>Submit</button>
                 )}
-                inputs={{
+                node={{
                     column: [
                         {
                             flex: 1,

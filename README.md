@@ -1479,9 +1479,9 @@ The form input type in AIOInput enables users to create dynamic forms with vario
 
 Prop | Type | Default | Descripton
 ---- | ---- | ------- | ----------
-node | nested object(json) | Required | The node prop is the main configuration object for defining the layout and properties of the form inputs. It consists of an array of nodes, each representing a group of input fields or custom content. The structure of each node determines its placement and arrangement within the form.
+node | nested object(json) | Required | defining the layout and properties of the form nodes. each node can contain other nodes (horizontaly or verticaly by childs property) or any jsx element or form input.
 showErrors | boolean or string | true | Determines how error messages are displayed.If set to true, error messages will be rendered under each form item that has an error. If set to a string as string dom seletor, the component will select the DOM element in form using the provided showError string selector and error messages will append to this dom.
-footer | JSX/html | render content of this props in bottom of form , use as render submit button. if there is any error in form, any buttun in this prop content will disabled automatically.
+footer | JSX/html | undefined | render content of this props in bottom of form , use as render submit button. if there is any error in form, any buttun in this prop content will disabled automatically.
 
 ### Example Usage
 
@@ -1644,6 +1644,7 @@ show | boolean | visible or hidden form node.
 
 ### Node Layout Examples:
 #### layout1:
+this example is contain a root node contain 5 sub node verticaly.
 ``` javascript
 node={{
     dir:'v',
@@ -1668,6 +1669,7 @@ node={{
 ```
 ![alt text](/images/form-layout1.png)
 #### layout2:
+this example contain a root node contain 2 childs verticaly(first child is contain 2 childs horizontaly and second child is contain 3 childs horizontaly) 
 ``` javascript
 node={{
     dir:'v',
@@ -1702,6 +1704,8 @@ node={{
 ```
 ![alt text](/images/form-layout2.png)
 #### layout3:
+this example contain a root node contain 3 childs verticaly(first child is contain 2 childs horizontaly, second child is contain 2 childs horizontaly and third child is a form node) 
+
 ``` javascript
 node={{
     dir:'v',
@@ -1736,6 +1740,8 @@ node={{
 ```
 ![alt text](/images/form-layout3.png)
 #### layout4:
+this example contain a root node contain 3 childs verticaly(first child is contain 3 childs horizontaly,second child is a form node and third child also is a form node) 
+
 ``` javascript
 node={{
     dir:'v',
@@ -1766,7 +1772,7 @@ node={{
 ![alt text](/images/form-layout4.png)
 
 #### input Property
-aio-input standard props wxept value and onChange that set automatically by field props.
+aio-input standard props except value and onChange that set automatically by field props.
 ``` javascript
 {//form node
   ...

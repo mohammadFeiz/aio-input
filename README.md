@@ -1465,9 +1465,15 @@ function MyComponent() {
   
 The form input type in AIOInput enables users to create dynamic forms with various input fields, offering flexibility in layout and customization. This documentation provides a detailed overview and usage guide for utilizing the form type effectively in your applications.
 
+``` javascript
+  <AIOInput
+    type='form'
+    ...
+  />
+```
 ## Overview
 
-The form input type allows developers to construct forms with diverse input fields, accommodating different data entry requirements. Users can define the layout, behavior, and validation rules for each input field, making it suitable for a wide range of use cases, from simple contact forms to complex data entry interfaces.
+- The form input type allows developers to construct forms with diverse input fields, accommodating different data entry requirements. Users can define the layout, behavior, and validation rules for each input field, making it suitable for a wide range of use cases, from simple contact forms to complex data entry interfaces.
 
 ## form props
 
@@ -1498,7 +1504,8 @@ const Example1: FC = () => {
                     <button type='button' className='submit-button' onClick={submit}>Submit</button>
                 )}
                 node={{
-                    column: [
+                    childsDir:'vertical',
+                    childs: [
                         {
                             flex: 1,
                             input: {
@@ -1560,9 +1567,11 @@ const Example1: FC = () => {
                     <button type='button' className='submit-button' onClick={submit}>Submit</button>
                 )}
                 node={{
-                    column: [
+                    childsDir:'vertical',
+                    childs: [
                         {
-                            row: [
+                            childsDir:'horizontal'
+                            childs: [
                                 {
                                     flex:1,
                                     input: {
@@ -1583,7 +1592,8 @@ const Example1: FC = () => {
                             ]
                         },
                         {
-                            column: [
+                              childsDir:'vertical',
+                              childs: [
                                 {
                                     input: {
                                         type: 'textarea'
@@ -1606,28 +1616,28 @@ const Example1: FC = () => {
         </div>
     )
 }
-```
+    
 ![alt text](/images/form2.png)
 
 ### node Prop
 The node prop is the main configuration object for defining the layout and properties of the form inputs. It consists of an array of nodes, each representing a group of input fields or custom content. The structure of each node determines its placement and arrangement within the form.
 
 Node Structure
-Each node in the inputs configuration object represents a group of input fields or custom content to be displayed within the form. Nodes can be organized horizontally or vertically using the row and column properties, respectively.
+Each node in the inputs configuration object represents a group of input fields or custom content to be displayed within the form. Nodes can be organized horizontally or vertically using the childs and childsDir properties, respectively.
 
 ### node properties:
 
-- `row`
-An array of nodes to be displayed horizontally within the form. Inputs specified within a row will be laid out side by side.
+- `childs`
+An array of nodes to be displayed either horizontally or vertically within the form, depending on the value of the childsDir property. Inputs specified within childs will be laid out according to the specified direction.
 
-- `column`
-An array of nodes to be displayed vertically within the form. Inputs specified within a column will be stacked on top of each other.
+childsDir
+Specifies the direction in which the childs of the node should be arranged. It can be either 'horizontal' or 'vertical'. If this property is present, the childs property is required.
 
 - `html`
 Custom JSX content to be rendered within the form. This allows developers to include additional elements or components as needed for form customization.
 
 - `size`
-Specifies the size (width or height) of the node within the form layout. This property helps control the spacing and alignment of inputs within the form.
+Specifies the size (width or height) of the node within the form layout. This property helps control the spacing and alignment of contents within the form.
 
 - `flex`
 Sets the flex style of the node, allowing it to stretch to fill available space within the form layout. Flexibility in sizing ensures optimal responsiveness and adaptability across different screen sizes and devices.
@@ -1681,7 +1691,8 @@ const Validations: FC = () => {
                     <button type='button' disabled={!!errors.length} className='submit-button' onClick={submit}>Submit</button>
                 )}
                 node={{
-                    column: [
+                    childsDir:'vertical',
+                    childs: [
                         {
                             flex: 1,
                             input: {

@@ -1857,20 +1857,21 @@ The `validations` prop of each form node allows specifying validation rules for 
 structure: ['operator,target',...]
 
 #### Supported Operators:
-
-- `required`: Validates that the input field must have a value and cannot be empty.
-- `>,target`: Validates that the value of the input field (if it's a number) should be greater than the specified `target`. If the value is an array, it checks that its length should be greater than `target`.
-- `>=,target`: Validates that the value of the input field (if it's a number) should be greater than or equal to the specified `target`. If the value is an array, it checks that its length should be greater than or equal to `target`.
-- `<,target`: Validates that the value of the input field (if it's a number) should be less than the specified `target`. If the value is an array, it checks that its length should be less than `target`.
-- `<=,target`: Validates that the value of the input field (if it's a number) should be less than or equal to the specified `target`. If the value is an array, it checks that its length should be less than or equal to `target`.
-- `<>,min,max`: Validates that the value of the input field (if it's a number) should be between `min` and `max`, exclusive.
-- `<=>,min,max`: Validates that the value of the input field (if it's a number) should be between or equal to `min` and `max`.
-- `!<>,min,max`: Validates that the value of the input field (if it's a number) should not be between `min` and `max`, exclusive.
-- `!<=>,min,max`: Validates that the value of the input field (if it's a number) should not be between or equal to `min` and `max`.
-- `contain,substring`: Validates that the value of the input field (if it's a string) must contain the specified `substring`.
-- `contain,letter`: Validates that the value of the input field (if it's a string) must contain at least one letter.
-- `contain,number`: Validates that the value of the input field (if it's a string) must contain at least one digit.
-- `!contain,substring`: Validates that the value of the input field (if it's a string) must not contain the specified `substring`.
+Operator | Format | Description
+-------- | -----------
+required`: Validates that the input field must have a value and cannot be empty.
+'>' | '>,target' | Validates that the value of the input field (if it's a number) should be greater than the specified `target`. If the value is an array, it checks that its length should be greater than `target`.
+'>=' | '>=,target' | Validates that the value of the input field (if it's a number) should be greater than or equal to the specified `target`. If the value is an array, it checks that its length should be greater than or equal to `target`.
+'<' | '<,target' | Validates that the value of the input field (if it's a number) should be less than the specified `target`. If the value is an array, it checks that its length should be less than `target`.
+'<=' | '<=,target' | Validates that the value of the input field (if it's a number) should be less than or equal to the specified `target`. If the value is an array, it checks that its length should be less than or equal to `target`.
+'<>' | '<>,min,max' | Validates that the value of the input field (if it's a number) should be between `min` and `max`, exclusive.
+'<=>' | '<=>,min,max' | Validates that the value of the input field (if it's a number) should be between or equal to `min` and `max`.
+'!<>' | '!<>,min,max' | Validates that the value of the input field (if it's a number) should not be between `min` and `max`, exclusive.
+'!<=>' | '!<=>,min,max' | Validates that the value of the input field (if it's a number) should not be between or equal to `min` and `max`.
+'contain' | 'contain,substring' | Validates that the value of the input field (if it's a string) must contain the specified `substring`.
+'contain' | 'contain,letter' | Validates that the value of the input field (if it's a string) must contain at least one letter.
+'contain' | 'contain,number' | Validates that the value of the input field (if it's a string) must contain at least one digit.
+'!contain' | '!contain,substring' | Validates that the value of the input field (if it's a string) must not contain the specified `substring`.
 
 #### examples
 

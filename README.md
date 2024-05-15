@@ -1625,6 +1625,23 @@ The node prop is the main configuration object for defining the layout and prope
 Node Structure
 Each node in the inputs configuration object represents a group of input fields or custom content to be displayed within the form. Nodes can be organized horizontally or vertically using the childs and dir properties, respectively.
 
+### node properties:
+
+Property | Type | Description
+-------- | ---- | -----------
+childs | array of nodes | array of childs nodes to place horizontaly or verticaly decided by dir props ('h' | 'v').
+dir | 'h' or 'v' | childs direction to place horizontaly or verticaly
+field | string | use just if input props is set. Specifies the field in the value prop that should be updated when the input value changes. This property enables two-way binding between form inputs and the component's state, ensuring synchronization and consistency of data.
+input | aio-input props object | The input prop within each node's configuration specifies the type and properties of the input field. It can be any valid input type supported by AIOInput, such as text, checkbox, select, textarea, etc. Additionally, developers can customize the appearance, behavior, and validation rules of each input field according to their requirements.
+html | jsx | Custom JSX content to be rendered within the form. This allows developers to include additional elements or components as needed for form customization.for example render hint message or any content.
+size | number | Specifies the size (width or height) of the node within the form layout. This property helps control the spacing and alignment of contents within the form.
+flex | number | Sets the flex style of the node, allowing it to stretch to fill available space within the form layout. Flexibility in sizing ensures optimal responsiveness and adaptability across different screen sizes and devices.
+label | string | Specifies the input label.
+validations | array of strings | Specifies the input validations(see examples and descriptions of validations property below).
+show | boolean | visible or hidden form node.
+
+### childs and dir property:
+
 ### Node Layout Examples:
 #### layout1:
 ``` javascript
@@ -1748,48 +1765,21 @@ node={{
 ```
 ![alt text](/images/form-layout4.png)
 
-
-### node properties:
-
-- `childs` : (array of nodes)
-An array of nodes to be displayed either horizontally or vertically within the form, depending on the value of the childsDir property. Inputs specified within childs will be laid out according to the specified direction.
-
-- `dir` : ('h' | 'v')
-Specifies the direction in which the childs of the node should be arranged. It can be either 'horizontal' or 'vertical'. If this property is present, the childs property is required.
-
-- `html` : (jsx)
-Custom JSX content to be rendered within the form. This allows developers to include additional elements or components as needed for form customization.
-
-- `size` : (number)
-Specifies the size (width or height) of the node within the form layout. This property helps control the spacing and alignment of contents within the form.
-
-- `flex` : (number)
-Sets the flex style of the node, allowing it to stretch to fill available space within the form layout. Flexibility in sizing ensures optimal responsiveness and adaptability across different screen sizes and devices.
-
-- `field` : (string)
-Specifies the field in the value prop that should be updated when the input value changes. This property enables two-way binding between form inputs and the component's state, ensuring synchronization and consistency of data.
-
-- `input` : (any type of aio-input standard props)
-The input prop within each node's configuration specifies the type and properties of the input field. It can be any valid input type supported by AIOInput, such as text, checkbox, select, textarea, etc. Additionally, developers can customize the appearance, behavior, and validation rules of each input field according to their requirements.
-
-- `label` : (string)
-Specifies the input label.
-
-- `validations` : (array of strings)
-Specifies the input validations(see examples and descriptions of validations property below).
-
-- `show`: (boolean) visible or hidden form node
-
-#### input Properties
-type: The type of input field to render.
-...: Any additional properties specific to the chosen input type.
-
+#### input Property
+aio-input standard props wxept value and onChange that set automatically by field props.
+``` javascript
+{//form node
+  ...
+    input:{
+      type:'text',
+      ....
+    }
+  ...
+}
+```
 The input property of each node can receive all available props in AIOInput, except value and onChange props. These props will be automatically set by the field property. The field property defines the value of the input, and by using field, the form will understand how to change the main form data value by changing each input.
 
-Conclusion
-The form input type in AIOInput offers a powerful and flexible solution for creating dynamic forms with customizable input fields. By leveraging the inputs configuration object and its properties, developers can easily define the layout, behavior, and validation rules of their forms, catering to diverse application requirements and user needs.
-
-### form validations
+### validations property
 
 notice to this example:
 

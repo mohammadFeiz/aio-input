@@ -1704,7 +1704,15 @@ node={{
 ```
 ![alt text](/images/form-layout2.png)
 #### layout3:
-this example contain a root node contain 3 childs verticaly(first child is contain 2 childs horizontaly, second child is contain 2 childs horizontaly and third child is a form node) 
+this example is cotain :
+- root node contain 4 sub node verticaly
+  - form node contain 2 sub node horizontaly
+    - form node contain input (type:'text')
+    - form node contain input (type:'number')
+  - form node contain 2 sub node horizontaly
+    - form node contain input (type:'text')
+    - form node contain input (type:'checkbox')
+  - form node contain input (type:'date')
 
 ``` javascript
 node={{
@@ -1740,7 +1748,15 @@ node={{
 ```
 ![alt text](/images/form-layout3.png)
 #### layout4:
-this example contain a root node contain 3 childs verticaly(first child is contain 3 childs horizontaly,second child is a form node and third child also is a form node) 
+this example is cotain :
+- root node contain 4 sub node verticaly
+  - form node contain 3 sub node horizontaly
+    - form node contain input (type:'text')
+    - form node contain input (type:'number')
+    - form node contain input (type:'text')
+  - from node contain input (type:'checbox')
+  - form node contain input (type:'date')
+  - form node contain custom html
 
 ``` javascript
 node={{
@@ -1765,6 +1781,9 @@ node={{
         },
         {
             input:{type:'date'},label:'Date?',field:'value.date',flex:1
+        },
+        {
+            html:'some message'
         }
     ]
 }}

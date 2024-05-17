@@ -64,7 +64,6 @@ export type AV_props = {
     title: string;
     value: any;
     validations: AV_item[];
-    isDate?: boolean;
 };
 export type AV_item = string;
 export declare class AIOValidation {

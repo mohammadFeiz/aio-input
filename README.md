@@ -152,17 +152,63 @@ tagAfter | HTMLElement | Custom element to be used after the tag.
   Property | Type | Default | Description
   -------- | ---- | ------- | -----------
   position | 'fullscreen' or 'center' or 'popover' or 'left' or 'right' or 'top' or 'bottom' | 'popover' | Set popover position
-  backClose | boolean | true | if set true, by click on popover backdrop, popover will be closed.
-  backAttrs | attributes object | {} | set backAttrs to customize popover backdrop attributes.
+  setAttrs | function that returns attributes object | undefined | set custom attributes of any parts of popover .
   fitHorizontal | boolean | false | set true to fit width of popover to input width.
-  attrs | attributes object | {} | set attrs to customize popover container attributes.
   body | function | undefined | set custom popover for button type.
   limitTo | string | undefined | set limitTo to open popover in limit of element selected by limitTo selector.
   fitTo | string | undefined | set fitTo to open popover by exact size of element selected by fitTo selector.
   header | object contain {attrs:Object,title:string,close:boolean} | undefined | if set title or close, a header content will render in top of popover. title is header title and if close set true , close button will be rendered. for customize header you can set attrs property. 
-
   all this properties are optional
 
+``` javascript
+<AIOInput
+   type='button'
+   text='My Button'
+   popover={{
+      position:'center',
+      body:({close})=>{
+         return <Details/>
+      },
+      header:{
+         title:'My Title',
+         subtitle:'My Subtitle',
+         onClose:true,
+         before:'...any content',
+         after:'...any content',
+      },
+      setAttrs:()=>{
+         if(key === 'backdrop'){
+            return {
+               style:{background:'rgba(0,0,0,0.3)'}
+            }
+         }
+         if(key === 'modal'){
+            return {
+               //... any attributes
+            }
+         }
+         if(key === 'header'){
+            return {
+               //... any attributes
+            }
+         }
+         if(key === 'body'){
+            return {
+               //... any attributes
+            }
+         }
+         if(key === 'footer'){
+            return {
+               //... any attributes
+            }
+         }
+      },
+      fitTo:'...string element selector',
+      limitTo:'...string element selector',
+      fitHorizontal:true
+   }}
+/>
+```
 # multiple props
 
 - use in this types:

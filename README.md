@@ -60,7 +60,7 @@ style | style object | {} | custom input container style object.
 className | string | undefined | custom input container className.
 subtext | string | undefined | input subtext. show under input.
 options | array of any | required in some input types | input selective options.use in selective input types.
-option | object contain functions or string | configure each option.use in selective types.
+option | object contain functions or string | undefined | configure each option.use in selective types.
 caret | false or jsx | default caret | caret icon of dropdown inputs. set false to hide and set jsx to cutomize. use in dropdown types.
 popover | object | undefined | customize input popover. use in dropdown types like.
 checkIcon | array of 2 jsx | array of default checkboxes | customize check icon in toggle types like `checkbox` , `radio` , `multiselect` and `tree`.

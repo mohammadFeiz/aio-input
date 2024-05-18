@@ -41,8 +41,6 @@ table    | No                      | No                        | No             
 form     | No                      | No                        | No                        | No
 button   | No                      | Yes (if set popover prop) | No                        | No
 
-- use in this types :
-  `text` `number` `textarea` `select` `tabs` `buttons` `radio` `date` `list` `file` `tree` `acardion`. 
 collection types are **form** , **table** and **tree** types that can take all input types to modify set of data:
 - in input type `form` you can use all this types as elements of form. form get an object as value and inputs object by definition fields and will pass changed value automatically by onChange prop
 - in input type `table` you can use all this types as table cell content. table get an array of objects as table rows by value prop and input object in columns prop will be props of each cell input. by change each input , table onChange will pass changed rows automatically.
@@ -81,6 +79,8 @@ multiple | boolean or number | false | Enables multiple selection mode. If true,
 
 ### option
  - type : Object contain Functions
+ - use in this types :
+  `text` `number` `textarea` `select` `tabs` `buttons` `radio` `date` `list` `file` `tree` `acardion`. 
  - configure each option of options prop , tags or rows of input. 
  - Each function called for each options or rows or tags and takes the original option and details as parameters and returns value configurations.
 

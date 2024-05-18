@@ -71,17 +71,18 @@ inputAttrs | attributes object | {} | set starndard input attributes like set ac
 multiple | boolean or number | false | Enables multiple selection mode. If true, allows selecting multiple options. If a number, limits the maximum number of selections.
 
 # options and option props
-use in this types:
-`select` `radio` `tabs` `buttons` `tree` `text` `number` `textarea` `color`
+### options
+- type : Array
+- use in this types:
+ `select` `radio` `tabs` `buttons` `tree` `text` `number` `textarea` `color`
+- define selective options.An array containing options for the selectable component.
 
-set options prop as selective options and option prop to configure each option.
-`options` (Array)
-- An array containing options for the selectable component.
+### option
+ - type : Object contain Functions
+ - configure each option of options prop , tags or rows of input. 
+ - Each function called for each options or rows or tags and takes the original option and details as parameters and returns value configurations.
 
--option (Function)
-A function called for each option in the options array. It takes the original option and details as parameters and returns an object containing option configurations.
-
-#### Option Configuration Properties
+#### Option Configuration Properties(functions)
 
 Property | Type | Description
 -------- | ---- | ----------- 

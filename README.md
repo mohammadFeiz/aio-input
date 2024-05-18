@@ -27,6 +27,7 @@ select   | Yes               | Yes                       | Yes                  
 tabs     | No                | No                        | Yes                       | Yes
 buttons  | Yes               | No                        | Yes                       | Yes
 radio    | Yes               | No                        | Yes                       | Yes
+checkbox | No                | No                        | No                        | No
 spinner  | Yes               | No                        | No                        | No
 slider   | Yes               | No                        | No                        | No
 date     | Yes               | Yes                       | No                        | Yes

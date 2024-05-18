@@ -16,7 +16,31 @@ All input types share a common configuration syntax and utilize the same underly
 
 In summary, the `AIOInput` component offers a unified solution for handling diverse input requirements in web applications, providing developers with a versatile, maintainable, and consistent toolset for building interactive user interfaces.
 ### avilable types
-`text` `number` `password` `color` `textarea` `select` `date` `time` `radio` `checkbox` `tabs` `buttons` `table` `form` `tree` `acardion` `slider` `spinner` `list` `image` `file`
+Type     | has multiple type | has popover prop          | has options prop          | has option prop
+-------- | ----------------- | ------------------------- | ------------------------- | ---------------
+text     | No                | yes (if set options prop) | Yes (if set options prop) | Yes
+number   | No                | yes (if set options prop) | Yes (if set options prop) | Yes
+textarea | No                | yes (if set options prop) | Yes (if set options prop) | Yes
+password | No                | No                        | No                        | No
+color    | No                | No                        | Yes (if set options prop) | No
+select   | Yes               | Yes                       | Yes                       | Yes
+tabs     | No                | No                        | Yes                       | Yes
+buttons  | Yes               | No                        | Yes                       | Yes
+radio    | Yes               | No                        | Yes                       | Yes
+spinner  | Yes               | No                        | No                        | No
+slider   | Yes               | No                        | No                        | No
+date     | Yes               | Yes                       | No                        | Yes
+time     | No                | Yes                       | No                        | No
+list     | No                | No                        | Yes                       | Yes
+image    | No                | Yes                       | No                        | No
+file     | Yes               | No                        | No                        | Yes
+tree     | No                | No                        | No                        | Yes
+acardion | Yes               | No                        | Yes                       | Yes
+table    | No                | No                        | No                        | No
+form     | No                | No                        | No                        | No
+button   | No                | Yes (if set popover prop) | No                        | No
+
+`number` `password` `color` `textarea` `select` `date` `time` `radio` `checkbox` `tabs` `buttons` `table` `form` `tree` `acardion` `slider` `spinner` `list` `image` `file`
 
 also by set multiple prop, this types are avilable:
 - `mutiselect` by set multiple prop in **select** type

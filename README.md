@@ -152,7 +152,7 @@ tagAfter | HTMLElement | Custom element to be used after the tag.
   Property | Type | Default | Description
   -------- | ---- | ------- | -----------
   position | 'fullscreen' or 'center' or 'popover' or 'left' or 'right' or 'top' or 'bottom' | 'popover' | Set popover position
-  setAttrs | function that returns attributes object | undefined | set custom attributes of any parts of popover .
+  setAttrs | function that returns attributes object | undefined | set custom attributes of any parts of popover .it get key is parameter and suitable for each key, returns custom attributes object.avilable values of key is `backdrop` `modal` `header` `body` `footer`
   fitHorizontal | boolean | false | set true to fit width of popover to input width.
   body | function | undefined | set custom popover for button type.
   limitTo | string | undefined | set limitTo to open popover in limit of element selected by limitTo selector.
@@ -176,7 +176,7 @@ tagAfter | HTMLElement | Custom element to be used after the tag.
          before:'...any content',
          after:'...any content',
       },
-      setAttrs:()=>{
+      setAttrs:(key)=>{// key 'backdrop' | 'modal' | 'header' | 'body' | 'footer'
          if(key === 'backdrop'){
             return {
                style:{background:'rgba(0,0,0,0.3)'}

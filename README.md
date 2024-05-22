@@ -1393,8 +1393,14 @@ multiple | boolean or number | false | Enables multiple selection mode. If true,
   actions | Array of Objects | undefined | Sets custom actions for the row options button dropdown.
   
   ### option prop
-  The option prop is an object containing functions that configure the view and actions for each tree node. Each function receives the node object as a parameter and returns the corresponding value.
+  The option prop is an object containing functions that configure the view and actions for each tree node. Each function receives the node object as a parameter and returns the    corresponding value.
+  each function get tree row as first parameter and get details as second parameter.
+  details is contain this properties:
+  - `isOpen` function that get row value as parameter and returns boolean to define tree row is open or not
+  - `toggle` function. by calling toggle , tree row will toggle (if row is open that will close and if tree row is close that will open)
+  - `level` number that define tree row deps level.
   option is public prop of aio-input that i explained it in top of this document.
+  
   
   - `text` : Returns jsx/html to be displayed for the node.
   - `value` : Returns the value associated with the node (use as node id).
@@ -1407,6 +1413,7 @@ multiple | boolean or number | false | Enables multiple selection mode. If true,
   - `className` Returns string. Sets a custom className to the tree node element.
   - `style` Returns object. Sets a custom style object to the tree node element.
   - `disabled` Returns boolean. If set to true, the tree node will be disabled.
+  - `toggleIcon` Returns false to prevent show tree toggle icon. returns array of jsx to customize tree toggle icon ( [ close icon, open icon, leaf icon] ).
 
   ----------------------------------------------------------------------
   
@@ -1511,6 +1518,279 @@ function MyComponent() {
 
 ![alt text](/images/tree-input.gif)
 
+### customize tree toggleIcon
+
+``` javascript
+option={{
+   ...
+   toggleIcon:()=>{
+       return [
+           <Icon path={mdiPlusBoxOutline} size={0.8}/>,
+           <Icon path={mdiMinusBoxOutline} size={0.8}/>,
+           <Icon path={mdiCircleOutline} size={0.3}/>,
+       ]
+   },
+   ...
+}}
+```
+
+in below example toggleIcon will be hidden
+
+``` javascript
+option={{
+   ...
+   toggleIcon:()=>false,
+   ...
+}}
+```
+
+![alt text](/images/tree-toggleIcon.png)
+
+### toggle tree rows by click on row
+
+``` javascript
+option={{
+   ...
+   onClick:(option,details)=>details.toggle(),
+   ...
+}}
+```
+
+### set diffrent classNames for each level of tree rows
+
+``` javascript
+option={{
+   ...
+   className:(option,details)=>`tree-row-${details.level}`
+   ...
+}}
+```
+
+### generate a side menu by tree
+``` javascript
+function SideMenu(){
+    let [value] = useState([
+        {name:'Dashboard',id:'dashboard'},
+        {name:'Components',id:'components'},
+        {
+            name:'With Suffix',id:'ws',
+            childs:[
+                {name:'Submenu 1',id:'sm1'},
+                {name:'Submenu 2',id:'sm2'},
+                {name:'Submenu 3',id:'sm3'}        
+            ]
+        },
+        {
+            name:'With Prefix',id:'wp',
+            childs:[
+                {name:'Submenu 4',id:'sm4'},
+                {name:'Submenu 5',id:'sm5'},
+                {name:'Submenu 6',id:'sm6'}        
+            ]
+        }
+    ])
+    function getAfter(option,details){
+        let {childs = []} = option;
+        let open = details.isOpen(option.id);
+        return (
+            <div className='tree-after tree-align'>
+                {option.id === 'dashboard' && <div className='tree-new'>New</div>}
+                {option.id === 'ws' && <div className='tree-badge ws-badge tree-align'>3</div>}
+                {!!childs.length && <Icon path={open?mdiChevronDown:mdiChevronRight} size={0.7}/>}
+            </div>
+        )
+    }
+    function getBefore(option,details){
+        let icons = {
+            'dashboard':mdiGauge,
+            'components':mdiDiamond,
+            'ws':mdiEmoticonHappyOutline,
+            'wp':mdiHeart
+        }
+        return (
+            <div className='tree-before'>
+                {details.level === 0 && <div className='tree-icon tree-align'><Icon path={icons[option.id]} size={0.6}/></div>}
+                {details.level === 1 && <Icon path={mdiCircleOutline} size={0.3}/>}
+                {option.id === 'wp' && <div className='tree-badge wp-badge tree-align'>3</div>}
+            </div>
+        )
+    }
+    return (
+        <div className='example'>
+            <AIOInput 
+                type='tree'
+                className='tree-side'
+                size={48}
+                value={[...value]}
+                option={{
+                    text:'option.name',
+                    value:'option.id',
+                    toggleIcon:()=>false,
+                    after:(option:any,details:any)=>getAfter(option,details),
+                    before:(option:any,details:any)=>getBefore(option,details),
+                    onClick:(option:any,details:any)=>details.toggle(),
+                    className:(option:any,details:any)=>`tree-row-${details.level}`
+                }}
+                indent={0}
+            />
+            {
+                code(
+
+`function Sidemenu(){
+    let [value] = useState([
+        {name:'Dashboard',id:'dashboard'},
+        {name:'Components',id:'components'},
+        {
+            name:'With Suffix',id:'ws',
+            childs:[
+                {name:'Submenu 1',id:'sm1'},
+                {name:'Submenu 2',id:'sm2'},
+                {name:'Submenu 3',id:'sm3'}        
+            ]
+        },
+        {
+            name:'With Prefix',id:'wp',
+            childs:[
+                {name:'Submenu 4',id:'sm4'},
+                {name:'Submenu 5',id:'sm5'},
+                {name:'Submenu 6',id:'sm6'}        
+            ]
+        }
+    ])
+    function getAfter(option:any,details:any){
+        let {childs = []} = option;
+        let open = details.isOpen(option.id);
+        return (
+            <div className='tree-after tree-align'>
+                {
+                    option.id === 'dashboard' && 
+                    <div className='tree-new'>New</div>
+                }
+                {
+                    option.id === 'ws' && 
+                    <div className='tree-badge ws-badge tree-align'>3</div>
+                }
+                {
+                    !!childs.length && 
+                    <Icon path={open?mdiChevronDown:mdiChevronRight} size={0.7}/>
+                }
+            </div>
+        )
+    }
+    function getBefore(option:any,details:any){
+        let icons:any = {
+            'dashboard':mdiGauge,
+            'components':mdiDiamond,
+            'ws':mdiEmoticonHappyOutline,
+            'wp':mdiHeart
+        }
+        return (
+            <div className='tree-before'>
+                {
+                    details.level === 0 && 
+                    <div className='tree-icon tree-align'>
+                        <Icon path={icons[option.id]} size={0.6}/>
+                    </div>
+                }
+                {
+                    details.level === 1 && 
+                    <Icon path={mdiCircleOutline} size={0.3}/>
+                }
+                {
+                    option.id === 'wp' && 
+                    <div className='tree-badge wp-badge tree-align'>3</div>
+                }
+            </div>
+        )
+    }
+    return (
+        <AIOInput 
+            type='tree'
+            className='tree-side'
+            size={48}
+            value={[...value]}
+            option={{
+                text:'option.name',
+                value:'option.id',
+                toggleIcon:()=>false,
+                after:(option:any,details:any)=>getAfter(option,details),
+                before:(option:any,details:any)=>getBefore(option,details),
+                onClick:(option:any,details:any)=>details.toggle(),
+                className:(option:any,details:any)=>${'`tree-row-${details.level}`'}
+            }}
+            indent={0}
+        />
+    )
+}`
+                )
+            }
+            <h3>CSS</h3>
+            {
+                code(
+`.tree-side{
+    background:linear-gradient(180deg, #16191d, #2c3737);
+    color:#ddd;
+    width:240px
+}
+.tree-before{
+    display:flex;
+    align-items: center;
+    gap:6px;
+}
+.tree-after{
+    padding:0 12px;
+    height:100%;
+    color:#ddd;
+    gap:6px;
+}
+.tree-align{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.tree-icon{
+    background:rgba(255,255,255,.1);
+    width:30px;
+    height:30px;
+    border-radius:100%;
+}
+.tree-badge{
+    width:18px;
+    height:18px;
+    border-radius:100%;
+    font-size:10px;
+}
+.wp-badge{
+    color:#ddd;
+    background:rgba(255,255,255,.35);
+}
+.ws-badge{
+    color:#333;
+    background:rgb(224, 187, 19);
+}
+.tree-new{
+    background:Red;
+    border-radius:12px;
+    padding:3px 6px;
+    margin:0 24px;
+    font-size:10px;
+}
+.tree-side .aio-input-tree-body-level-1{
+    padding:12px 0;
+    background: rgba(255,255,255,0.05);
+}
+.tree-row-1{
+    padding:0 24px;
+    height:30px;
+}`
+                )
+            }
+            
+        </div>
+    )
+}
+```
+![alt text](/images/tree-sidemenu.gif)
 
 </details>
 

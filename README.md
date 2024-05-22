@@ -1534,6 +1534,8 @@ option={{
 }}
 ```
 
+![alt text](/images/tree-toggleIcon.png)
+
 in below example toggleIcon will be hidden
 
 ``` javascript
@@ -1543,8 +1545,6 @@ option={{
    ...
 }}
 ```
-
-![alt text](/images/tree-toggleIcon.png)
 
 ### toggle tree rows by click on row
 

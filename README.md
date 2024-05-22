@@ -1566,7 +1566,7 @@ option={{
 }}
 ```
 
-### generate a side menu by tree
+### generate side menu by tree
 ``` javascript
 function SideMenu(){
     let [value] = useState([
@@ -1633,101 +1633,14 @@ function SideMenu(){
                 }}
                 indent={0}
             />
-            {
-                code(
-
-`function Sidemenu(){
-    let [value] = useState([
-        {name:'Dashboard',id:'dashboard'},
-        {name:'Components',id:'components'},
-        {
-            name:'With Suffix',id:'ws',
-            childs:[
-                {name:'Submenu 1',id:'sm1'},
-                {name:'Submenu 2',id:'sm2'},
-                {name:'Submenu 3',id:'sm3'}        
-            ]
-        },
-        {
-            name:'With Prefix',id:'wp',
-            childs:[
-                {name:'Submenu 4',id:'sm4'},
-                {name:'Submenu 5',id:'sm5'},
-                {name:'Submenu 6',id:'sm6'}        
-            ]
-        }
-    ])
-    function getAfter(option:any,details:any){
-        let {childs = []} = option;
-        let open = details.isOpen(option.id);
-        return (
-            <div className='tree-after tree-align'>
-                {
-                    option.id === 'dashboard' && 
-                    <div className='tree-new'>New</div>
-                }
-                {
-                    option.id === 'ws' && 
-                    <div className='tree-badge ws-badge tree-align'>3</div>
-                }
-                {
-                    !!childs.length && 
-                    <Icon path={open?mdiChevronDown:mdiChevronRight} size={0.7}/>
-                }
-            </div>
-        )
-    }
-    function getBefore(option:any,details:any){
-        let icons:any = {
-            'dashboard':mdiGauge,
-            'components':mdiDiamond,
-            'ws':mdiEmoticonHappyOutline,
-            'wp':mdiHeart
-        }
-        return (
-            <div className='tree-before'>
-                {
-                    details.level === 0 && 
-                    <div className='tree-icon tree-align'>
-                        <Icon path={icons[option.id]} size={0.6}/>
-                    </div>
-                }
-                {
-                    details.level === 1 && 
-                    <Icon path={mdiCircleOutline} size={0.3}/>
-                }
-                {
-                    option.id === 'wp' && 
-                    <div className='tree-badge wp-badge tree-align'>3</div>
-                }
-            </div>
-        )
-    }
-    return (
-        <AIOInput 
-            type='tree'
-            className='tree-side'
-            size={48}
-            value={[...value]}
-            option={{
-                text:'option.name',
-                value:'option.id',
-                toggleIcon:()=>false,
-                after:(option:any,details:any)=>getAfter(option,details),
-                before:(option:any,details:any)=>getBefore(option,details),
-                onClick:(option:any,details:any)=>details.toggle(),
-                className:(option:any,details:any)=>${'`tree-row-${details.level}`'}
-            }}
-            indent={0}
-        />
+        </div>
     )
-}`
-                )
-            }
-            <h3>CSS</h3>
-            {
-                code(
-`.tree-side{
+}
+```
+css 
+
+``` javascript
+.tree-side{
     background:linear-gradient(180deg, #16191d, #2c3737);
     color:#ddd;
     width:240px
@@ -1782,12 +1695,6 @@ function SideMenu(){
 .tree-row-1{
     padding:0 24px;
     height:30px;
-}`
-                )
-            }
-            
-        </div>
-    )
 }
 ```
 ![alt text](/images/tree-sidemenu.gif)

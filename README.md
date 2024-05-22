@@ -1697,7 +1697,7 @@ css
     height:30px;
 }
 ```
-![alt text](/images/tree-sidemenu.gif)
+![alt text](/images/tree-sidemenu.png)
 
 </details>
 

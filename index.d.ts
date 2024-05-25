@@ -2,21 +2,27 @@ import React, { FC } from 'react';
 import { AP_position } from "aio-popup";
 import { AIODate, DragClass } from 'aio-utils';
 import './index.css';
+type RN = React.ReactNode;
 declare const AIOInput: FC<AI>;
 export default AIOInput;
+export type I_openState = boolean | undefined;
 export type AI_Layout = {
     option?: AI_option;
-    text?: React.ReactNode;
-    realIndex?: number;
-    renderIndex?: number;
+    text?: RN;
+    index?: number;
     properties?: any;
     indent?: AI_indent;
     toggle?: {
-        state: 0 | 1 | 2;
-        onClick: (e: any) => void;
+        open: I_openState;
     };
 };
 export declare const Acardion: FC;
+type I_treeRowDetails = {
+    level: number;
+    index: number;
+    isLastChild: boolean;
+    isFirstChild: boolean;
+};
 export declare function Calendar(props: {
     onClose?: () => void;
 }): JSX.Element;
@@ -58,6 +64,23 @@ export type I_RangeLabelItem = {
     label: AI_label;
     itemValue: number;
 };
+export type AI_Sidemenu = {
+    options: AI_Sidemenu_option[];
+    onChange: (newValue: string) => void;
+};
+export type AI_Sidemenu_option = {
+    text: string;
+    value: string;
+    badge?: AI_Sidemenu_badge | AI_Sidemenu_badge[];
+    icon?: RN;
+    options?: AI_Sidemenu_option[];
+};
+export type AI_Sidemenu_badge = {
+    text: string;
+    circle?: boolean;
+    color: 'red' | 'green' | 'blue' | 'grey' | 'white' | 'orange' | 'yellow';
+};
+export declare const SideMenu: FC<AI_Sidemenu>;
 export type AI_timeUnits = 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second';
 export type AV_operator = 'contain' | '!contain' | 'required' | '=' | '!=' | '>' | '!>' | '>=' | '!>=' | '<' | '!<' | '<=' | '!<=';
 export type AV_props = {
@@ -97,20 +120,20 @@ export declare class AIOValidation {
     constructor(props: AV_props);
 }
 export declare function AIOInputSetStorage(name: string, value: any): void;
-export type AI_type = 'text' | 'number' | 'textarea' | 'password' | 'select' | 'map' | 'tree' | 'spinner' | 'slider' | 'button' | 'date' | 'color' | 'radio' | 'tabs' | 'list' | 'table' | 'image' | 'file' | 'checkbox' | 'form' | 'time' | 'buttons' | 'range' | 'acardion';
-export type AI_optionKey = ('attrs' | 'text' | 'value' | 'disabled' | 'checkIcon' | 'checked' | 'before' | 'after' | 'justify' | 'subtext' | 'onClick' | 'className' | 'style' | 'tagAttrs' | 'tagBefore' | 'tagAfter' | 'close' | 'show');
+export type AI_type = 'text' | 'number' | 'textarea' | 'password' | 'select' | 'map' | 'tree' | 'spinner' | 'slider' | 'tags' | 'button' | 'date' | 'color' | 'radio' | 'tabs' | 'list' | 'table' | 'image' | 'file' | 'checkbox' | 'form' | 'time' | 'buttons' | 'range' | 'acardion';
+export type AI_optionKey = ('attrs' | 'text' | 'value' | 'disabled' | 'checkIcon' | 'checked' | 'before' | 'after' | 'justify' | 'subtext' | 'onClick' | 'className' | 'style' | 'tagAttrs' | 'tagBefore' | 'tagAfter' | 'close' | 'show' | 'toggleIcon');
 export type AI_formNode = {
     field?: string;
     label?: string;
     addressField?: string;
-    footer?: React.ReactNode;
+    footer?: RN;
     input?: AI;
     labelAttrs?: any;
     errorAttrs?: any;
     validations?: any[];
     childs?: AI_formNode[];
     dir?: 'h' | 'v';
-    html?: React.ReactNode;
+    html?: RN;
     className?: string;
     style?: any;
     attrs?: any;
@@ -136,7 +159,7 @@ export type AI_table_column = {
         row: any;
         column: AI_table_column;
         rowIndex: number;
-    }) => React.ReactNode);
+    }) => RN);
     excel?: string;
     justify?: boolean;
     cellAttrs?: {
@@ -157,16 +180,16 @@ export type AI = {
     }[]) | ((row: any, parent: any) => {
         [key in keyof AI_option]?: any;
     }[]);
-    addText?: React.ReactNode | ((value: any) => React.ReactNode);
-    after?: React.ReactNode | ((p?: any) => React.ReactNode);
+    addText?: RN | ((value: any) => RN);
+    after?: RN | ((p?: any) => RN);
     attrs?: any;
     blurChange?: boolean;
-    before?: React.ReactNode | ((p?: any) => React.ReactNode);
+    before?: RN | ((p?: any) => RN);
     body?: (value?: any) => {
         attrs?: any;
-        html?: React.ReactNode;
+        html?: RN;
     };
-    caret?: boolean | React.ReactNode;
+    caret?: boolean | RN;
     checkIcon?: AI_checkIcon;
     circles?: string[];
     className?: string;
@@ -191,8 +214,11 @@ export type AI = {
     excel?: string;
     fill?: false | AI_fill | ((index: number) => AI_fill);
     filter?: string[];
-    footer?: React.ReactNode;
-    getChilds?: (row: any) => any[];
+    footer?: RN;
+    getChilds?: (p: {
+        row: any;
+        details: I_treeRowDetails;
+    }) => any[];
     getErrors?: (p: string[]) => void;
     getValue?: {
         [key: string]: (p: AI_table_param) => any;
@@ -213,9 +239,9 @@ export type AI = {
     lang?: 'fa' | 'en';
     line?: (index: number, active: boolean) => {
         attrs?: any;
-        html?: React.ReactNode;
+        html?: RN;
     };
-    loading?: boolean | React.ReactNode;
+    loading?: boolean | RN;
     mapConfig?: I_Map_config;
     max?: number;
     maxLength?: number;
@@ -224,8 +250,8 @@ export type AI = {
     multiple?: boolean | number;
     onAdd?: {
         [key: string]: any;
-    } | ((p?: any) => Promise<boolean | void>);
-    onChange?: (newValue: any, p?: any) => void;
+    } | ((p?: any) => Promise<boolean | void | undefined>);
+    onChange?: ((newValue: any, p?: any) => undefined | boolean | void) | ((newValue: any, p?: any) => Promise<undefined | boolean | void>);
     onChangePaging?: (newPaging: AI_table_paging) => void;
     onChangeSort?: (sorts: AI_table_sort[]) => Promise<boolean>;
     onClick?: () => void;
@@ -255,7 +281,7 @@ export type AI = {
     rowAfter?: (p: {
         row: any;
         rowIndex: number;
-    }) => React.ReactNode;
+    }) => RN;
     rowAttrs?: (p: {
         row: any;
         rowIndex: number;
@@ -263,17 +289,21 @@ export type AI = {
     rowBefore?: (p: {
         row: any;
         rowIndex: number;
-    }) => React.ReactNode;
+    }) => RN;
     rowGap?: number;
-    rowsTemplate?: (rows: any[]) => React.ReactNode;
+    rowsTemplate?: (rows: any[]) => RN;
     rowTemplate?: (p: {
         row: any;
         rowIndex: number;
         isLast: boolean;
-    }) => React.ReactNode;
+    }) => RN;
     rtl?: boolean;
     search?: string;
-    setChilds?: (row: any, childs: any[]) => void;
+    setChilds?: (p: {
+        row: any;
+        childs: any[];
+        details: I_treeRowDetails;
+    }) => void;
     showErrors?: boolean | string;
     size?: number;
     spin?: boolean;
@@ -283,10 +313,10 @@ export type AI = {
     stop?: number;
     style?: any;
     swip?: number;
-    subtext?: React.ReactNode | (() => React.ReactNode);
-    text?: React.ReactNode | (() => React.ReactNode);
+    subtext?: RN | (() => RN);
+    text?: RN | (() => RN);
     theme?: string[];
-    toolbar?: React.ReactNode | (() => React.ReactNode);
+    toolbar?: RN | (() => RN);
     toolbarAttrs?: any;
     translate?: (text: string) => string;
     type: AI_type;
@@ -298,20 +328,35 @@ export type AI = {
 export type AI_popover = {
     position?: AP_position;
     fitHorizontal?: boolean;
-    body?: (close: any) => React.ReactNode;
+    body?: (close: any) => RN;
     limitTo?: string;
     fitTo?: string;
     header?: {
         attrs?: any;
         title?: string;
+        subtitle?: string;
         onClose?: boolean;
+        before?: RN;
+        after?: RN;
     };
     maxHeight?: number | string;
     pageSelector?: string;
     setAttrs?: (key: 'backdrop' | 'modal' | 'header' | 'body' | 'footer') => any;
 };
+type I_optionDetails = {
+    index: number;
+    level?: number;
+    change?: (v: any) => any;
+    mainValue: any;
+    active: boolean;
+    defaultOptionProps?: {
+        [key: string]: any;
+    };
+    isOpen?: (id: any) => boolean | undefined;
+    toggle?: () => void;
+};
 export type AI_optionProp = {
-    [key in AI_optionKey]?: any;
+    [key in AI_optionKey]?: string | ((option: any, details: I_optionDetails) => any);
 };
 export type AI_table_param = {
     row: any;
@@ -321,7 +366,7 @@ export type AI_table_param = {
 export type AI_date_trans = 'Today' | 'Clear' | 'This Hour' | 'Today' | 'This Month' | 'Select Year';
 export type AI_point = (index: number, p: any) => {
     offset?: number;
-    html?: React.ReactNode;
+    html?: RN;
     attrs?: any;
 };
 export type AI_labels = AI_label[];
@@ -339,7 +384,7 @@ export type AI_label = {
 export type AI_labelItem = {
     offset?: number;
     fixAngle?: boolean;
-    html?: React.ReactNode;
+    html?: RN;
 };
 export type AI_range_handle = ((value: number, p: any) => AI_range_handle_config) | false;
 export type AI_range_handle_config = {
@@ -355,19 +400,20 @@ export type AI_fill = {
     className?: string;
     style?: any;
 };
-export type AI_checkIcon = ((checked: boolean) => React.ReactNode) | Object;
+export type AI_checkIcon = Object | [RN, RN];
 export type AI_option = {
     object: any;
+    active: boolean;
     show: any;
     checked: boolean;
     checkIcon: AI_checkIcon;
-    after: React.ReactNode | ((p?: any) => React.ReactNode);
-    before: React.ReactNode | ((p?: any) => React.ReactNode);
+    after: RN | ((p?: any) => RN);
+    before: RN | ((p?: any) => RN);
     draggable: boolean;
-    text: React.ReactNode;
-    subtext: React.ReactNode;
+    text: RN;
+    subtext: RN;
     justify: boolean;
-    loading: boolean | React.ReactNode;
+    loading: boolean | RN;
     disabled: boolean;
     attrs: any;
     className: string;
@@ -376,9 +422,12 @@ export type AI_option = {
     tagAttrs: any;
     tagBefore: any;
     tagAfter: any;
+    toggleIcon: boolean | RN[];
     onClick?: (o1: any, o2?: any) => void;
     close?: boolean;
     level?: number;
+    index: number;
+    details: I_optionDetails;
 };
 export type AI_optionDic = {
     [key: string]: AI_option;
@@ -407,7 +456,7 @@ export type AI_context = {
     touch: boolean;
     open: boolean;
     click: (e: any, dom: any) => void;
-    optionClick: (option: AI_option) => void;
+    optionClick: (option: AI_option, p?: any) => void;
     types: AI_types;
     DATE: AIODate;
     options: AI_options;
@@ -425,7 +474,7 @@ export type AI_types = {
 export type AI_table_sort = {
     active?: boolean;
     dir?: 'dec' | 'inc';
-    title?: React.ReactNode;
+    title?: RN;
     type?: 'string' | 'number';
     sortId?: string;
     getValue?: (row: any) => any;
@@ -528,7 +577,7 @@ export type I_Map_config = {
     title?: string;
     draggable?: boolean;
     address?: boolean;
-    submitText?: React.ReactNode;
+    submitText?: RN;
     isPopup?: boolean;
 };
 export type I_Map_area = {
@@ -541,8 +590,8 @@ export type I_Map_area = {
 export type I_Map_marker = {
     size?: number;
     color?: string;
-    html?: React.ReactNode;
-    text?: React.ReactNode;
+    html?: RN;
+    text?: RN;
     lat?: number;
     lng?: number;
     popup?: (marker: I_Map_marker) => any;

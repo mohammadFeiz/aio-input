@@ -2,56 +2,6 @@
     --aio-input-color:#0069ff;
     --aio-input-transition:.3s;
 }
-
-@font-face {
-    font-family: Inter-Thin;
-    font-style: normal;
-    font-weight: 300;
-    src: url('./static/Inter-Thin.ttf');
-}
-@font-face {
-    font-family: Inter-ExtraLight;
-    font-style: normal;
-    font-weight: 300;
-    src: url('./static/Inter-ExtraLight.ttf');
-}
-@font-face {
-    font-family: Inter-Light;
-    font-style: normal;
-    font-weight: 300;
-    src: url('./static/Inter-Light.ttf');
-}
-@font-face {
-    font-family: Inter-Regular;
-    font-style: normal;
-    font-weight: 300;
-    src: url('./static/Inter-Regular.ttf');
-}
-@font-face {
-    font-family: Inter-Medium;
-    font-style: normal;
-    font-weight: 300;
-    src: url('./static/Inter-Medium.ttf');
-}
-@font-face {
-    font-family: Inter-Bold;
-    font-style: normal;
-    font-weight: 300;
-    src: url('./static/Inter-Bold.ttf');
-}
-@font-face {
-    font-family: Inter-ExtraBold;
-    font-style: normal;
-    font-weight: 300;
-    src: url('./static/Inter-ExtraBold.ttf');
-}
-@font-face {
-    font-family: Inter-SemiBold;
-    font-style: normal;
-    font-weight: 300;
-    src: url('./static/Inter-SemiBold.ttf');
-}
-  
 .aio-input {
     display: flex;
     position: relative;
@@ -65,7 +15,6 @@
     padding: 6px;
     background: #fff;
     gap: 6px;
-    font-family: Inter-Regular;
     font-size: 12px;
 }
 
@@ -1958,7 +1907,7 @@
     margin: 3px;
 }
 .aio-input-form-footer{
-    padding:12px;
+    margin-top:12px;
 }
 .aio-input-select-value {
     display: flex;

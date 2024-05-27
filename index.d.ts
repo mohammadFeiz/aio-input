@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { AP_position } from "aio-popup";
-import { AIODate, DragClass } from 'aio-utils';
+import { AP_position } from './../../npm/aio-popup/index';
+import { AIODate, DragClass } from './../../npm/aio-utils/index';
 import './index.css';
 type RN = React.ReactNode;
 declare const AIOInput: FC<AI>;
@@ -82,7 +82,7 @@ export type AI_Sidemenu_badge = {
 };
 export declare const SideMenu: FC<AI_Sidemenu>;
 export type AI_timeUnits = 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second';
-export type AV_operator = 'contain' | '!contain' | 'required' | '=' | '!=' | '>' | '!>' | '>=' | '!>=' | '<' | '!<' | '<=' | '!<=';
+export type AV_operator = 'contain' | '!contain' | 'required' | '=' | '!=' | '>' | '!>' | '>=' | '!>=' | '<' | '!<' | '<=' | '!<=' | 'startBy';
 export type AV_props = {
     lang?: 'fa' | 'en';
     title: string;
@@ -91,11 +91,30 @@ export type AV_props = {
 };
 export type AV_item = string;
 export declare class AIOValidation {
-    contain: (target: any, value: any) => boolean;
-    equal: (target: any, value: any, equal?: boolean) => boolean;
-    less: (target: any, value: any, equal?: boolean) => boolean;
-    greater: (target: any, value: any, equal?: boolean) => boolean;
-    between: (targets: any[], value: any, equal?: boolean) => boolean;
+    contain: (target: any, value: any) => {
+        result: boolean;
+        unit: any;
+    };
+    startBy: (target: any, value: any) => {
+        result: boolean;
+        unit: any;
+    };
+    equal: (target: any, value: any, equal?: boolean) => {
+        result: boolean;
+        unit: any;
+    };
+    less: (target: any, value: any, equal?: boolean) => {
+        result: boolean;
+        unit: any;
+    };
+    greater: (target: any, value: any, equal?: boolean) => {
+        result: boolean;
+        unit: any;
+    };
+    between: (targets: any[], value: any, equal?: boolean) => {
+        result: boolean;
+        unit: any;
+    };
     getMessage: (p: {
         operator: AV_operator;
         target: string;
@@ -109,7 +128,6 @@ export declare class AIOValidation {
         title: string;
         message?: string;
         value: any;
-        unit: string;
         operator: AV_operator;
     }) => string | undefined;
     getValidation: () => string | undefined;
@@ -117,6 +135,7 @@ export declare class AIOValidation {
     fnMapper: (operatorName: any) => string;
     boolKey: (key: 'more' | 'less') => string;
     boolDic: any;
+    getUnit: (value: any) => string;
     constructor(props: AV_props);
 }
 export declare function AIOInputSetStorage(name: string, value: any): void;

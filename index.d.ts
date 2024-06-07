@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { AP_position } from './../../npm/aio-popup/index';
+import { AP_position } from "./../../npm/aio-popup/index";
 import { AIODate, DragClass } from './../../npm/aio-utils/index';
 import './index.css';
 type RN = React.ReactNode;
@@ -138,7 +138,9 @@ export declare class AIOValidation {
     getUnit: (value: any) => string;
     constructor(props: AV_props);
 }
-export declare function AIOInputSetStorage(name: string, value: any): void;
+export declare function AIOInput_defaultProps(p: {
+    [key in ('mapApiKeys')]?: any;
+}): void;
 export type AI_type = 'text' | 'number' | 'textarea' | 'password' | 'select' | 'map' | 'tree' | 'spinner' | 'slider' | 'tags' | 'button' | 'date' | 'color' | 'radio' | 'tabs' | 'list' | 'table' | 'image' | 'file' | 'checkbox' | 'form' | 'time' | 'buttons' | 'range' | 'acardion';
 export type AI_optionKey = ('attrs' | 'text' | 'value' | 'disabled' | 'checkIcon' | 'checked' | 'before' | 'after' | 'justify' | 'subtext' | 'onClick' | 'className' | 'style' | 'tagAttrs' | 'tagBefore' | 'tagAfter' | 'close' | 'show' | 'toggleIcon');
 export type AI_formNode = {
@@ -287,7 +289,7 @@ export type AI = {
     option?: AI_optionProp;
     paging?: AI_table_paging;
     pattern?: string;
-    placeholder?: string;
+    placeholder?: React.ReactNode;
     popover?: AI_popover;
     point?: false | AI_point;
     popupConfig?: I_Map_config;

@@ -244,6 +244,9 @@ export type AI = {
     getValue?: {
         [key: string]: (p: AI_table_param) => any;
     };
+    grooveAttrs?: {
+        [key: string]: any;
+    };
     handle?: AI_range_handle;
     headerAttrs?: any;
     height?: number | string;
@@ -275,7 +278,7 @@ export type AI = {
     onChange?: ((newValue: any, p?: any) => undefined | boolean | void) | ((newValue: any, p?: any) => Promise<undefined | boolean | void>);
     onChangePaging?: (newPaging: AI_table_paging) => void;
     onChangeSort?: (sorts: AI_table_sort[]) => Promise<boolean>;
-    onClick?: () => void;
+    onClick?: (e: Event) => void;
     onRemove?: true | ((p: {
         row: any;
         action?: Function;
@@ -393,6 +396,8 @@ export type AI_point = (index: number, p: any) => {
 export type AI_labels = AI_label[];
 export type AI_label = {
     list?: number[];
+    start?: number;
+    end?: number;
     step?: number;
     dynamic?: boolean;
     autoHide?: boolean;

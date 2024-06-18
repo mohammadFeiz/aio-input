@@ -272,6 +272,7 @@ export type AI = {
     min?: number;
     move?: any;
     multiple?: boolean | number;
+    now?: boolean;
     onAdd?: {
         [key: string]: any;
     } | ((p?: any) => Promise<boolean | void | undefined>);

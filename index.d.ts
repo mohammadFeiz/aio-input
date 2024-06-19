@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { AP_position } from "./../../npm/aio-popup/index";
-import { AIODate, DragClass } from './../../npm/aio-utils/index';
+import { AP_position } from "aio-popup";
+import { AIODate, DragClass } from 'aio-utils';
 import './index.css';
 type RN = React.ReactNode;
 declare const AIOInput: FC<AI>;
@@ -181,7 +181,7 @@ export type AI_table_column = {
         column: AI_table_column;
         rowIndex: number;
     }) => RN);
-    excel?: string;
+    excel?: string | boolean;
     justify?: boolean;
     cellAttrs?: {
         [key: string]: any;

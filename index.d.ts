@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
-import { AP_position } from "aio-popup";
-import { AIODate, DragClass } from 'aio-utils';
+import { AP_position } from "./../../npm/aio-popup";
+import { AIODate, DragClass } from './../../npm/aio-utils/index';
 import './index.css';
 type RN = React.ReactNode;
 declare const AIOInput: FC<AI>;

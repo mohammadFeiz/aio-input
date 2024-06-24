@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { AP_position } from "./../../npm/aio-popup";
 import { AIODate, DragClass } from './../../npm/aio-utils/index';
 import './index.css';
-type RN = React.ReactNode;
+type RN = ReactNode;
 declare const AIOInput: FC<AI>;
 export default AIOInput;
 export type I_openState = boolean | undefined;
@@ -65,15 +65,17 @@ export type I_RangeLabelItem = {
     itemValue: number;
 };
 export type AI_Sidemenu = {
-    options: AI_Sidemenu_option[];
-    onChange: (newValue: string) => void;
+    items: AI_Sidemenu_item[];
+    onChange: (item: AI_Sidemenu_item) => void;
+    option?: any;
+    type?: 'hover' | 'normal' | 'icon';
 };
-export type AI_Sidemenu_option = {
-    text: string;
+export type AI_Sidemenu_item = {
+    text: RN;
     value: string;
     badge?: AI_Sidemenu_badge | AI_Sidemenu_badge[];
-    icon?: RN;
-    options?: AI_Sidemenu_option[];
+    icon: RN;
+    items?: AI_Sidemenu_item[];
 };
 export type AI_Sidemenu_badge = {
     text: string;
@@ -293,7 +295,7 @@ export type AI = {
     option?: AI_optionProp;
     paging?: AI_table_paging;
     pattern?: string;
-    placeholder?: React.ReactNode;
+    placeholder?: ReactNode;
     popover?: AI_popover;
     point?: false | AI_point;
     popupConfig?: I_Map_config;

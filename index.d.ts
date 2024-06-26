@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 import { AP_position } from "./../../npm/aio-popup";
-import { AIODate, DragClass } from './../../npm/aio-utils/index';
+import { AIODate, DragClass } from './../../npm/aio-utils';
 import './index.css';
 type RN = ReactNode;
 declare const AIOInput: FC<AI>;
@@ -69,6 +69,9 @@ export type AI_Sidemenu = {
     onChange: (item: AI_Sidemenu_item) => void;
     option?: any;
     type?: 'hover' | 'normal' | 'icon';
+    className?: string;
+    style?: any;
+    attrs?: any;
 };
 export type AI_Sidemenu_item = {
     text: RN;
@@ -260,6 +263,7 @@ export type AI = {
     jalali?: boolean;
     justify?: boolean;
     justNumber?: boolean | (string[]);
+    label?: string;
     labels?: AI_labels;
     labelAttrs?: any;
     lang?: 'fa' | 'en';

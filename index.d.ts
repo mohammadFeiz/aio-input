@@ -238,6 +238,7 @@ export type AI = {
     endYear?: string | number;
     errorAttrs?: any;
     excel?: string;
+    fetchOptions?: (text: string) => Promise<any[]>;
     fill?: false | AI_fill | ((index: number) => AI_fill);
     filter?: string[];
     footer?: RN;

@@ -79,6 +79,7 @@ export type AI_Sidemenu_item = {
     badge?: AI_Sidemenu_badge | AI_Sidemenu_badge[];
     icon: RN;
     items?: AI_Sidemenu_item[];
+    onClick?: () => void;
 };
 export type AI_Sidemenu_badge = {
     text: string;

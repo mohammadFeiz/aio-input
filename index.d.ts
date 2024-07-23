@@ -1,9 +1,9 @@
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, MutableRefObject } from 'react';
 import { AP_position } from "./../../npm/aio-popup";
 import { AIODate, DragClass } from './../../npm/aio-utils';
 import './index.css';
 type RN = ReactNode;
-declare const AIOInput: FC<AI>;
+declare const AIOInput: FC<AITYPE>;
 export default AIOInput;
 export type I_openState = boolean | undefined;
 export type AI_Layout = {
@@ -13,7 +13,8 @@ export type AI_Layout = {
     properties?: any;
     indent?: AI_indent;
     toggle?: {
-        open: I_openState;
+        state: I_openState;
+        action: () => void;
     };
 };
 export declare const Acardion: FC;
@@ -22,6 +23,22 @@ type I_treeRowDetails = {
     index: number;
     isLastChild: boolean;
     isFirstChild: boolean;
+};
+type AI_dateDetails = {
+    months: string[];
+    jalaliDateArray: number[];
+    gregorianDateArray: number[];
+    dateArray: number[];
+    weekDay: string;
+    weekDayIndex: number;
+    dateString: string;
+    year: number;
+    month: number;
+    day: number;
+    hour: number;
+    monthString: string;
+    jalaliMonthString: string;
+    gregorianMonthString: string;
 };
 export declare function Calendar(props: {
     onClose?: () => void;
@@ -52,7 +69,7 @@ export type I_RangeContext = {
     isValueDisabled: (value: number) => boolean;
     getSide: () => 'left' | 'right' | 'top' | 'bottom';
     getOffset: () => 'top' | 'left';
-    rootProps: AI;
+    rootProps: AITYPE;
     dom: any;
     value: number[];
     getDefaultOffset: (type: 'point' | 'label' | 'scale') => number;
@@ -88,86 +105,95 @@ export type AI_Sidemenu_badge = {
 };
 export declare const SideMenu: FC<AI_Sidemenu>;
 export type AI_timeUnits = 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second';
-export type AV_operator = 'contain' | '!contain' | 'required' | '=' | '!=' | '>' | '!>' | '>=' | '!>=' | '<' | '!<' | '<=' | '!<=' | 'startBy';
-export type AV_props = {
-    lang?: 'fa' | 'en';
-    title: string;
-    value: any;
-    validations: AV_item[];
-};
-export type AV_item = string;
-export declare class AIOValidation {
-    contain: (target: any, value: any) => {
-        result: boolean;
-        unit: any;
-    };
-    startBy: (target: any, value: any) => {
-        result: boolean;
-        unit: any;
-    };
-    equal: (target: any, value: any, equal?: boolean) => {
-        result: boolean;
-        unit: any;
-    };
-    less: (target: any, value: any, equal?: boolean) => {
-        result: boolean;
-        unit: any;
-    };
-    greater: (target: any, value: any, equal?: boolean) => {
-        result: boolean;
-        unit: any;
-    };
-    between: (targets: any[], value: any, equal?: boolean) => {
-        result: boolean;
-        unit: any;
-    };
-    getMessage: (p: {
-        operator: AV_operator;
-        target: string;
-        message?: string;
-        title?: string;
-        unit: string;
-    }) => string;
-    translate: (operator: AV_operator) => string;
-    getResult: (p: {
-        target: any;
-        title: string;
-        message?: string;
-        value: any;
-        operator: AV_operator;
-    }) => string | undefined;
-    getValidation: () => string | undefined;
-    validate: () => string | undefined;
-    fnMapper: (operatorName: any) => string;
-    boolKey: (key: 'more' | 'less') => string;
-    boolDic: any;
-    getUnit: (value: any) => string;
-    constructor(props: AV_props);
-}
 export declare function AIOInput_defaultProps(p: {
-    [key in ('mapApiKeys')]?: any;
+    [key in keyof AITYPE]?: any;
 }): void;
-export type AI_type = 'text' | 'number' | 'textarea' | 'password' | 'select' | 'map' | 'tree' | 'spinner' | 'slider' | 'tags' | 'button' | 'date' | 'color' | 'radio' | 'tabs' | 'list' | 'table' | 'image' | 'file' | 'checkbox' | 'form' | 'time' | 'buttons' | 'range' | 'acardion';
-export type AI_optionKey = ('attrs' | 'text' | 'value' | 'disabled' | 'checkIcon' | 'checked' | 'before' | 'after' | 'justify' | 'subtext' | 'onClick' | 'className' | 'style' | 'tagAttrs' | 'tagBefore' | 'tagAfter' | 'close' | 'show' | 'toggleIcon');
-export type AI_formNode = {
-    field?: string;
-    label?: string;
-    addressField?: string;
-    footer?: RN;
-    input?: AI;
-    labelAttrs?: any;
-    errorAttrs?: any;
-    validations?: any[];
-    childs?: AI_formNode[];
-    dir?: 'h' | 'v';
-    html?: RN;
-    className?: string;
-    style?: any;
+export type AITYPE = AI_hasOption & AI_isDropdown & AI_isMultiple & AI_hasKeyboard & AI_isTable & AI_isRange & AI_isTree & AI_isDate & {
+    after?: RN | ((p?: any) => RN);
     attrs?: any;
-    show?: boolean | (() => boolean);
-    flex?: number;
-    size?: number;
+    before?: RN | ((p?: any) => RN);
+    className?: string;
+    disabled?: boolean | any[];
+    footer?: RN;
+    imageAttrs?: any;
+    justify?: boolean;
+    label?: string;
+    lang?: 'fa' | 'en';
+    loading?: boolean | RN;
+    onChange?: (newValue: any, p?: any) => undefined | boolean | void;
+    placeholder?: ReactNode;
+    reportError?: (errorMessage: string | undefined) => void;
+    rtl?: boolean;
+    showErrors?: boolean | string;
+    style?: any;
+    subtext?: RN | (() => RN);
+    type: AI_type;
+    validations?: any[];
+    value?: any;
+    body?: (value?: any) => {
+        attrs?: any;
+        html?: RN;
+    };
+    checkIcon?: AI_checkIcon;
+    listOptions?: {
+        decay?: number;
+        stop?: number;
+        count?: number;
+        move?: any;
+        editable?: boolean;
+    };
+    fetchOptions?: (text: string) => Promise<any[]>;
+    hideTags?: boolean;
+    onClick?: (e: Event) => void;
+    onSwap?: true | ((newValue: any[], startRow: any, endRow: any) => void);
+    preview?: boolean;
+    text?: RN | (() => RN);
 };
+export type AI_option = {
+    show: any;
+    checked: boolean;
+    checkIcon: AI_checkIcon;
+    after: RN | ((p?: any) => RN);
+    before: RN | ((p?: any) => RN);
+    draggable: boolean;
+    text: RN;
+    subtext: RN;
+    justify: boolean;
+    loading: boolean | RN;
+    disabled: boolean;
+    attrs: any;
+    className: string;
+    style: any;
+    value: any;
+    tagAttrs: any;
+    tagBefore: any;
+    tagAfter: any;
+    toggleIcon: boolean | RN[];
+    onClick?: (o1: any, o2?: any) => void;
+    close?: boolean;
+    level?: number;
+    details: AI_optionDetails;
+};
+type AI_optionDetails = {
+    option: any;
+    rootProps: AITYPE;
+    index: number;
+    level?: number;
+    active?: boolean;
+    change?: (v: any) => any;
+};
+export type AI_optionKey = ('attrs' | 'text' | 'value' | 'disabled' | 'checkIcon' | 'checked' | 'before' | 'after' | 'justify' | 'subtext' | 'onClick' | 'className' | 'style' | 'tagAttrs' | 'tagBefore' | 'tagAfter' | 'close' | 'show' | 'toggleIcon');
+export type AI_optionProp = {
+    [key in AI_optionKey]?: string | ((optionDetails: AI_optionDetails) => any);
+};
+export type AI_optionDic = {
+    [key: string]: AI_option;
+};
+export type AI_options = {
+    optionsList: AI_option[];
+    optionsDic: AI_optionDic;
+};
+export type AI_type = 'text' | 'number' | 'textarea' | 'password' | 'select' | 'tree' | 'spinner' | 'slider' | 'tags' | 'button' | 'date' | 'color' | 'radio' | 'tabs' | 'list' | 'table' | 'image' | 'file' | 'checkbox' | 'time' | 'buttons' | 'range' | 'acardion';
 export type AI_table_column = {
     title?: any;
     value?: any;
@@ -177,7 +203,7 @@ export type AI_table_column = {
     _id?: string;
     width?: any;
     minWidth?: any;
-    input?: AI;
+    input?: AITYPE;
     onChange?: (newValue: any) => void;
     titleAttrs?: {
         [key: string]: any;
@@ -201,163 +227,6 @@ export type AI_date_unit = 'year' | 'month' | 'day' | 'hour';
 export type AI_time_unit = {
     [key in ('year' | 'month' | 'day' | 'hour' | 'minute' | 'second')]?: boolean;
 };
-export type AI = {
-    actions?: ({
-        [key in keyof AI_option]?: any;
-    }[]) | ((row: any, parent: any) => {
-        [key in keyof AI_option]?: any;
-    }[]);
-    addText?: RN | ((value: any) => RN);
-    after?: RN | ((p?: any) => RN);
-    attrs?: any;
-    blurChange?: boolean;
-    before?: RN | ((p?: any) => RN);
-    body?: (value?: any) => {
-        attrs?: any;
-        html?: RN;
-    };
-    caret?: boolean | RN;
-    checkIcon?: AI_checkIcon;
-    circles?: string[];
-    className?: string;
-    columnGap?: number;
-    columns?: AI_table_column[] | ((p?: any) => AI_table_column[]);
-    count?: number;
-    data?: any;
-    dateAttrs?: (p: {
-        dateArray: number[];
-        isToday: boolean;
-        isActive: boolean;
-        isMatch: (p: any[]) => boolean;
-    }) => any;
-    decay?: number;
-    delay?: number;
-    deSelect?: any;
-    disabled?: boolean | any[];
-    editable?: boolean;
-    end?: number;
-    endYear?: string | number;
-    errorAttrs?: any;
-    excel?: string;
-    fetchOptions?: (text: string) => Promise<any[]>;
-    fill?: false | AI_fill | ((index: number) => AI_fill);
-    filter?: string[];
-    footer?: RN;
-    getChilds?: (p: {
-        row: any;
-        details: I_treeRowDetails;
-    }) => any[];
-    getErrors?: (p: string[]) => void;
-    getValue?: {
-        [key: string]: (p: AI_table_param) => any;
-    };
-    grooveAttrs?: {
-        [key: string]: any;
-    };
-    handle?: AI_range_handle;
-    headerAttrs?: any;
-    height?: number | string;
-    hideTags?: boolean;
-    indent?: number;
-    initialDisabled?: boolean;
-    inputAttrs?: any;
-    node?: AI_formNode;
-    jalali?: boolean;
-    justify?: boolean;
-    justNumber?: boolean | (string[]);
-    label?: string;
-    labels?: AI_labels;
-    labelAttrs?: any;
-    lang?: 'fa' | 'en';
-    line?: (index: number, active: boolean) => {
-        attrs?: any;
-        html?: RN;
-    };
-    loading?: boolean | RN;
-    mapConfig?: I_Map_config;
-    max?: number;
-    maxLength?: number;
-    min?: number;
-    move?: any;
-    multiple?: boolean | number;
-    now?: boolean;
-    onAdd?: {
-        [key: string]: any;
-    } | ((p?: any) => Promise<boolean | void | undefined>);
-    onChange?: ((newValue: any, p?: any) => undefined | boolean | void) | ((newValue: any, p?: any) => Promise<undefined | boolean | void>);
-    onChangePaging?: (newPaging: AI_table_paging) => void;
-    onChangeSort?: (sorts: AI_table_sort[]) => Promise<boolean>;
-    onClick?: (e: Event) => void;
-    onRemove?: true | ((p: {
-        row: any;
-        action?: Function;
-        rowIndex?: number;
-        parent?: any;
-    }) => Promise<boolean | void>);
-    onSwap?: true | ((newValue: any[], startRow: any, endRow: any) => void);
-    onSearch?: true | ((searchValue: string) => void);
-    open?: boolean;
-    options?: any[] | ((p?: any) => any[]);
-    option?: AI_optionProp;
-    paging?: AI_table_paging;
-    pattern?: string;
-    placeholder?: ReactNode;
-    popover?: AI_popover;
-    point?: false | AI_point;
-    popupConfig?: I_Map_config;
-    preview?: boolean;
-    ranges?: [number, string][];
-    removeText?: string;
-    reverse?: boolean;
-    rotate?: number;
-    round?: number;
-    rowAfter?: (p: {
-        row: any;
-        rowIndex: number;
-    }) => RN;
-    rowAttrs?: (p: {
-        row: any;
-        rowIndex: number;
-    }) => any;
-    rowBefore?: (p: {
-        row: any;
-        rowIndex: number;
-    }) => RN;
-    rowGap?: number;
-    rowsTemplate?: (rows: any[]) => RN;
-    rowTemplate?: (p: {
-        row: any;
-        rowIndex: number;
-        isLast: boolean;
-    }) => RN;
-    rtl?: boolean;
-    search?: string;
-    setChilds?: (p: {
-        row: any;
-        childs: any[];
-        details: I_treeRowDetails;
-    }) => void;
-    showErrors?: boolean | string;
-    size?: number;
-    spin?: boolean;
-    start?: number;
-    startYear?: string | number;
-    step?: number;
-    stop?: number;
-    style?: any;
-    swip?: number;
-    subtext?: RN | (() => RN);
-    text?: RN | (() => RN);
-    theme?: string[];
-    toolbar?: RN | (() => RN);
-    toolbarAttrs?: any;
-    translate?: (text: string) => string;
-    type: AI_type;
-    unit?: AI_date_unit | AI_time_unit;
-    value?: any;
-    vertical?: boolean;
-    width?: number | string;
-};
 export type AI_popover = {
     position?: AP_position;
     fitHorizontal?: boolean;
@@ -375,21 +244,6 @@ export type AI_popover = {
     maxHeight?: number | string;
     pageSelector?: string;
     setAttrs?: (key: 'backdrop' | 'modal' | 'header' | 'body' | 'footer') => any;
-};
-type I_optionDetails = {
-    index: number;
-    level?: number;
-    change?: (v: any) => any;
-    mainValue: any;
-    active: boolean;
-    defaultOptionProps?: {
-        [key: string]: any;
-    };
-    isOpen?: (id: any) => boolean | undefined;
-    toggle?: () => void;
-};
-export type AI_optionProp = {
-    [key in AI_optionKey]?: string | ((option: any, details: I_optionDetails) => any);
 };
 export type AI_table_param = {
     row: any;
@@ -436,41 +290,6 @@ export type AI_fill = {
     style?: any;
 };
 export type AI_checkIcon = Object | [RN, RN];
-export type AI_option = {
-    object: any;
-    active: boolean;
-    show: any;
-    checked: boolean;
-    checkIcon: AI_checkIcon;
-    after: RN | ((p?: any) => RN);
-    before: RN | ((p?: any) => RN);
-    draggable: boolean;
-    text: RN;
-    subtext: RN;
-    justify: boolean;
-    loading: boolean | RN;
-    disabled: boolean;
-    attrs: any;
-    className: string;
-    style: any;
-    value: any;
-    tagAttrs: any;
-    tagBefore: any;
-    tagAfter: any;
-    toggleIcon: boolean | RN[];
-    onClick?: (o1: any, o2?: any) => void;
-    close?: boolean;
-    level?: number;
-    index: number;
-    details: I_optionDetails;
-};
-export type AI_optionDic = {
-    [key: string]: AI_option;
-};
-export type AI_options = {
-    optionsList: AI_option[];
-    optionsDic: AI_optionDic;
-};
 export type AI_getProp_param = {
     key: string;
     def?: any;
@@ -483,7 +302,7 @@ export type AI_addToAttrs = (attrs: any, p: {
     attrs?: any;
 }) => any;
 export type AI_context = {
-    rootProps: AI;
+    rootProps: AITYPE;
     showPassword: boolean;
     setShowPassword: (v?: boolean) => void;
     DragOptions: DragClass;
@@ -495,6 +314,7 @@ export type AI_context = {
     types: AI_types;
     DATE: AIODate;
     options: AI_options;
+    error?: string;
 };
 export type AI_types = {
     isMultiple: boolean;
@@ -538,7 +358,7 @@ export type type_table_getCellAttrs = (p: {
     type: 'title' | 'cell';
 }) => any;
 export type type_table_context = {
-    rootProps: AI;
+    rootProps: AITYPE;
     columns: AI_table_column[];
     ROWS: {
         rows: any[];
@@ -559,7 +379,7 @@ export type type_table_context = {
     getDynamics: any;
 };
 export type AI_Popover_props = {
-    getRootProps: () => AI;
+    getRootProps: () => AITYPE;
     id: string;
     toggle: (popover: any) => void;
     types: AI_types;
@@ -599,81 +419,170 @@ export type I_list_temp = {
         };
     };
 };
-export type I_Map_config = {
-    area?: I_Map_area;
-    markers?: I_Map_marker[];
-    zoom?: number;
-    marker?: boolean | I_Map_marker;
-    traffic?: boolean;
-    zoomControl?: boolean;
-    maptype?: any;
-    poi?: boolean;
+type AI_hasOption = {
+    deSelect?: any;
+    onSwap?: true | ((newValue: any[], startRow: any, endRow: any) => void);
+    option?: AI_optionProp;
+    options?: any[] | ((p?: any) => any[]);
     search?: string;
-    title?: string;
-    draggable?: boolean;
-    address?: boolean;
-    submitText?: RN;
-    isPopup?: boolean;
 };
-export type I_Map_area = {
-    color: string;
-    opacity: number;
-    radius: number;
-    lat: number;
-    lng: number;
+type AI_isDate = {
+    dateAttrs?: (p: {
+        dateArray: number[];
+        isToday: boolean;
+        isActive: boolean;
+        isMatch: (p: any[]) => boolean;
+    }) => any;
+    jalali?: boolean;
+    now?: boolean;
+    pattern?: string;
+    theme?: string[];
+    translate?: (text: string) => string;
+    unit?: AI_date_unit | AI_time_unit;
+    text?: RN | (() => RN);
 };
-export type I_Map_marker = {
+type AI_isDropdown = {
+    caret?: boolean | RN;
+    popover?: AI_popover;
+    open?: boolean;
+};
+type AI_isMultiple = {
+    multiple?: boolean | number;
+    maxLength?: number;
+};
+type AI_hasKeyboard = {
+    blurChange?: boolean;
+    filter?: string[];
+    inputAttrs?: any;
+    justNumber?: boolean | (string[]);
+    maxLength?: number;
+    swip?: number;
+    spin?: boolean;
+    autoHighlight?: boolean;
+    delay?: number;
+};
+type AI_isTable = {
+    addText?: RN | ((value: any) => RN);
+    columnGap?: number;
+    columns?: AI_table_column[] | ((p?: any) => AI_table_column[]);
+    excel?: string | ((value: any[]) => any[]);
+    getValue?: {
+        [key: string]: (p: AI_table_param) => any;
+    };
+    headerAttrs?: any;
+    onAdd?: {
+        [key: string]: any;
+    } | ((p?: any) => Promise<boolean | void | undefined>);
+    onChangePaging?: (newPaging: AI_table_paging) => void;
+    onChangeSort?: (sorts: AI_table_sort[]) => Promise<boolean>;
+    onSwap?: true | ((newValue: any[], startRow: any, endRow: any) => void);
+    onSearch?: true | ((searchValue: string) => void);
+    paging?: AI_table_paging;
+    removeText?: string;
+    rowAfter?: (p: {
+        row: any;
+        rowIndex: number;
+    }) => RN;
+    rowAttrs?: (p: {
+        row: any;
+        rowIndex: number;
+    }) => any;
+    rowBefore?: (p: {
+        row: any;
+        rowIndex: number;
+    }) => RN;
+    rowGap?: number;
+    rowsTemplate?: (rows: any[]) => RN;
+    rowTemplate?: (p: {
+        row: any;
+        rowIndex: number;
+        isLast: boolean;
+    }) => RN;
+    toolbar?: RN | (() => RN);
+    toolbarAttrs?: any;
+};
+type AI_isRange = {
+    end?: number;
+    fill?: false | AI_fill | ((index: number) => AI_fill);
+    grooveAttrs?: {
+        [key: string]: any;
+    };
+    labels?: AI_labels;
+    max?: number;
+    min?: number;
+    point?: false | AI_point;
+    ranges?: [number, string][];
+    reverse?: boolean;
     size?: number;
-    color?: string;
-    html?: RN;
-    text?: RN;
-    lat?: number;
-    lng?: number;
-    popup?: (marker: I_Map_marker) => any;
+    start?: number;
+    step?: number;
+    vertical?: boolean;
+    circles?: string[];
+    handle?: AI_range_handle;
+    rotate?: number;
+    round?: number;
 };
-export type I_Map_value = {
-    lat: number;
-    lng: number;
-    address?: string;
+type AI_isTree = {
+    actions?: ({
+        [key in keyof AI_option]?: any;
+    }[]) | ((row: any, parent: any) => {
+        [key in keyof AI_option]?: any;
+    }[]);
+    addText?: RN | ((value: any) => RN);
+    checkIcon?: AI_checkIcon;
+    getChilds?: (p: {
+        row: any;
+        details: I_treeRowDetails;
+    }) => any[];
+    indent?: number;
+    onAdd?: {
+        [key: string]: any;
+    } | ((p?: any) => Promise<boolean | void | undefined>);
+    onRemove?: true | ((p: {
+        row: any;
+        action?: Function;
+        rowIndex?: number;
+        parent?: any;
+    }) => Promise<boolean | void>);
+    onToggle?: (openDic: {
+        [id: string]: boolean;
+    }) => void;
+    removeText?: string;
+    setChilds?: (p: {
+        row: any;
+        childs: any[];
+        details: I_treeRowDetails;
+    }) => void;
+    toggleRef?: MutableRefObject<(id: any) => void>;
 };
-export type I_MapUnit = {
-    onClose?: () => void;
-    value: I_Map_value;
-    onChange: (value: I_Map_value) => void;
-    mapConfig: I_Map_config;
-    popupConfig?: I_Map_config;
-    attrs: any;
-    disabled: boolean;
+export type AI<AI_type> = Omit<AITYPE, 'onChange' | 'type'> & {
+    onChange?: AI_onChange<AI_type>;
 };
-export type I_Map_temp = {
-    datauniqid: string;
-    area: any;
-    map: any;
-    markers: any[];
-    dom: any;
-    L: any;
-    atimeout: any;
-    btimeout: any;
-    mapMarker: any;
-    lastChange: any;
+type AI_onChange<AI_type> = AI_type extends 'text' ? (v: string) => void : AI_type extends 'number' ? (v: number | undefined) => void : AI_type extends 'textarea' ? (v: string) => void : AI_type extends 'password' ? (v: string) => void : AI_type extends 'color' ? (v: string) => void : AI_type extends 'select' ? (v: any, optionDetails: AI_optionDetails) => void : AI_type extends 'radio' ? (v: any, optionDetails: AI_optionDetails) => void : AI_type extends 'tabs' ? (v: any, optionDetails: AI_optionDetails) => void : AI_type extends 'buttons' ? (v: any, optionDetails: AI_optionDetails) => void : AI_type extends 'tags' ? (v: any[]) => void : AI_type extends 'tree' ? (v: any, optionDetails: AI_optionDetails) => void : AI_type extends 'image' ? (v: any) => void : AI_type extends 'file' ? (v: any) => void : AI_type extends 'checkbox' ? (v: any) => void : AI_type extends 'date' ? (v: any, dateDetails: AI_dateDetails) => void : AI_type extends 'time' ? (v: any) => void : AI_type extends 'slider' ? (v: any) => void : AI_type extends 'spinner' ? (v: any) => void : AI_type extends 'acardion' ? (v: any) => void : AI_type extends 'list' ? (v: any, optionDetails: AI_optionDetails) => void : AI_type extends 'table' ? (v: any) => void : never;
+export declare const AIText: FC<AI<'text'>>;
+export declare const AINumber: FC<AI<'number'>>;
+export declare const AITextarea: FC<AI<'textarea'>>;
+export declare const AIPassword: FC<AI<'password'>>;
+export declare const AIColor: FC<AI<'color'>>;
+export declare const AISelect: FC<AI<'select'>>;
+export declare const AIRadio: FC<AI<'radio'>>;
+export declare const AITabs: FC<AI<'tabs'>>;
+export declare const AIButtons: FC<AI<'buttons'>>;
+export declare const AITags: FC<AI<'tags'>>;
+export declare const AITree: FC<AI<'tree'>>;
+export declare const AIImage: FC<AI<'image'>>;
+export declare const AIFile: FC<AI<'file'>>;
+export declare const AICheckbox: FC<AI<'checkbox'>>;
+export declare const AIDate: FC<AI<'date'>>;
+export declare const AITime: FC<AI<'time'>>;
+export declare const AISlider: FC<AI<'slider'>>;
+export declare const AISpinner: FC<AI<'spinner'>>;
+export declare const AIAcardion: FC<AI<'acardion'>>;
+export declare const AIList: FC<AI<'list'>>;
+export declare const AITable: FC<AI<'table'>>;
+export type I_MonthCalendar = {
+    date: number[];
+    onClick?: (date: number[]) => void;
+    dateAttrs?: (date: number[]) => any;
 };
-export type I_Map_coords = {
-    lat: number;
-    lng: number;
-};
-export type I_mapApiKeys = {
-    map: string;
-    service: string;
-};
-export type I_Map_context = {
-    mapApiKeys: I_mapApiKeys;
-    value: I_Map_value;
-    flyTo: (coords: I_Map_coords) => void;
-    addressLoading: boolean;
-    address: string;
-    goToCurrent: () => void;
-    mapConfig: I_Map_config;
-    popupConfig?: I_Map_config;
-    onClose?: () => void;
-    onChange: (value: I_Map_value) => void;
-};
+export declare const MonthCalendar: FC<I_MonthCalendar>;

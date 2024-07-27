@@ -586,3 +586,4 @@ export type I_MonthCalendar = {
     dateAttrs?: (date: number[]) => any;
 };
 export declare const MonthCalendar: FC<I_MonthCalendar>;
+export declare function Code(code: string, language?: 'js' | 'css', style?: any): JSX.Element;

@@ -1,6 +1,6 @@
 import { FC, ReactNode, MutableRefObject } from 'react';
-import { AP_position } from "./../../npm/aio-popup";
-import { AIODate, DragClass } from './../../npm/aio-utils';
+import { AP_position } from "aio-popup";
+import { AIODate, DragClass } from 'aio-utils';
 import './index.css';
 type RN = ReactNode;
 declare const AIOInput: FC<AITYPE>;
@@ -104,6 +104,41 @@ export type AI_Sidemenu_badge = {
     color: 'red' | 'green' | 'blue' | 'grey' | 'white' | 'orange' | 'yellow';
 };
 export declare const SideMenu: FC<AI_Sidemenu>;
+type I_AICard = {
+    text: ReactNode;
+    subtext?: ReactNode;
+    onClick: () => void;
+    before?: ReactNode;
+    after?: ReactNode;
+};
+export declare const AICard: FC<I_AICard>;
+type I_AIPanel = {
+    text: string;
+    subtext?: ReactNode;
+    before?: ReactNode;
+    after?: ReactNode;
+    body: ReactNode;
+};
+export declare const AIPanel: FC<I_AIPanel>;
+export declare const AISwitch: FC<{
+    size?: number[];
+    value: boolean;
+    onChange?: (v: boolean) => void;
+    colors?: string[];
+}>;
+type AI_bottomMenuItem = {
+    text: ReactNode;
+    value: string;
+    before?: ReactNode;
+    after?: ReactNode;
+};
+type AI_BottomMenu = {
+    dir?: 'v' | 'h';
+    options: AI_bottomMenuItem[];
+    value: string;
+    onChange: (v: string) => void;
+};
+export declare const AIBottomMenu: FC<AI_BottomMenu>;
 export type AI_timeUnits = 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second';
 export declare function AIOInput_defaultProps(p: {
     [key in keyof AITYPE]?: any;

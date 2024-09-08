@@ -1,6 +1,6 @@
 import { FC, ReactNode, MutableRefObject } from 'react';
-import { AP_position } from "aio-popup";
-import { AIODate, DragClass } from 'aio-utils';
+import { AP_position } from "./../../npm/aio-popup";
+import { AIODate, DragClass } from './../../npm/aio-utils';
 import './index.css';
 type RN = ReactNode;
 declare const AIOInput: FC<AITYPE>;
@@ -535,6 +535,7 @@ type AI_isTable = {
     }) => RN;
     toolbar?: RN | (() => RN);
     toolbarAttrs?: any;
+    tabIndex?: number;
 };
 type AI_isRange = {
     end?: number;

@@ -1,5 +1,5 @@
 import { FC, ReactNode, MutableRefObject } from 'react';
-import { AP_position } from "./../../npm/aio-popup";
+import { AP_modal } from "./../../npm/aio-popup";
 import { AIODate, DragClass } from './../../npm/aio-utils';
 import './index.css';
 type RN = ReactNode;
@@ -262,24 +262,6 @@ export type AI_date_unit = 'year' | 'month' | 'day' | 'hour';
 export type AI_time_unit = {
     [key in ('year' | 'month' | 'day' | 'hour' | 'minute' | 'second')]?: boolean;
 };
-export type AI_popover = {
-    position?: AP_position;
-    fitHorizontal?: boolean;
-    body?: (close: any) => RN;
-    limitTo?: string;
-    fitTo?: string;
-    header?: {
-        attrs?: any;
-        title?: string;
-        subtitle?: string;
-        onClose?: boolean;
-        before?: RN;
-        after?: RN;
-    };
-    maxHeight?: number | string;
-    pageSelector?: string;
-    setAttrs?: (key: 'backdrop' | 'modal' | 'header' | 'body' | 'footer') => any;
-};
 export type AI_table_param = {
     row: any;
     column: AI_table_column;
@@ -478,7 +460,7 @@ type AI_isDate = {
 };
 type AI_isDropdown = {
     caret?: boolean | RN;
-    popover?: AI_popover;
+    popover?: AP_modal;
     open?: boolean;
 };
 type AI_isMultiple = {
@@ -623,3 +605,37 @@ export type I_MonthCalendar = {
 };
 export declare const MonthCalendar: FC<I_MonthCalendar>;
 export declare function Code(code: string, language?: 'js' | 'css', style?: any): JSX.Element;
+type I_trans = 'registerButton' | 'loginButton' | 'registerTitle' | 'loginTitle' | 'switchLogin' | 'switchRegister';
+type I_AILogin = {
+    checkToken: (token: string, callback: (res: boolean) => void) => Promise<void>;
+    login: (obj: {
+        userName: string;
+        password: string;
+    }, callback: (obj: {
+        user: any;
+        token: any;
+    }) => void) => Promise<void>;
+    register?: (obj: {
+        userName: string;
+        password: string;
+    }, callback: () => void) => Promise<void>;
+    registerInputs?: (AITYPE & {
+        field: string;
+    })[];
+    before?: ReactNode;
+    after?: ReactNode;
+    renderApp: (p: {
+        user: any;
+        token: string;
+        logout: () => void;
+    }) => ReactNode;
+    lang?: 'en' | 'fa';
+    translate?: (key: I_trans) => string;
+    rememberTime: number;
+    id: string;
+    splash?: {
+        html: ReactNode;
+        time: number;
+    };
+};
+export declare const AILogin: FC<I_AILogin>;

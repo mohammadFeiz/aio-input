@@ -1,6 +1,6 @@
 import { FC, ReactNode, MutableRefObject } from 'react';
-import { AP_modal } from "./../../npm/aio-popup";
-import { AIODate, DragClass } from './../../npm/aio-utils';
+import { AP_modal } from "aio-popup";
+import { AIODate, DragClass } from 'aio-utils';
 import 'leaflet/dist/leaflet.css';
 import './index.css';
 type RN = ReactNode;
@@ -127,19 +127,6 @@ export declare const AISwitch: FC<{
     onChange?: (v: boolean) => void;
     colors?: string[];
 }>;
-type AI_bottomMenuItem = {
-    text: ReactNode;
-    value: string;
-    before?: ReactNode;
-    after?: ReactNode;
-};
-type AI_BottomMenu = {
-    dir?: 'v' | 'h';
-    options: AI_bottomMenuItem[];
-    value: string;
-    onChange: (v: string) => void;
-};
-export declare const AIBottomMenu: FC<AI_BottomMenu>;
 export type AI_timeUnits = 'year' | 'month' | 'day' | 'hour' | 'minute' | 'second';
 export declare function AIOInput_defaultProps(p: {
     [key in keyof AITYPE]?: any;
@@ -716,3 +703,27 @@ type I_searchResult = {
     before?: ReactNode;
     after?: ReactNode;
 };
+type I_AIApp = {
+    attrs?: any;
+    bottomMenu: {
+        options: I_AIApp_bottomMenu_option[];
+        value?: string;
+        onChange?: (v: string) => void;
+    };
+    body: (p: I_AIApp_param) => ReactNode;
+    header?: (p: I_AIApp_param) => ReactNode | false;
+    children?: ReactNode;
+};
+type I_AIApp_param = {
+    bottomMenuValue: string;
+};
+type I_AIApp_bottomMenu_option = {
+    text?: ReactNode;
+    uptext?: ReactNode;
+    subtext?: ReactNode;
+    before?: ReactNode;
+    after?: ReactNode;
+    show?: boolean;
+    value: string;
+};
+export declare const AIApp: FC<I_AIApp>;

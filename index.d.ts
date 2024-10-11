@@ -1,6 +1,6 @@
 import { FC, ReactNode, MutableRefObject } from 'react';
-import { AP_modal } from "aio-popup";
-import { AIODate, DragClass } from 'aio-utils';
+import { AP_modal, AP_alert } from "aio-popup";
+import { AIODate, DragClass } from "aio-utils";
 import 'leaflet/dist/leaflet.css';
 import './index.css';
 type RN = ReactNode;
@@ -151,7 +151,7 @@ export type AITYPE = AI_hasOption & AI_isDropdown & AI_isMultiple & AI_hasKeyboa
     style?: any;
     subtext?: RN | (() => RN);
     type: AI_type;
-    validations?: any[];
+    validations?: (any[]) | ((v: any) => string | undefined);
     value?: any;
     body?: (value?: any) => {
         attrs?: any;
@@ -592,24 +592,27 @@ export type I_MonthCalendar = {
     dateAttrs?: (date: number[]) => any;
 };
 export declare const MonthCalendar: FC<I_MonthCalendar>;
-export declare function Code(code: string, language?: 'js' | 'css', style?: any): JSX.Element;
-type I_trans = 'registerButton' | 'loginButton' | 'registerTitle' | 'loginTitle' | 'switchLogin' | 'switchRegister';
+export declare function Code(code: string, language?: 'js' | 'css', style?: any): ReactNode;
+type I_loginMode = 'userpass' | 'register' | 'otp';
+type I_login_field = string;
+export type I_login_key = 'registerButton' | 'userpassButton' | 'otpnumberButton' | 'otpcodeButton' | 'registerTitle' | 'userpassTitle' | 'otpcodeTitle' | 'otpnumberTitle' | 'switchuserpass' | 'switchregister' | 'switchotp' | 'rePasswordMatch' | 'userNameRequired' | 'passwordRequired' | 'rePasswordRequired' | 'otpNumberRequired' | 'otpCodeLength' | 'registerError' | 'userpassError' | 'otpcodeError' | 'otpnumberError';
+type I_login_model = {
+    userName: string;
+    password: string;
+    rePassword: string;
+    otpNumber: string;
+    otpCode: string;
+    register: any;
+};
+type I_login_api = {
+    method: 'post' | 'get';
+    url: string;
+    body?: any;
+    onCatch: (response: any) => void;
+};
 type I_AILogin = {
-    checkToken: (token: string, callback: (res: boolean) => void) => Promise<void>;
-    login: (obj: {
-        userName: string;
-        password: string;
-    }, callback: (obj: {
-        user: any;
-        token: any;
-    }) => void) => Promise<void>;
-    register?: (obj: {
-        userName: string;
-        password: string;
-    }, callback: () => void) => Promise<void>;
-    registerInputs?: (AITYPE & {
-        field: string;
-    })[];
+    rtl?: boolean;
+    checkToken: (token: string, callback: (res: boolean) => void, setAlert: (p: AP_alert) => void) => Promise<void>;
     before?: ReactNode;
     after?: ReactNode;
     renderApp: (p: {
@@ -617,14 +620,49 @@ type I_AILogin = {
         token: string;
         logout: () => void;
     }) => ReactNode;
-    lang?: 'en' | 'fa';
-    translate?: (key: I_trans) => string;
+    translate?: 'fa' | ((key: I_login_key) => string | undefined);
     rememberTime: number;
     id: string;
     splash?: {
         html: ReactNode;
         time: number;
     };
+    label: (field: I_login_field) => string;
+    validation?: (field: I_login_field, v: any) => string | undefined;
+    modes: {
+        userpass?: {
+            onSubmit: (model: I_login_model, setAlert: (p: AP_alert) => void) => Promise<I_login_api & {
+                onSuccess: (response: any) => string | {
+                    user: any;
+                    token: string;
+                };
+            }>;
+        };
+        register?: {
+            onSubmit: (model: I_login_model, setAlert: (p: AP_alert) => void) => Promise<I_login_api & {
+                onSuccess: (response: any) => string | true;
+            }>;
+            inputs?: (model: I_login_model) => (AITYPE & {
+                field: string;
+                defaultValue: any;
+            })[];
+        };
+        otp?: {
+            onSubmitNumber: (model: I_login_model, setAlert: (p: AP_alert) => void) => Promise<I_login_api & {
+                onSuccess: (response: any) => string | true;
+            }>;
+            onSubmitCode: (model: I_login_model, setAlert: (p: AP_alert) => void) => Promise<I_login_api & {
+                onSuccess: (response: any) => string | {
+                    user: any;
+                    token: string;
+                };
+            }>;
+            length: number;
+        };
+        mode?: I_loginMode;
+    };
+    attrs?: any;
+    setAttrs?: (key: I_login_key) => any;
 };
 export declare const AILogin: FC<I_AILogin>;
 type I_pos = [number, number];
@@ -661,7 +699,7 @@ export type I_polyline = {
 };
 export type I_shape = I_circle | I_rect | I_polyline;
 type I_Map = {
-    children?: React.ReactNode;
+    children?: ReactNode;
     onChange?: (coords: I_pos) => void;
     zoom?: {
         value?: number;

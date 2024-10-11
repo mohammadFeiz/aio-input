@@ -1,6 +1,6 @@
 import { FC, ReactNode, MutableRefObject } from 'react';
-import { AP_modal, AP_alert } from "aio-popup";
-import { AIODate, DragClass } from "aio-utils";
+import { AP_modal } from "aio-popup";
+import { AIODate, DragClass } from 'aio-utils';
 import 'leaflet/dist/leaflet.css';
 import './index.css';
 type RN = ReactNode;
@@ -592,7 +592,7 @@ export type I_MonthCalendar = {
     dateAttrs?: (date: number[]) => any;
 };
 export declare const MonthCalendar: FC<I_MonthCalendar>;
-export declare function Code(code: string, language?: 'js' | 'css', style?: any): ReactNode;
+export declare function Code(code: string, language?: 'js' | 'css', style?: any): JSX.Element;
 type I_loginMode = 'userpass' | 'register' | 'otp';
 type I_login_field = string;
 export type I_login_key = 'registerButton' | 'userpassButton' | 'otpnumberButton' | 'otpcodeButton' | 'registerTitle' | 'userpassTitle' | 'otpcodeTitle' | 'otpnumberTitle' | 'switchuserpass' | 'switchregister' | 'switchotp' | 'rePasswordMatch' | 'userNameRequired' | 'passwordRequired' | 'rePasswordRequired' | 'otpNumberRequired' | 'otpCodeLength' | 'registerError' | 'userpassError' | 'otpcodeError' | 'otpnumberError';
@@ -608,11 +608,13 @@ type I_login_api = {
     method: 'post' | 'get';
     url: string;
     body?: any;
-    onCatch: (response: any) => void;
 };
 type I_AILogin = {
     rtl?: boolean;
-    checkToken: (token: string, callback: (res: boolean) => void, setAlert: (p: AP_alert) => void) => Promise<void>;
+    checkToken: (token: string) => Promise<I_login_api & {
+        onSuccess: (response: any) => string | boolean;
+        onCatch: (response: any) => string | false;
+    }>;
     before?: ReactNode;
     after?: ReactNode;
     renderApp: (p: {
@@ -631,16 +633,18 @@ type I_AILogin = {
     validation?: (field: I_login_field, v: any) => string | undefined;
     modes: {
         userpass?: {
-            onSubmit: (model: I_login_model, setAlert: (p: AP_alert) => void) => Promise<I_login_api & {
+            onSubmit: (model: I_login_model) => Promise<I_login_api & {
                 onSuccess: (response: any) => string | {
                     user: any;
                     token: string;
                 };
+                onCatch: (response: any) => string;
             }>;
         };
         register?: {
-            onSubmit: (model: I_login_model, setAlert: (p: AP_alert) => void) => Promise<I_login_api & {
+            onSubmit: (model: I_login_model) => Promise<I_login_api & {
                 onSuccess: (response: any) => string | true;
+                onCatch: (response: any) => string;
             }>;
             inputs?: (model: I_login_model) => (AITYPE & {
                 field: string;
@@ -648,14 +652,16 @@ type I_AILogin = {
             })[];
         };
         otp?: {
-            onSubmitNumber: (model: I_login_model, setAlert: (p: AP_alert) => void) => Promise<I_login_api & {
+            onSubmitNumber: (model: I_login_model) => Promise<I_login_api & {
                 onSuccess: (response: any) => string | true;
+                onCatch: (response: any) => string;
             }>;
-            onSubmitCode: (model: I_login_model, setAlert: (p: AP_alert) => void) => Promise<I_login_api & {
+            onSubmitCode: (model: I_login_model) => Promise<I_login_api & {
                 onSuccess: (response: any) => string | {
                     user: any;
                     token: string;
                 };
+                onCatch: (response: any) => string;
             }>;
             length: number;
         };
@@ -699,7 +705,7 @@ export type I_polyline = {
 };
 export type I_shape = I_circle | I_rect | I_polyline;
 type I_Map = {
-    children?: ReactNode;
+    children?: React.ReactNode;
     onChange?: (coords: I_pos) => void;
     zoom?: {
         value?: number;

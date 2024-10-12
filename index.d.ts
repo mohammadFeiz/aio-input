@@ -3,13 +3,12 @@ import { AP_modal } from "aio-popup";
 import { AIODate, DragClass } from 'aio-utils';
 import 'leaflet/dist/leaflet.css';
 import './index.css';
-type RN = ReactNode;
 declare const AIOInput: FC<AITYPE>;
 export default AIOInput;
 export type I_openState = boolean | undefined;
 export type AI_Layout = {
     option?: AI_option;
-    text?: RN;
+    text?: ReactNode;
     index?: number;
     properties?: any;
     indent?: AI_indent;
@@ -92,10 +91,10 @@ export type AI_Sidemenu = {
     attrs?: any;
 };
 export type AI_Sidemenu_item = {
-    text: RN;
+    text: ReactNode;
     value: string;
     badge?: AI_Sidemenu_badge | AI_Sidemenu_badge[];
-    icon: RN;
+    icon: ReactNode;
     items?: AI_Sidemenu_item[];
     onClick?: () => void;
 };
@@ -132,30 +131,30 @@ export declare function AIOInput_defaultProps(p: {
     [key in keyof AITYPE]?: any;
 }): void;
 export type AITYPE = AI_hasOption & AI_isDropdown & AI_isMultiple & AI_hasKeyboard & AI_isTable & AI_isRange & AI_isTree & AI_isDate & {
-    after?: RN | ((p?: any) => RN);
+    after?: ReactNode | ((p?: any) => ReactNode);
     attrs?: any;
-    before?: RN | ((p?: any) => RN);
+    before?: ReactNode | ((p?: any) => ReactNode);
     className?: string;
     disabled?: boolean | any[];
-    footer?: RN;
+    footer?: ReactNode;
     imageAttrs?: any;
     justify?: boolean;
     label?: string;
     lang?: 'fa' | 'en';
-    loading?: boolean | RN;
+    loading?: boolean | ReactNode;
     onChange?: (newValue: any, p?: any) => undefined | boolean | void;
     placeholder?: ReactNode;
     reportError?: (errorMessage: string | undefined) => void;
     rtl?: boolean;
     showErrors?: boolean | string;
     style?: any;
-    subtext?: RN | (() => RN);
+    subtext?: ReactNode | (() => ReactNode);
     type: AI_type;
     validations?: (any[]) | ((v: any) => string | undefined);
     value?: any;
     body?: (value?: any) => {
         attrs?: any;
-        html?: RN;
+        html?: ReactNode;
     };
     checkIcon?: AI_checkIcon;
     listOptions?: {
@@ -170,19 +169,19 @@ export type AITYPE = AI_hasOption & AI_isDropdown & AI_isMultiple & AI_hasKeyboa
     onClick?: (e: Event) => void;
     onSwap?: true | ((newValue: any[], startRow: any, endRow: any) => void);
     preview?: boolean;
-    text?: RN | (() => RN);
+    text?: ReactNode | (() => ReactNode);
 };
 export type AI_option = {
     show: any;
     checked: boolean;
     checkIcon: AI_checkIcon;
-    after: RN | ((p?: any) => RN);
-    before: RN | ((p?: any) => RN);
+    after: ReactNode | ((p?: any) => ReactNode);
+    before: ReactNode | ((p?: any) => ReactNode);
     draggable: boolean;
-    text: RN;
-    subtext: RN;
+    text: ReactNode;
+    subtext: ReactNode;
     justify: boolean;
-    loading: boolean | RN;
+    loading: boolean | ReactNode;
     disabled: boolean;
     attrs: any;
     className: string;
@@ -191,7 +190,7 @@ export type AI_option = {
     tagAttrs: any;
     tagBefore: any;
     tagAfter: any;
-    toggleIcon: boolean | RN[];
+    toggleIcon: boolean | ReactNode[];
     onClick?: (o1: any, o2?: any) => void;
     close?: boolean;
     level?: number;
@@ -235,7 +234,7 @@ export type AI_table_column = {
         row: any;
         column: AI_table_column;
         rowIndex: number;
-    }) => RN);
+    }) => ReactNode);
     excel?: string | boolean;
     justify?: boolean;
     cellAttrs?: {
@@ -258,7 +257,7 @@ export type AI_table_param = {
 export type AI_date_trans = 'Today' | 'Clear' | 'This Hour' | 'Today' | 'This Month' | 'Select Year';
 export type AI_point = (index: number, p: any) => {
     offset?: number;
-    html?: RN;
+    html?: ReactNode;
     attrs?: any;
 };
 export type AI_labels = AI_label[];
@@ -278,7 +277,7 @@ export type AI_label = {
 export type AI_labelItem = {
     offset?: number;
     fixAngle?: boolean;
-    html?: RN;
+    html?: ReactNode;
 };
 export type AI_range_handle = ((value: number, p: any) => AI_range_handle_config) | false;
 export type AI_range_handle_config = {
@@ -294,7 +293,7 @@ export type AI_fill = {
     className?: string;
     style?: any;
 };
-export type AI_checkIcon = Object | [RN, RN];
+export type AI_checkIcon = Object | [ReactNode, ReactNode];
 export type AI_getProp_param = {
     key: string;
     def?: any;
@@ -334,7 +333,7 @@ export type AI_types = {
 export type AI_table_sort = {
     active?: boolean;
     dir?: 'dec' | 'inc';
-    title?: RN;
+    title?: ReactNode;
     type?: 'string' | 'number';
     sortId?: string;
     getValue?: (row: any) => any;
@@ -444,10 +443,10 @@ type AI_isDate = {
     theme?: string[];
     translate?: (text: string) => string;
     unit?: AI_date_unit | AI_time_unit;
-    text?: RN | (() => RN);
+    text?: ReactNode | (() => ReactNode);
 };
 type AI_isDropdown = {
-    caret?: boolean | RN;
+    caret?: boolean | ReactNode;
     popover?: AP_modal;
     open?: boolean;
 };
@@ -465,9 +464,10 @@ type AI_hasKeyboard = {
     spin?: boolean;
     autoHighlight?: boolean;
     delay?: number;
+    voice?: boolean;
 };
 type AI_isTable = {
-    addText?: RN | ((value: any) => RN);
+    addText?: ReactNode | ((value: any) => ReactNode);
     columnGap?: number;
     columns?: AI_table_column[] | ((p?: any) => AI_table_column[]);
     excel?: string | ((value: any[]) => any[]);
@@ -487,7 +487,7 @@ type AI_isTable = {
     rowAfter?: (p: {
         row: any;
         rowIndex: number;
-    }) => RN;
+    }) => ReactNode;
     rowAttrs?: (p: {
         row: any;
         rowIndex: number;
@@ -495,15 +495,15 @@ type AI_isTable = {
     rowBefore?: (p: {
         row: any;
         rowIndex: number;
-    }) => RN;
+    }) => ReactNode;
     rowGap?: number;
-    rowsTemplate?: (rows: any[]) => RN;
+    rowsTemplate?: (rows: any[]) => ReactNode;
     rowTemplate?: (p: {
         row: any;
         rowIndex: number;
         isLast: boolean;
-    }) => RN;
-    toolbar?: RN | (() => RN);
+    }) => ReactNode;
+    toolbar?: ReactNode | (() => ReactNode);
     toolbarAttrs?: any;
     tabIndex?: number;
 };
@@ -534,7 +534,7 @@ type AI_isTree = {
     }[]) | ((row: any, parent: any) => {
         [key in keyof AI_option]?: any;
     }[]);
-    addText?: RN | ((value: any) => RN);
+    addText?: ReactNode | ((value: any) => ReactNode);
     checkIcon?: AI_checkIcon;
     getChilds?: (p: {
         row: any;

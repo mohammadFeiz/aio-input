@@ -152,7 +152,7 @@ export type AITYPE = AI_hasOption & AI_isDropdown & AI_isMultiple & AI_hasKeyboa
     type: AI_type;
     validations?: (any[]) | ((v: any) => string | undefined);
     value?: any;
-    body?: (value?: any) => {
+    body?: (value: AI_optionDetails) => {
         attrs?: any;
         html?: ReactNode;
     };
@@ -196,7 +196,7 @@ export type AI_option = {
     level?: number;
     details: AI_optionDetails;
 };
-type AI_optionDetails = {
+export type AI_optionDetails = {
     option: any;
     rootProps: AITYPE;
     index: number;
@@ -593,7 +593,7 @@ export type I_MonthCalendar = {
 };
 export declare const MonthCalendar: FC<I_MonthCalendar>;
 export declare function Code(code: string, language?: 'js' | 'css', style?: any): JSX.Element;
-type I_loginMode = 'userpass' | 'register' | 'otp';
+type I_loginMode = 'userpass' | 'register' | 'otpcode' | 'otpnumber';
 type I_login_field = string;
 export type I_login_key = 'registerButton' | 'userpassButton' | 'otpnumberButton' | 'otpcodeButton' | 'registerTitle' | 'userpassTitle' | 'otpcodeTitle' | 'otpnumberTitle' | 'switchuserpass' | 'switchregister' | 'switchotp' | 'rePasswordMatch' | 'userNameRequired' | 'passwordRequired' | 'rePasswordRequired' | 'otpNumberRequired' | 'otpCodeLength' | 'registerError' | 'userpassError' | 'otpcodeError' | 'otpnumberError';
 type I_login_model = {
@@ -604,14 +604,12 @@ type I_login_model = {
     otpCode: string;
     register: any;
 };
-type I_login_api = {
-    method: 'post' | 'get';
-    url: string;
-    body?: any;
-};
 type I_AILogin = {
     rtl?: boolean;
-    checkToken: (token: string) => Promise<I_login_api & {
+    checkToken: (token: string) => Promise<{
+        method: 'post' | 'get';
+        url: string;
+        body?: any;
         onSuccess: (response: any) => string | boolean;
         onCatch: (response: any) => string | false;
     }>;
@@ -629,44 +627,24 @@ type I_AILogin = {
         html: ReactNode;
         time: number;
     };
+    getRequestOptions: (model: I_login_model, mode: I_loginMode) => Promise<{
+        method: 'post' | 'get';
+        url: string;
+        body?: any;
+        onSuccess: (response: any) => any;
+        onCatch: (response: any) => string;
+    }>;
     label: (field: I_login_field) => string;
     validation?: (field: I_login_field, v: any) => string | undefined;
-    modes: {
-        userpass?: {
-            onSubmit: (model: I_login_model) => Promise<I_login_api & {
-                onSuccess: (response: any) => string | {
-                    user: any;
-                    token: string;
-                };
-                onCatch: (response: any) => string;
-            }>;
-        };
-        register?: {
-            onSubmit: (model: I_login_model) => Promise<I_login_api & {
-                onSuccess: (response: any) => string | true;
-                onCatch: (response: any) => string;
-            }>;
-            inputs?: (model: I_login_model) => (AITYPE & {
-                field: string;
-                defaultValue: any;
-            })[];
-        };
-        otp?: {
-            onSubmitNumber: (model: I_login_model) => Promise<I_login_api & {
-                onSuccess: (response: any) => string | true;
-                onCatch: (response: any) => string;
-            }>;
-            onSubmitCode: (model: I_login_model) => Promise<I_login_api & {
-                onSuccess: (response: any) => string | {
-                    user: any;
-                    token: string;
-                };
-                onCatch: (response: any) => string;
-            }>;
-            length: number;
-        };
-        mode?: I_loginMode;
-    };
+    otpLength?: number;
+    otp?: boolean;
+    userpass?: boolean;
+    register?: boolean;
+    mode?: I_loginMode;
+    registerInputs?: (model: I_login_model) => (AITYPE & {
+        field: string;
+        defaultValue: any;
+    })[];
     attrs?: any;
     setAttrs?: (key: I_login_key) => any;
 };
@@ -771,3 +749,9 @@ type I_AIApp_bottomMenu_option = {
     value: string;
 };
 export declare const AIApp: FC<I_AIApp>;
+export type I_mask_pattern = ['number' | 'text' | 'select' | ReactNode, number, (string[] | ReactNode)?][];
+export declare const Mask: FC<{
+    value?: string;
+    pattern: I_mask_pattern;
+    onChange: (v: string) => void;
+}>;

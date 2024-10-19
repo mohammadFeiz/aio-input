@@ -647,6 +647,10 @@ type I_AILogin = {
     })[];
     attrs?: any;
     setAttrs?: (key: I_login_key) => any;
+    mock?: {
+        user: any;
+        token: string;
+    };
 };
 export declare const AILogin: FC<I_AILogin>;
 type I_pos = [number, number];

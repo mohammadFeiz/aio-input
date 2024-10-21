@@ -613,8 +613,8 @@ type I_AILogin = {
         onSuccess: (response: any) => string | boolean;
         onCatch: (response: any) => string | false;
     }>;
-    before?: ReactNode;
-    after?: ReactNode;
+    before?: (mode: I_loginMode) => ReactNode;
+    after?: (mode: I_loginMode) => ReactNode;
     renderApp: (p: {
         user: any;
         token: string;

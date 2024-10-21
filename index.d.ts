@@ -639,12 +639,15 @@ type I_AILogin = {
     otpLength?: number;
     otp?: boolean;
     userpass?: boolean;
-    register?: boolean;
+    register?: {
+        defaultValue?: {
+            [field: string]: any;
+        };
+        inputs?: (model: I_login_model) => (AITYPE & {
+            field: string;
+        })[];
+    };
     mode?: I_loginMode;
-    registerInputs?: (model: I_login_model) => (AITYPE & {
-        field: string;
-        defaultValue: any;
-    })[];
     attrs?: any;
     setAttrs?: (key: I_login_key) => any;
     mock?: {
@@ -759,3 +762,11 @@ export declare const Mask: FC<{
     pattern: I_mask_pattern;
     onChange: (v: string) => void;
 }>;
+export type I_MonthCells = {
+    year: number;
+    month: number;
+    cellContent: (date: number[]) => ReactNode;
+    weekDayContent: (v: number) => ReactNode;
+    changeMonth: (month: number) => void;
+};
+export declare const MonthCells: FC<I_MonthCells>;

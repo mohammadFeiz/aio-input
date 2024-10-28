@@ -1,6 +1,6 @@
 import { FC, ReactNode, MutableRefObject } from 'react';
-import { AP_modal } from "aio-popup";
-import { AIODate, DragClass } from 'aio-utils';
+import { AP_modal } from "./../../npm/aio-popup";
+import { AIODate, DragClass } from './../../npm/aio-utils';
 import 'leaflet/dist/leaflet.css';
 import './index.css';
 declare const AIOInput: FC<AITYPE>;
@@ -435,7 +435,10 @@ type AI_isDate = {
         dateArray: number[];
         isToday: boolean;
         isActive: boolean;
-        isMatch: (p: any[]) => boolean;
+        isFuture: boolean;
+        weekDayIndex: number | null;
+        weekDay: string | null;
+        monthString: string;
     }) => any;
     jalali?: boolean;
     now?: boolean;

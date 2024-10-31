@@ -1,6 +1,7 @@
 import { FC, ReactNode, MutableRefObject } from 'react';
-import { AP_modal } from "./../../npm/aio-popup";
-import { AIODate, DragClass } from './../../npm/aio-utils';
+import { AP_modal } from "aio-popup";
+import { AIODate, DragClass } from 'aio-utils';
+import { LeafletEvent } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import './index.css';
 declare const AIOInput: FC<AITYPE>;
@@ -715,6 +716,8 @@ type I_Map = {
     getSearchResult?: (searchValue: string) => Promise<I_searchResult[]>;
     onSearch?: (searchResult: I_searchResult) => void;
     mapRef?: any;
+    whenReady?: () => void;
+    onMoveEnd?: (e: LeafletEvent) => void;
 };
 export type I_layers = {
     position: 'topright' | 'topleft';
@@ -769,7 +772,7 @@ export type I_MonthCells = {
     year: number;
     month: number;
     cellContent: (date: number[]) => ReactNode;
-    weekDayContent: (v: number) => ReactNode;
+    weekDayContent?: (v: number) => ReactNode;
     changeMonth: (month: number) => void;
 };
 export declare const MonthCells: FC<I_MonthCells>;

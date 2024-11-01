@@ -771,7 +771,7 @@ export declare const Mask: FC<{
 export type I_MonthCells = {
     year: number;
     month: number;
-    cellContent: (date: number[]) => ReactNode;
+    cellContent: (date: number[], weekDayIndex: number) => ReactNode;
     weekDayContent?: (v: number) => ReactNode;
     changeMonth: (month: number) => void;
 };

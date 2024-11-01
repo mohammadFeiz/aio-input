@@ -659,6 +659,7 @@ type I_AILogin = {
         token: string;
     };
 };
+export declare function AIOLogin_updateCatchedUser(loginId: string, newUser: any): any;
 export declare const AILogin: FC<I_AILogin>;
 type I_pos = [number, number];
 export type I_marker = {

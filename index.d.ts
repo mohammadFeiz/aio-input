@@ -50,18 +50,25 @@ type AI_sbp = (size: number, conf?: {
     max?: number;
     range?: number;
 }) => number;
-type AI_cbs = (str: string, type: 'offset' | 'radius') => {
+type AI_cbs = (rangeCircle: I_rangeConfig, type: 'offset' | 'radius') => {
     thickness: number;
     color: string;
     roundCap: boolean;
     full: boolean;
     radius: number;
 };
-type AI_rbs = (str: string) => {
+type AI_rbs = (range: I_rangeConfig) => {
     thickness: number;
     color: string;
     roundCap: boolean;
     offset: number;
+};
+type I_rangeConfig = {
+    thickness: number;
+    offset: number;
+    color: string;
+    roundCap: boolean;
+    full?: boolean;
 };
 export type I_RangeContext = {
     getXPByValue: (value: number) => number;
@@ -521,13 +528,13 @@ type AI_isRange = {
     max?: number;
     min?: number;
     point?: false | AI_point;
-    ranges?: [number, string][];
+    ranges?: [number, I_rangeConfig][];
     reverse?: boolean;
     size?: number;
     start?: number;
     step?: number;
     vertical?: boolean;
-    circles?: string[];
+    circles?: I_rangeConfig[];
     handle?: AI_range_handle;
     rotate?: number;
     round?: number;

@@ -454,6 +454,14 @@ type AI_isDate = {
     theme?: string[];
     translate?: (text: string) => string;
     unit?: AI_date_unit | AI_time_unit;
+    timeStep?: {
+        year?: number;
+        month?: number;
+        day?: number;
+        hour?: number;
+        minute?: number;
+        second?: number;
+    };
     text?: ReactNode | (() => ReactNode);
 };
 type AI_isDropdown = {

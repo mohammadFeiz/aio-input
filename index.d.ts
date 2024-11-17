@@ -1,6 +1,6 @@
 import { FC, ReactNode, MutableRefObject } from 'react';
-import { AP_modal } from "aio-popup";
-import { AIODate, DragClass } from 'aio-utils';
+import { AP_modal } from "./../../npm/aio-popup";
+import { AIODate, DragClass } from './../../npm/aio-utils';
 import { LeafletEvent } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import './index.css';
@@ -618,7 +618,6 @@ export type I_login_key = 'registerButton' | 'userpassButton' | 'otpnumberButton
 type I_login_model = {
     userName: string;
     password: string;
-    rePassword: string;
     otpNumber: string;
     otpCode: string;
     register: any;
@@ -654,7 +653,7 @@ type I_AILogin = {
         onCatch: (response: any) => string;
     }>;
     label: (field: I_login_field) => string;
-    validation?: (field: I_login_field, v: any) => string | undefined;
+    validation?: (model: I_login_model) => string | undefined;
     otpLength?: number;
     otp?: boolean;
     userpass?: boolean;

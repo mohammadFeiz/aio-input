@@ -1,7 +1,8 @@
 import { FC, ReactNode, MutableRefObject } from 'react';
-import { AP_modal } from "./../../npm/aio-popup";
-import { AIODate, DragClass } from './../../npm/aio-utils';
 import { LeafletEvent } from 'leaflet';
+import { AP_modal } from "aio-popup";
+import { DragClass } from 'aio-utils';
+import AIODate from 'aio-date';
 import 'leaflet/dist/leaflet.css';
 import './index.css';
 declare const AIOInput: FC<AITYPE>;
@@ -653,7 +654,7 @@ type I_AILogin = {
         onCatch: (response: any) => string;
     }>;
     label: (field: I_login_field) => string;
-    validation?: (model: I_login_model) => string | undefined;
+    validation?: (model: I_login_model, mode: I_loginMode) => string | undefined;
     otpLength?: number;
     otp?: boolean;
     userpass?: boolean;

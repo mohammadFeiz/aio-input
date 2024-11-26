@@ -1,8 +1,8 @@
 import { FC, ReactNode, MutableRefObject } from 'react';
 import { LeafletEvent } from 'leaflet';
-import { AP_modal } from "aio-popup";
-import { DragClass } from 'aio-utils';
-import AIODate from 'aio-date';
+import { AP_modal } from "./../../npm/aio-popup";
+import { DragClass } from './../../npm/aio-utils';
+import AIODate from './../../npm/aio-date';
 import 'leaflet/dist/leaflet.css';
 import './index.css';
 declare const AIOInput: FC<AITYPE>;
@@ -68,7 +68,7 @@ type I_rangeConfig = {
     thickness: number;
     offset: number;
     color: string;
-    roundCap: boolean;
+    roundCap?: boolean;
     full?: boolean;
 };
 export type I_RangeContext = {

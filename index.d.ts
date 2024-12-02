@@ -1,8 +1,8 @@
 import { FC, ReactNode, MutableRefObject } from 'react';
 import { LeafletEvent } from 'leaflet';
-import { AP_modal } from "aio-popup";
-import { DragClass } from 'aio-utils';
-import AIODate from 'aio-date';
+import AIOPopup, { AP_modal } from "./../../npm/aio-popup";
+import { DragClass } from './../../npm/aio-utils';
+import AIODate from './../../npm/aio-date';
 import 'leaflet/dist/leaflet.css';
 import './index.css';
 declare const AIOInput: FC<AITYPE>;
@@ -64,7 +64,7 @@ type AI_rbs = (range: I_rangeConfig) => {
     roundCap: boolean;
     offset: number;
 };
-type I_rangeConfig = {
+export type I_rangeConfig = {
     thickness: number;
     offset: number;
     color: string;
@@ -173,7 +173,7 @@ export type AITYPE = AI_hasOption & AI_isDropdown & AI_isMultiple & AI_hasKeyboa
         move?: any;
         editable?: boolean;
     };
-    fetchOptions?: (text: string) => Promise<any[]>;
+    getOptions?: (text: string) => Promise<any[]>;
     hideTags?: boolean;
     onClick?: (e: Event) => void;
     onSwap?: true | ((newValue: any[], startRow: any, endRow: any) => void);
@@ -316,12 +316,12 @@ export type AI_addToAttrs = (attrs: any, p: {
 }) => any;
 export type AI_context = {
     rootProps: AITYPE;
+    popup: AIOPopup;
     showPassword: boolean;
     setShowPassword: (v?: boolean) => void;
     DragOptions: DragClass;
     datauniqid: string;
     touch: boolean;
-    open: boolean;
     click: (e: any, dom: any) => void;
     optionClick: (option: AI_option, p?: any) => void;
     types: AI_types;
@@ -757,25 +757,22 @@ type I_searchResult = {
 type I_AIApp = {
     attrs?: any;
     bottomMenu: {
-        options: I_AIApp_bottomMenu_option[];
-        value?: string;
-        onChange?: (v: string) => void;
+        options: AI_bottomMenuOption[];
+        onChange: (v: string) => void;
     };
-    body: (p: I_AIApp_param) => ReactNode;
-    header?: (p: I_AIApp_param) => ReactNode | false;
+    body: () => ReactNode;
+    header?: () => ReactNode | false;
     children?: ReactNode;
 };
-type I_AIApp_param = {
-    bottomMenuValue: string;
-};
-type I_AIApp_bottomMenu_option = {
+type AI_bottomMenuOption = {
     text?: ReactNode;
     uptext?: ReactNode;
     subtext?: ReactNode;
+    value: string;
     before?: ReactNode;
     after?: ReactNode;
     show?: boolean;
-    value: string;
+    active?: boolean;
 };
 export declare const AIApp: FC<I_AIApp>;
 export type I_mask_pattern = ['number' | 'text' | 'select' | ReactNode, number, (string[] | ReactNode)?][];

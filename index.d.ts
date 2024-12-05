@@ -624,7 +624,6 @@ type I_login_model = {
     register: any;
 };
 type I_AILogin = {
-    rtl?: boolean;
     checkToken: (token: string) => Promise<{
         method: 'post' | 'get';
         url: string;
@@ -639,7 +638,8 @@ type I_AILogin = {
         token: string;
         logout: () => void;
     }) => ReactNode;
-    translate?: 'fa' | ((key: I_login_key) => string | undefined);
+    translate?: (key: I_login_key) => string | undefined;
+    fa?: boolean;
     rememberTime: number;
     id: string;
     splash?: {

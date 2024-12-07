@@ -680,6 +680,7 @@ type I_pos = [number, number];
 export type I_marker = {
     pos: [number, number];
     html?: ReactNode;
+    eventHandlers?: any;
 };
 export type I_shapeStyle = {
     stroke?: {

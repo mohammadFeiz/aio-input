@@ -717,8 +717,8 @@ type I_Map = {
         value?: number;
         wheel?: boolean;
         control?: boolean;
+        onChange?: (zoom: number) => void;
     };
-    onChangeZoom?: (zoom: number) => void;
     markers?: I_marker[];
     value?: I_pos;
     marker?: ReactNode | false;
@@ -735,6 +735,7 @@ type I_Map = {
     mapRef?: any;
     whenReady?: () => void;
     onMoveEnd?: (e: LeafletEvent) => void;
+    actionsRef?: any;
 };
 export type I_layers = {
     position: 'topright' | 'topleft';
